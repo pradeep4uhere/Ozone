@@ -14,12 +14,14 @@ if(empty($siteprefix)){
     $default_lang = \App\Model\Language::getDefaultLanguge();
     $redirect_url = Request::root().'/'.$default_lang->languageCode;
     Session::put('lang_code',$default_lang->languageCode);
+    return Redirect::to($redirect_url)->send();
 }else{
     $langprefix = \App\Model\Language::select('languageCode', 'id')->where('languageCode', $siteprefix)->first();
     if(empty($langprefix)){
         $default_lang = \App\Model\Language::getDefaultLanguge();
         $redirect_url = Request::root().'/'.$default_lang->languageCode;
         Session::put('lang_code',$default_lang->languageCode);
+        //return Redirect::to($redirect_url)->send();
     }
 } 
 

@@ -14,18 +14,13 @@ $siteprefix = Request::segment(1);//'en';
     if(empty($siteprefix)){
         $default_lang = \App\Model\Language::getDefaultLanguge();
         $redirect_url = Request::root().'/'.$default_lang->languageCode;
-        Session::put('lang_code',$default_lang->languageCode);
-        return Redirect::to($redirect_url)->send();
-        exit;
-
+        Session::put('lang_code',$default_lang->languageCode);        
     }else{
         $langprefix = \App\Model\Language::select('languageCode', 'id')->where('languageCode', $siteprefix)->first();
         if(empty($langprefix)){
             $default_lang = \App\Model\Language::getDefaultLanguge();
             $redirect_url = Request::root().'/'.$default_lang->languageCode;
             Session::put('lang_code',$default_lang->languageCode);
-            return Redirect::to($redirect_url)->send();
-            exit;
         }
     } 
 
@@ -42,7 +37,7 @@ $siteprefix = Request::segment(1);//'en';
 |
 */
 
-Route::group(array('prefix' =>$siteprefix.'/'), function () {
+//Route::group(array('prefix' =>$siteprefix.'/'), function () {
     //Auth::routes();
 //// Login Routes...
     Route::get('/login','Auth\LoginController@showLoginForm')->name('login');
@@ -54,10 +49,10 @@ Route::group(array('prefix' =>$siteprefix.'/'), function () {
 //    Route::post('password/email', ['as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail']);
 //    Route::get('password/reset/{token}', ['as' => 'password.reset.token', 'uses' => 'Auth\ResetPasswordController@showResetForm']);
 //    Route::post('password/reset', ['as' => 'password.reset.post', 'uses' => 'Auth\ResetPasswordController@reset']);
-});
 
 
-Route::group(array('prefix' =>$siteprefix.'/'), function () {
+
+
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/listing', 'HomeController@listing')->name('listing');
     Route::get('/detail/{slug}/{id}', 'Product\ProductController@details')->name('details');
@@ -155,4 +150,4 @@ Route::group(array('prefix' =>$siteprefix.'/'), function () {
         Route::get('/dashboard', 'Seller\SellerController@dashboard')->name('sellerdashboard');
         Route::get('/addproduct', 'Product\ProductController@addProduct')->name('selleraddproduct');
     });
-});
+//});

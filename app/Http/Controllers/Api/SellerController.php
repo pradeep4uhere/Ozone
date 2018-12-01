@@ -33,6 +33,7 @@ class SellerController extends Master
                 'state_id' => 'required|numeric',
                 'city_id' => 'required|numeric',
                 'pincode_id' => 'required|numeric',
+                'contact_number' => 'required|unique:sellers|numeric'
             ]);
             if ($validator->fails()) {
                 $errors = $validator->errors();

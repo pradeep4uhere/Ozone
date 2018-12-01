@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\Master;
+use App\Http\Controllers\Auth\Session;
 use Illuminate\Http\Request;
 use Auth;
 use Darryldecode\Cart\CartCondition;

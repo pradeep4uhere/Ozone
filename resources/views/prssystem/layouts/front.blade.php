@@ -11,7 +11,6 @@
     <!-- Page Title -->
      <title>{{ config('app.name') }}</title>
     <!-- Bootstrap CSS -->
-	<link href="http://localhost/laravel/public/css/app.css" rel="stylesheet">
     <link href="{{config('global.THEME_URL_FRONT_CSS').'/bootstrap.min.css'}}" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">

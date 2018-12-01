@@ -10,36 +10,11 @@ use App\User;
 use Session;
 use App\City;
 use App\DeliveryAddress;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Master
 {
-     /**
-     *@Author: Pradeep Kumar
-     *@Description: Login Authentication Page
-     */
-    public static function isValidToekn($request){
-        $parameters = $request->all();
-        $str='';
-        $token='';
-        if(!empty($parameters)){
-            foreach($parameters as $key=>$val){
-                if($key!='token'){
-                    $str.=$val.'|'; 
-                }else{
-                    $token = $val;
-                }
-            }
-           //echo $str.config('global.CLIENT_SECRET');
-           $serverTotak = md5($str.config('global.CLIENT_SECRET')); 
-            if($token==$serverTotak){
-                return true;
-            }else{
-                return false;
-            }
-        }else{
-            return false;
-        }
-    }
+     
  
 
      /**
@@ -106,9 +81,73 @@ class UserController extends Master
      *@Created Date : 24 Nov 2018
      */
     public function register(Request $request){
-        echo "<pre>";
-        print_r($request->all());
-        die;
+        if(self::isValidToekn($request)){
+           $validator = Validator::make($request->all(), [
+                'first_name' => 'required|max:50',
+                'last_name' => 'required|max:50',
+                'password' => 'required|min:6',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|confirmed|min:6',
+                'password_confirmation' => 'required|min:6',
+                'mobile' => 'required|unique:users|numeric',
+            ]);
+            if ($validator->fails()) {
+                $errors = $validator->errors();
+                $responseArray['status'] = false;
+                $responseArray['message']= "Input are not valid";
+                $responseArray['error']= $errors;
+            }else{
+                $userObj = new User();
+                $userObj->first_name = $request->get('first_name');
+                $userObj->last_name = $request->get('last_name');
+                $userObj->password = Hash::make($request->get('password'));
+                $userObj->email = $request->get('email');
+                $userObj->mobile = $request->get('mobile');
+                $userObj->created_at = self::getCreatedDate();
+                try{
+                    $userObj->save();
+                    $last_insert_id = $userObj->id;
+                    $userData= User::find($userObj->id);
+                    $responseArray['status'] = true;
+                    $responseArray['message']= "User Register Successfully.";
+                    $responseArray['data']['user']= $userData;
+                    $responseArray['data']['userId']= encrypt($userObj->id);
+                }catch (Exception $e) {
+                    $responseArray['status'] = false;
+                    $responseArray['message'] = $e->getMessage();
+                }
+            }
+
+        }else{
+            $responseArray['status'] = false;
+            $responseArray['message'] = "Invalid Token";
+        }
+        return response()->json($responseArray);
+    }
+
+
+    /**
+     *@Author       : Pradeep Kumar
+     *@Description  : Register Validation 
+     *@Created Date : 01 Dec 2018
+     */
+    public function isValid($request){
+        $firstName = $request->get('first_name');
+        $lastName = $request->get('last_name');
+        $email = $request->get('email');
+        $mobile = $request->get('mobile');
+        $password = $request->get('password');
+        $cpassword = $request->get('cpassword');
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|max:50',
+            'last_name' => 'required|max:50',
+            'last_name' => 'required|max:50',
+        ]);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return response()->json($errors);
+        }
+
     }
 
 }

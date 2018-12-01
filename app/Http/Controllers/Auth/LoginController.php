@@ -72,6 +72,7 @@ class LoginController extends Controller
             // then you can:
             $cartCollection = \Cart::getContent();
             session(['countItem' => $cartCollection->count()]);
+            $lang = Session::get('lang_code');
 		    return redirect()->intended('dashboard');
         }
         return view(Master::loadFrontTheme('auth.login'));

@@ -29,6 +29,39 @@ class Master extends Controller {
         return Session::get('lang_code');
     }
 
+    public static function getCreatedDate(){
+        return date('Y-m-d H:i:s');
+    }
+
+
+ /**
+     *@Author: Pradeep Kumar
+     *@Description: Login Authentication Page
+     */
+    public static function isValidToekn($request){
+        $parameters = $request->all();
+        $str='';
+        $token='';
+        if(!empty($parameters)){
+            foreach($parameters as $key=>$val){
+                if($key!='token'){
+                    $str.=$val.'|'; 
+                }else{
+                    $token = $val;
+                }
+            }
+           //echo $str.config('global.CLIENT_SECRET');
+           $serverTotak = md5($str.config('global.CLIENT_SECRET')); 
+            if($token==$serverTotak){
+                return true;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+
 
     /*
      * @Get Redirect With Lang

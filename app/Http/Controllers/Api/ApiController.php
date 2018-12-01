@@ -36,7 +36,6 @@ class ApiController extends Master
 
     public function getStoreType(Request $request){
         //Get Business Type List
-        
         try{
             $businessType = StoreType::where('status','=',1)->get();
             $responseArray['status'] = true;

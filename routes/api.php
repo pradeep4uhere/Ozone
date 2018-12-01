@@ -10,5 +10,6 @@ Route::group(['prefix' => 'en/v1/'], function (){
 	//All User Related API
 	Route::any('login', 'Api\UserController@login')->name('login');
 	Route::any('register', 'Api\UserController@register')->name('register');
+	Route::any('sellerregister', 'Api\SellerController@registerAsSeller')->name('sellerregister');
 	Route::any('getproductlist', 'Api\UserController@register')->name('getproductlist');
 });

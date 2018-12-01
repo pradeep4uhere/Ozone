@@ -1,8 +1,14 @@
 <?php
 use Illuminate\Http\Request;
 Route::group(['prefix' => 'en/v1/'], function (){
-	Route::any('login', 'Api\UserController@login')->name('login');
+	
 	Route::any('gettoken', 'Api\ApiController@gettoken')->name('gettoken');
+	Route::any('getstoretype', 'Api\ApiController@getStoreType')->name('getstoretype');
+	Route::any('getstatelist', 'Api\ApiController@getStateList')->name('getstatelist');
+	Route::any('getcitylist', 'Api\ApiController@getCitylist')->name('getcitylist');
+
+	//All User Related API
+	Route::any('login', 'Api\UserController@login')->name('login');
 	Route::any('register', 'Api\UserController@register')->name('register');
 	Route::any('getproductlist', 'Api\UserController@register')->name('getproductlist');
 });

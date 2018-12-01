@@ -55,7 +55,7 @@ class Master extends Controller {
             if($token==$serverTotak){
                 return true;
             }else{
-                return true;
+                return false;
             }
         }else{
             return false;

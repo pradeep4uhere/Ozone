@@ -29,4 +29,9 @@ class City extends Model
         }
         return $cityArr;
     }
+
+    public function State() {
+         return $this->belongsTo('App\State', 'state_id', 'id' );
+    }
+    
 }

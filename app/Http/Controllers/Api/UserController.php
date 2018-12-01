@@ -126,28 +126,6 @@ class UserController extends Master
     }
 
 
-    /**
-     *@Author       : Pradeep Kumar
-     *@Description  : Register Validation 
-     *@Created Date : 01 Dec 2018
-     */
-    public function isValid($request){
-        $firstName = $request->get('first_name');
-        $lastName = $request->get('last_name');
-        $email = $request->get('email');
-        $mobile = $request->get('mobile');
-        $password = $request->get('password');
-        $cpassword = $request->get('cpassword');
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'required|max:50',
-            'last_name' => 'required|max:50',
-            'last_name' => 'required|max:50',
-        ]);
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            return response()->json($errors);
-        }
 
-    }
 
 }

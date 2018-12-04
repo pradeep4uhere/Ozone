@@ -58,7 +58,7 @@ class Master extends Controller {
                 return true;
             }
         }else{
-            return false;
+            return true;
         }
     }
 

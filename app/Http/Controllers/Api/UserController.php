@@ -16,8 +16,6 @@ use Mail;
 class UserController extends Master
 {
      
- 
-
      /**
      *@Author       : Pradeep Kumar
      *@Description  : Login Authentication API 
@@ -109,10 +107,13 @@ class UserController extends Master
                     $userObj->save();
                     $last_insert_id = $userObj->id;
                     $userData= User::find($userObj->id);
+                    $this->sendEmail($last_insert_id,$request);
                     $responseArray['status'] = true;
                     $responseArray['message']= "User Register Successfully.";
                     $responseArray['data']['user']= $userData;
                     $responseArray['data']['userId']= encrypt($userObj->id);
+                    
+
                 }catch (Exception $e) {
                     $responseArray['status'] = false;
                     $responseArray['message'] = $e->getMessage();
@@ -125,6 +126,43 @@ class UserController extends Master
         }
         return response()->json($responseArray);
     }
+
+
+
+    
+    /**
+     * Send an e-mail confirmation to the user.
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function sendEmail($last_insert_id,$request)
+    {   
+        $user = User::findOrFail($last_insert_id);
+        $name = $user->first_name;
+        $url  = "http;//www.google.com";
+        $body1 = "You have successfully registered .";
+        $username = "Username: ".$user->email;
+        $password = "Password: ".$request->get('password');
+        $body2= "Thank you for joining with us.";
+        $mail = Mail::send('Email.user.register', [
+            'name' => $name,
+            'body1' => $body1,
+            'username' => $username,
+            'password' => $password,
+            'body3' => $body2,
+            'url'  => $url ,
+            'copyright' => 'copyright'
+            ], function ($m) use ($user) {
+            $m->from('support@grabmorenow.com', 'Thank you for register');
+            $m->to($user->email, ucwords(strtolower($user->first_name)))->subject('Thank you for register!');
+        });
+        if($mail){
+            return true;
+        }
+    }
+
 
 
 
@@ -154,7 +192,7 @@ class UserController extends Master
             'copyright' => 'copyright'
             ], function ($m) use ($user) {
             $m->from('hello@app.com', 'Your Application');
-            $m->to($user->email, $user->first_name)->subject('Your Reminder!');
+            $m->to("kumar031984@gmail.com", $user->first_name)->subject('Your Reminder!');
         });die;
         
     }

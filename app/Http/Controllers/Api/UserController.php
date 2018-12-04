@@ -11,6 +11,7 @@ use Session;
 use App\City;
 use App\DeliveryAddress;
 use Illuminate\Support\Facades\Hash;
+use Mail;
 
 class UserController extends Master
 {
@@ -123,6 +124,39 @@ class UserController extends Master
             $responseArray['message'] = "Invalid Token";
         }
         return response()->json($responseArray);
+    }
+
+
+
+    /**
+     * Send an e-mail reminder to the user.
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function sendEmailReminder(Request $request)
+    {   
+        
+        $user = User::findOrFail(1);
+        $name = $user->first_name;
+        $url  = "http;//www.google.com";
+
+        $body1 = "You have successfully registered as seller account.";
+        $storeDetails = "Store Name: "." Raj General Store ";
+        $body2= "Thank you for joining with us. We're excited to helping here to you for your business.";
+        Mail::send('Email.seller.register', [
+            'name' => $name,
+            'body1' => $body1,
+            'body2' => $storeDetails,
+            'body3' => $body2,
+            'url'  => $url ,
+            'copyright' => 'copyright'
+            ], function ($m) use ($user) {
+            $m->from('hello@app.com', 'Your Application');
+            $m->to($user->email, $user->first_name)->subject('Your Reminder!');
+        });die;
+        
     }
 
 

@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Http\Request;
-Route::group(['prefix' => 'en/v1/'], function (){
+Route::group(['middleware' => ['api'],'prefix' => 'en/v1/'], function (){
 	
 	Route::any('gettoken', 'Api\ApiController@gettoken')->name('gettoken');
 	Route::any('getstoretype', 'Api\ApiController@getStoreType')->name('getstoretype');
@@ -12,4 +12,5 @@ Route::group(['prefix' => 'en/v1/'], function (){
 	Route::any('register', 'Api\UserController@register')->name('register');
 	Route::any('sellerregister', 'Api\SellerController@registerAsSeller')->name('sellerregister');
 	Route::any('getproductlist', 'Api\UserController@register')->name('getproductlist');
+	Route::get('sendemail','Api\UserController@sendEmailReminder');
 });

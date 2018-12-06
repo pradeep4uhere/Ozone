@@ -33,6 +33,9 @@ class Master extends Controller {
         return date('Y-m-d H:i:s');
     }
 
+    public static function getRefererCode(){
+     return strtoupper(substr(md5(uniqid(rand(time(),time()), true)),0,8));   
+    }
 
  /**
      *@Author: Pradeep Kumar

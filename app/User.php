@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Seller;
+use App\SaleUser;
 
 class User extends Authenticatable
 {
@@ -38,5 +39,9 @@ class User extends Authenticatable
 
     public function sellerprofile() {
         return $this->hasMany(Seller::class, 'id', 'user_id');
+    }
+
+    public function SaleUser() {
+        return $this->hasMany('App\SaleUser', 'user_id','id');
     }
 }

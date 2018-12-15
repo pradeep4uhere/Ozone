@@ -16,6 +16,8 @@ use App\StoreType;
 use DB;
 use App\OrderDetail;
 use App\Order;
+use App\Location;
+use App\User;
 
 
 
@@ -186,18 +188,18 @@ class SellerController extends Master
 		//dd($seller['user_id']);
         $lsitArr=array();
         $productList=array();
-		$userProd = new \App\UserProduct();
-		$productList = $userProd->getUserProductList($seller['user_id']);
-        if(!empty($productList)){
-		foreach($productList as $key=>$obj){
-               
-            $lsitArr[]=array(
-                    'UserProduct'=>$obj,
-                    'Product'=>$obj->product
-                    );    
-                
+    		$userProd = new \App\UserProduct();
+    		$productList = $userProd->getUserProductList($seller['user_id']);
+            if(!empty($productList)){
+    		foreach($productList as $key=>$obj){
+                   
+                $lsitArr[]=array(
+                        'UserProduct'=>$obj,
+                        'Product'=>$obj->product
+                        );    
+                    
+                }
             }
-        }
 		return view(Master::loadFrontTheme('seller.details'),array(
 				'seller'=>$seller,
 				'productDetails'=>$productList,
@@ -372,7 +374,7 @@ class SellerController extends Master
         if ($request->isMethod('post')) {
             
             $data=$request->all();
-			//dd($data);
+			      //dd($data);
             $data['user_id']=Auth::user()->id;
             $validator = $this->validator($request->all());
             if($validator->fails()) {
@@ -390,19 +392,60 @@ class SellerController extends Master
                 }
             }
         }
+
+       // $user = User::with('Seller')->find(Auth::user()->id)->get();
+        $seller = array();
+        $district = "";
+        $location_id  = "";
+        $districtName = ""; 
+        $stateName    = "";
+        $locationName = "";
+        $location     = "";
+        try{
+        $sellerArr=Seller::where('user_id','=',Auth::user()->id)->get();
+        //dd($sellerArr);
+        if(count($sellerArr)){
+          foreach($sellerArr as $obj){
+            $seller = $obj;
+          } 
+          //dd($seller);
+          $location_id  = $seller['location_id'];
+          $districtName = strtolower($seller['district']);
+          $locationName = strtolower($seller['location']);
+
+          //Get all the District From State
+          //dd($seller['state']);
+          $district = Location::getAllDistrictByState($seller['state']);
+
+          //Get All the Location Of the Disti
+          $location = Location::getAllLocationByDistrict($seller['district']);
+        }
         
+        
+       }catch(exception $e){
+
+       }
+
+        $businessType = StoreType::all();
+
         //Get All State List
-        $stateObj = new State();
-        $state= $stateObj->getAllState();
+        $state = Location::getAllState();
+
         $cityObj = new City();
         $city =$cityObj->getAllCity();
-        $seller=Seller::where('user_id','=',Auth::user()->id)->first();
-		$businessType = StoreType::all();
+        
+//dd($district);
         return view(Master::loadFrontTheme('seller.profile'),array(
             'user'=>$seller,
             'stateList'=>$state,
+            'district'=>$district,
+            'location_id'=>$location_id,
+            'districtName'=>$districtName,
+            'stateName'=>$stateName,
+            'location'=>$location,
+            'locationName'=>$locationName,
             'cityList'=>$city,
-			'businessType'=>$businessType)
+      			'businessType'=>$businessType)
         );
     }
     
@@ -504,14 +547,21 @@ class SellerController extends Master
         }else{
             $image_logo=(!empty($seller))?$seller->image_logo:NULL;
         }
+
+
         if($seller->user_id==$data['user_id']){
             $seller->store_type_id =$data['store_type_id'];
             $seller->business_name =$data['business_name'];
             $seller->address_1 =$data['address_1'];
             $seller->address_2 =$data['address_2'];
-            $seller->state_id =$data['state_id'];
-            $seller->city_id =$data['city_id'];
-            $seller->pincode_id =$data['pincode_id'];
+            $seller->state =$data['state'];
+            $seller->district =ucwords($data['district']);
+            $locationArr = explode("-",$data['location']);
+            $seller->location =end($locationArr);
+            $seller->pincode =$data['pincode'];
+            if(array_key_exists('location_id', $data)){
+              $seller->location_id =$data['location_id'];
+            }
             $seller->contact_number =$data['contact_number'];
             $seller->email_address =$data['email_address'];
             $seller->image_thumb =$image_thumb;
@@ -539,14 +589,18 @@ class SellerController extends Master
      */
     protected function createSeller(array $data)
     {
+
         try{
+            $locationArr = explode("-",$data['location']);
             $seller=Seller::create([
                 'store_type_id' => $data['store_type_id'],
                 'business_name' => $data['business_name'],
                 'address_1' => $data['address_1'],
-                'state_id' => $data['state_id'],
-                'city_id' => $data['city_id'],
-                'pincode_id' => $data['pincode_id'],
+                'state' => $data['state'],
+                'district' => $data['district'],
+                'location' => end($locationArr),
+                'pincode' => $data['pincode'],
+                'location_id' => $data['location_id'],
                 'contact_number' => $data['contact_number'],
                 'email_address' => $data['email_address'],
                 'user_id' => Auth::user()->id,
@@ -575,9 +629,10 @@ class SellerController extends Master
             'business_name' => 'required|string|min:1',
             'address_1'=>'required|string|max:255',
             'country_id' => 'required|string|max:255',
-            'state_id' => 'required|string|max:255',
-            'city_id' => 'required|string|max:255',
-            'pincode_id' => 'required|string|min:6',
+            'state' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'pincode' => 'required|string|min:6',
             'contact_number' => 'required|string|min:10',
             'email_address' => 'required|string|email|min:10',
             

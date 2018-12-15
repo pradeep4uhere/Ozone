@@ -15,6 +15,7 @@ use Auth;
 use File;
 use Session;
 use Config;
+use App\Location;
 
 
 class Master extends Controller {
@@ -140,6 +141,39 @@ class Master extends Controller {
         return view('admin.'.$name);
 
     }
+
+    public function getCityList(Request $request,$state_name){
+        $stateList = Location::where('state','=',$state_name)->get();
+        if(!empty($stateList)){
+            $district = "<option value='-1'>--Choose District--</option>";
+            foreach($stateList as $data){
+                $city[$data->district][]=array('location'=>$data->location,'Pincode'=>$data->pincode);
+
+            }
+            foreach($city as $districtName=>$valArr){
+                $district.="<option value='".str_replace(" ", "_", strtolower($districtName))."'>".$districtName."</option>";
+            }
+            return $district; 
+        }
+    } 
+
+
+    public function getlocationlist(Request $request,$district){
+        $city = array();
+        if($district!=''){
+            $district = str_replace("_", " ",ucwords($district));
+            $districList = Location::where('district','=',$district)->get();
+            if(!empty($districList)){
+                $location = "<option value='-1'>--Choose Location--</option>";
+                foreach($districList as $data){
+                    $city[$data->location]=$data->pincode;
+                    $location.="<option value='".$data->id.'-'.$data->pincode.'-'.$data->location."'>".$data->location."</option>";
+                }
+                
+                return $location; 
+            }
+        }
+    } 
 
 
 

@@ -59,35 +59,53 @@ Home Page
                     </div>
 
                     <div class="form-group">
-                        <label for="inputPassword" class="col-sm-2 control-label">@lang('seller.profile.state')</label>
+                        <label for="inputPassword" class="col-sm-2 control-label">@lang('seller.profile.location')</label>
                         <div class="col-sm-8">
-                            <select class="form-control1" data-live-search="true" id="state_id" name="state_id">
-                                <option data-tokens="">Choose State</option>
+                            <select class="form-control1"  id="state" name="state" onchange="getCity(this.value)">
+                                <option value="" ="">Choose State</option>
                                 @if(!empty($stateList))
-                                @foreach($stateList as $id=>$name)
-                                <option value="{{$id}}" @if(!empty($user)) @if($user->state_id==$id) {{"selected"}} @endif @endif>{{$name}}</option>
+                                @foreach($stateList as $name)
+                                <option value="{{$name->state}}" <?php if(strtolower($stateName)==strtolower($name->state)){ ?> "selected"="selected" <?php } ?>>{{$name->state}}</option>
                                 @endforeach
                                 @endif
                               </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputPassword" class="col-sm-2 control-label">@lang('seller.profile.city')</label>
+                        <label for="inputPassword" class="col-sm-2 control-label">@lang('seller.profile.District')</label>
                         <div class="col-sm-8">
-                        <select class="form-control1" data-live-search="true" id="city_id" name="city_id">
-                                <option data-tokens="">Choose City</option>
-                                @if(!empty($cityList))
-                                @foreach($cityList as $id=>$name)
-                                <option value="{{$id}}" @if(!empty($user)) @if($user->city_id==$id) {{"selected"}} @endif @endif>{{$name}}</option>
+                        <select class="form-control1" data-live-search="true" id="city_id" 
+                        name="district" onchange="getlocationlist(this.value)">
+                                <option data-tokens="">Choose City/District</option>
+                                @if(!empty($district))
+                                @foreach($district as $dist)
+                                <option value="{{str_replace(' ','-',$dist['district'])}}" 
+                                @if($districtName==strtolower($dist['district'])) "selected"="selected" @endif>{{$dist['district']}}</option>
                                 @endforeach
                                 @endif
+                               
+                              </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 control-label">@lang('seller.profile.location')</label>
+                        <div class="col-sm-8">
+                        <select class="form-control1" data-live-search="true" id="location" name="location" onchange="getPincode(this.value)">
+                                <option data-tokens="">Choose Locations</option>
+                                @if(!empty($locations))
+                                @foreach($locations as $dist)
+                                <option value="{{$dist['id'].'-'.str_replace(' ','-',$dist['district']).'-'.$dist['location']}}" 
+                                @if($location==strtolower($dist['location'])) "selected"="selected" @endif>{{$dist['district']}}</option>
+                                @endforeach
+                                @endif
+                                
                               </select>
                         </div>
                     </div>
                      <div class="form-group">
                         <label for="inputPassword" class="col-sm-2 control-label">@lang('seller.profile.pincode')</label>
                         <div class="col-sm-8">
-                            <input  type="text" class="form-control1" id="pincode_id" placeholder="Enter Pincode" name="pincode_id" value="{{(!empty($user))?$user->pincode_id:''}}">
+                            <input  type="text" class="form-control1" id="pincode_id" placeholder="Enter Pincode" name="pincode" value="{{(!empty($user))?$user->pincode_id:''}}" readonly="readonly">
                         </div>
                     </div>
                      <div class="form-group">
@@ -122,6 +140,7 @@ Home Page
                         <div class="col-sm-8">
                             <input readonly=""  type="text" maxlength="100" class="form-control1" id="email_address" placeholder="Email Address" name="email_address" value="{{(!empty($user))?$user->email_address:Auth::user()->email}}">
                             <input  type="hidden" class="form-control1" id="country_id" placeholder="Choose Country" name="country_id" value="1">
+                            <input  type="hidden" class="form-control1" id="location_id" name="location_id">
                             <input  type="hidden" class="form-control1" id="user_id" name="user_id" value="{{Auth::user()->id}}">
                             <input  type="hidden" class="form-control1" id="id" name="id" value="{{(!empty($user))?$user->id:'0'}}">
                         </div>
@@ -140,6 +159,47 @@ Home Page
     </div>
 </div>
 <script>
+function getCity(state){
+    if(state!=''){
+        $.ajax({
+            url: "{{route('getcity')}}/"+state,
+        beforeSend: function( xhr ) {
+                //xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+            }
+        }).done(function( data ) {
+            $('#city_id').html(data);
+            
+        });
+    }
+
+}
+
+function getlocationlist(district){
+    if(district!=''){
+        $.ajax({
+           url: "{{url('en/getdislist')}}/"+district,
+        beforeSend: function( xhr ) {
+                //xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+            }
+        }).done(function( data ) {
+            $('#location').html(data);
+        });
+    }
+
+}
+
+function getPincode(value){
+    if(value.length>0){
+        var pinArr = value.split("-");
+        var pincode = pinArr[1]; 
+        $('#pincode_id').val(pincode);
+        $('#location_id').val(pinArr[0]);
+
+    }
+}
+
+
+
 $("#logo").change(function () {
         var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
         if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {

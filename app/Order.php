@@ -30,4 +30,7 @@ class Order extends Model
 	public function Seller() {
          return $this->belongsTo('App\Seller', 'seller_id', 'id' );
     }
+
+
+  
 }

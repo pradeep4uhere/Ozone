@@ -14,7 +14,7 @@
                     <div class="row detail-filter-wrap">
                         <div class="col-md-4 featured-responsive">
                             <div class="detail-filter-text">
-                                <p>{{count($productList)}} Result Found</span></p>
+                                <p>{{count($productList)}} Result Found</p>
                             </div>
                         </div>
                         <div class="col-md-4 featured-responsive">
@@ -147,8 +147,6 @@ if(Auth>0){
 }
 </script>
 @stop
-
 @section('footer_scripts')
-    
 @stop
 

@@ -10,21 +10,22 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-$siteprefix = Request::segment(1);//'en'; 
-    if(empty($siteprefix)){
+$langCode = ['en','hn'];
+$siteprefix = Request::segment(1);//'en';  
+    if(empty($siteprefix) && in_array($siteprefix, $langCode)){
         $default_lang = \App\Model\Language::getDefaultLanguge();
         $redirect_url = Request::root().'/'.$default_lang->languageCode;
         Session::put('lang_code',$default_lang->languageCode);
-        //return Redirect::to($redirect_url)->send();
+        return Redirect::to($redirect_url)->send();
         //exit;
-
     }else{
+        //echo Session::get('lang_code'); die;
         $langprefix = \App\Model\Language::select('languageCode', 'id')->where('languageCode', $siteprefix)->first();
         if(empty($langprefix)){
             $default_lang = \App\Model\Language::getDefaultLanguge();
             $redirect_url = Request::root().'/'.$default_lang->languageCode;
             Session::put('lang_code',$default_lang->languageCode);
-            //return Redirect::to($redirect_url)->send();
+            return Redirect::to($redirect_url)->send();
             //exit;
         }
     } 
@@ -52,9 +53,12 @@ Route::group(array('prefix' =>$siteprefix.'/'), function () {
     Route::get('/register', 'Auth\RegisterController@registerPage')->name('register');
     Route::post('/register', 'Auth\RegisterController@register')->name('register');
     Route::get('password/reset','Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-//    Route::post('password/email', ['as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail']);
-//    Route::get('password/reset/{token}', ['as' => 'password.reset.token', 'uses' => 'Auth\ResetPasswordController@showResetForm']);
-//    Route::post('password/reset', ['as' => 'password.reset.post', 'uses' => 'Auth\ResetPasswordController@reset']);
+    Route::get('getcity/{state_name}','Master@getCityList');
+    Route::get('getdislist/{district}','Master@getlocationlist')->name('getdislist');
+    
+    //    Route::post('password/email', ['as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail']);
+    //    Route::get('password/reset/{token}', ['as' => 'password.reset.token', 'uses' => 'Auth\ResetPasswordController@showResetForm']);
+    //    Route::post('password/reset', ['as' => 'password.reset.post', 'uses' => 'Auth\ResetPasswordController@reset']);
 });
 
 
@@ -63,8 +67,9 @@ Route::group(array('prefix' =>$siteprefix.'/'), function () {
     Route::get('/listing', 'HomeController@listing')->name('listing');
     Route::get('/detail/{slug}/{id}', 'Product\ProductController@details')->name('details');
     Route::post('/getlocation', 'HomeController@getlocation')->name('getlocation');
+    
     //All Cart Routing
-    Route::get('/seller/{seller}/{id}', 'Seller\SellerController@sellerview')->name('sellerview');
+    Route::any('/seller/{seller}/{id}', 'Seller\SellerController@sellerview')->name('sellerview');
 	
     
     

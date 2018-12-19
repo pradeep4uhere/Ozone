@@ -66,7 +66,7 @@ class SellerController extends Master
                             //Get Seller Details
                             $sellerDetails = Seller::find($last_insert_id);
                             $responseArray['status'] = true;
-                            $responseArray['message']= "User register as seller Account successfully.";
+                            $responseArray['message']= "User Register Successfully.";
                             $responseArray['data']['Seller'] = $sellerDetails;
                             $responseArray['data']['User'] = $userData;
                             //Send Email to User For His Seller Account

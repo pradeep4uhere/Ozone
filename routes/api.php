@@ -15,5 +15,9 @@ Route::group(['prefix' => 'en/v1/'], function (){
 	Route::get('sendemail','Api\UserController@sendEmailReminder');
 
 	//All Sales API
-	Route::any('salesregister', 'Api\SalesUserContoller@register')->name('register');
+	Route::any('salesregister', 'Api\SalesUserController@register')->name('register');
+
+	//Feedback API
+	Route::any('feedbackquery','Api\FeedbackController@feedbackSubmitt')->name('feedbackquery');
+
 });

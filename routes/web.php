@@ -44,8 +44,9 @@ $siteprefix = Request::segment(1);//'en';
 */
 
 Route::group(array('prefix' =>$siteprefix.'/'), function () {
-    //Auth::routes();
-//// Login Routes...
+
+    Route::post('/feedback','FeedbackController@feedback')->name('feedback');
+
     Route::get('/login','Auth\LoginController@showLoginForm')->name('login');
     Route::post('/login','Auth\LoginController@login')->name('login');
     

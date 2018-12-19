@@ -22,6 +22,7 @@ class Master extends Controller {
 
     public $default_lang='en';
 	public $session_wid ='';
+    protected $responseArray = array();
 
     /*
      * @Get Session Language Code
@@ -36,6 +37,33 @@ class Master extends Controller {
 
     public static function getRefererCode(){
      return strtoupper(substr(md5(uniqid(rand(time(),time()), true)),0,8));   
+    }
+
+
+    public static function getMessage($code,$msg){
+        $responseArray = array();
+        $responseArray['code'] = $code;
+        switch ($code) {
+            case '200':
+                # code...
+                $responseArray['status'] = true;
+                $responseArray['message'] = $msg;
+                return $responseArray;
+                break;
+            case '500':
+                # code...
+                $responseArray['status'] = false;
+                $responseArray['message'] = $msg;
+                return $responseArray;
+                break;
+            
+            default:
+                $responseArray['status'] = false;
+                $responseArray['message'] = $msg;
+                return $responseArray;
+                break;
+        }
+
     }
 
  /**

@@ -13,7 +13,7 @@ use App\Product;
 use App\UserProduct;
 use App\ProductImage;
 use App\User;
-
+use Storage;
 
 class ProductController extends Master
 {
@@ -207,10 +207,86 @@ class ProductController extends Master
     }
 
 
+    /************Upload Image******************/
+    public function uploadimage(Request $request){
+         $responseArray['status'] = false;
+         $responseArray['message']= "Somthing went wrong.";
+         if ($request->hasFile('image')) {
+                $image      = $request->file('image');
+                $product_id      = $request->get('product_id');
+                $user_id      = $request->get('user_id');
+
+                $fileName   = time() . '.' . $image->getClientOriginalExtension();
+
+                $img = Image::make($image->getRealPath());
+                $directoryName = 'product_'.$product_id;
+
+                //120X120
+                $thubmName = '500X500';
+                $img->resize(500, 500, function ($constraint) {
+                    $constraint->aspectRatio();                 
+                });
+                $img->stream(); // <-- Key point
+                $res = Storage::disk('public')->put('uploads/product/'.$directoryName.'/'.$thubmName.'/'.$fileName, $img, 'public');
+
+                //120X120
+                $thubmName = '56X60';
+                $img->resize(56, 60, function ($constraint) {
+                    $constraint->aspectRatio();                 
+                });
+                $img->stream(); // <-- Key point
+                $res = Storage::disk('public')->put('uploads/product/'.$directoryName.'/'.$thubmName.'/'.$fileName, $img, 'public');
 
 
-    
-    
+
+                $thubmName = '250X250';
+                $img->resize(250, 250, function ($constraint) {
+                    $constraint->aspectRatio();                 
+                });
+                $img->stream(); // <-- Key point
+                $res = Storage::disk('public')->put('uploads/product/'.$directoryName.'/'.$thubmName.'/'.$fileName, $img, 'public');
+
+                if($res){
+                    //Uppdate the User Product Table With Image
+                    try{
+                        $userProductArr = UserProduct::where('user_id','=',$user_id)->where('id','=',$product_id)->first()->toArray(); 
+                        if(!empty($userProductArr)){   
+                            $userProduct = UserProduct::find($userProductArr['id']);
+                            $userProduct->id = $userProductArr['id'];
+                            $userProduct->default_images = $fileName;
+                            $userProduct->default_thumbnail = $fileName;
+                            $userProduct->save();
+
+                            //Get Product Details After Upload Image
+                            $productDefault = array();
+                            $productDefault = Product::find($userProductArr['product_id'])->first()->toArray();
+                            $userProductDefault = UserProduct::find($userProductArr['id']);
+
+                            $userProductDefault['default_images'] = env('APP_URL').'/storage/product/'.$userProductArr['id'].'/500X500/'.$userProductDefault['default_images'];
+                            $userProductDefault['default_thumbnail'] = env('APP_URL').'/storage/product/'.$userProductArr['id'].'/250X250/'.$userProductDefault['default_thumbnail'];
+                            $productDefault['UserProduct'] = $userProductDefault;
+
+                            $responseArray['status'] = true;
+                            $responseArray['message']= "Product Image Uploaded.";
+                            $responseArray['result']= $productDefault;
+
+                        }else{
+
+                            $responseArray['status'] = false;
+                            $responseArray['message']= "Not valid user product.";
+                        }
+
+                    }catch(Exception $e){
+                        $responseArray['status'] = false;
+                        $responseArray['message']= "Product not found for this user.";
+                    }
+                    
+                    
+                }
+        }
+         return response()->json($responseArray);
+
+    }    
     
 
 }

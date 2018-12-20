@@ -43,6 +43,7 @@ Route::group(['middleware' => ['api'],'prefix' => 'en/v1/'], function (){
 
 	//Add New Product
 	Route::any('addnewproduct', 'Api\ProductController@addNewProduct')->name('addnewproduct');
+	Route::any('uploadimage', 'Api\ProductController@uploadimage')->name('uploadimage');
 	
 	
 

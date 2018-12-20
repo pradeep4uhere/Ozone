@@ -21,6 +21,21 @@
 | any other location as required by the application or its packages.
 |
 */
+    Route::get('storage/product/{productid}/{path}/{filename}', function ($productid,$path,$filename)
+    {
+        $path = storage_path('app/public/uploads/product/product_'.$productid .'/'.$path.'/'. $filename);
+        if (!File::exists($path)) {
+            return "Image Not Found.";
+        }else{
+            $file = File::get($path);
+            $type = File::mimeType($path);
+            $response = Response::make($file, 200);
+            $response->header("Content-Type", $type);
+            return $response;
+        }
+    });
+
+
 
     Route::post('/feedback','FeedbackController@feedback')->name('feedback');
 

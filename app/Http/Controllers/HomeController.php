@@ -6,7 +6,7 @@ use Illuminate\Http\Response;
 use Auth;
 use App\UserProduct;
 use App\Seller;
-use App\Pincode;
+use App\Location;
 use App\Pin;
 use App\Cart;
 
@@ -67,9 +67,8 @@ class HomeController extends Master
 		$catObj = new \App\Category();
 		$catArr=$catObj->getAllCategory();
 		foreach($catArr as $obj){
-			$catJson[]=$obj;
+			//$catJson[]=$obj;
 		}
-		
 		//Get All Cities
 		$city = new \App\City();
 		$cityArrObj=$city->getAllCity();
@@ -78,10 +77,11 @@ class HomeController extends Master
 		}
 		
 		//Get All Cities
-		$pinArrObj=new \App\Pincode();
-		//$pinArr=$pinArrObj->getAllPlaceName();
-		//dd($pinArr);
-		
+		$locArrObj=new Location();
+		$locArr =$locArrObj->getAllLocation();
+		foreach($locArr as $obj){
+			$catJson[]=$obj;
+		}
 		//Get All Seller List
 		$seller = Seller::with('StoreType')->with('SellerImage')->get();
 		//dd($seller);
@@ -95,25 +95,64 @@ class HomeController extends Master
     
     
     public function listing(Request $request) {
-		
-		$cat=$request->get('category');
-		//Get Category Account
+		$cat=$request->get('place');
+		//Get Location
 		if($cat!=""){
 			try{
-				$categoryObj=\App\Category::where('name','=',$cat)->first();
-				if(!empty($categoryObj)){
-					$category_id=$categoryObj->id;
+				$locationArr = explode(" ", $cat);
+				if(!empty(end($locationArr))){
+					$pincode=str_replace('(', '',end($locationArr));
+					$pincode=str_replace(')', '',$pincode);
 				}else{
-					$category_id="";
+					$pincode="";
 				}
 			}catch (Exception $e) {
-            	$category_id='';
+            	$pincode='';
         	}
 		}else{
-			$category_id='';
+			$pincode='';
 		}
-		$city=$request->get('city');
+		//Get All the Seller List From this Pincode
+		$allSeller = Seller::where('pincode','=',$pincode)->get();
+		//dd($allSeller);
+
+		$catObj = new \App\Category();
+		$catArr=$catObj->getAllCategory();
+		foreach($catArr as $obj){
+			$catJson[]=$obj;
+		}
 		
+        //dd($lsitArr);	
+		//URL of the get the location of the user
+		return view(Master::loadFrontTheme('seller.sellerListing'),array(
+			'sellerArr'=>$allSeller,
+			'Category'=>$catJson,
+			'searchCat'=>$cat)
+		);
+    }
+    
+    /*Not In Used Right Now*/
+    public function listingProductsFromAllSeller(Request $request) {
+		$cat=$request->get('place');
+		//Get Location
+		if($cat!=""){
+			try{
+				$locationArr = explode(" ", $cat);
+				if(!empty(end($locationArr))){
+					$pincode=str_replace('(', '',end($locationArr));
+					$pincode=str_replace(')', '',$pincode);
+				}else{
+					$pincode="";
+				}
+			}catch (Exception $e) {
+            	$pincode='';
+        	}
+		}else{
+			$pincode='';
+		}
+		//Get All the Seller List From this Pincode
+		$allSeller = Seller::where('pincode','=',$pincode)->get();
+		dd($allSeller);
         //Get All Product List
         $userProduct = new UserProduct();
 		$param=array();

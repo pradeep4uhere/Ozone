@@ -76,10 +76,10 @@ class FeedbackController extends Master
                 $m->to($user->email, ucwords(strtolower($user->first_name)))->subject('New feedback: '.$user->subject);
         });
         if($mail){
-               return true;
+               //return true;
           }
         }catch(Exception $e){
-            return false;
+            //return false;
         }
     }
 

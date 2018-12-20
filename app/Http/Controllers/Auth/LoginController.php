@@ -10,9 +10,10 @@ use Illuminate\Http\Request;
 use Auth;
 use Darryldecode\Cart\CartCondition;
 use App\Http\Controllers\Auth\Cookie;
+//use App\Http\Controllers\Auth\Session;
 
 
-class LoginController extends Controller
+class LoginController extends Master
 {
     /*
     |--------------------------------------------------------------------------
@@ -73,8 +74,8 @@ class LoginController extends Controller
             // then you can:
             $cartCollection = \Cart::getContent();
             session(['countItem' => $cartCollection->count()]);
-            $lang = Session::get('lang_code');
-		    return redirect()->intended('dashboard');
+            $lang = \Session::get('lang_code');
+		    return redirect()->route('dashboard');
         }
         return view(Master::loadFrontTheme('auth.login'));
     }

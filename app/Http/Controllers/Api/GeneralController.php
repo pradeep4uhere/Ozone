@@ -14,6 +14,7 @@ use Mail;
 use App\Category;
 use App\StoreType;
 use App\Brand;
+use App\MasterUnit;
 
 class GeneralController extends Master
 {
@@ -201,6 +202,37 @@ class GeneralController extends Master
     	return response()->json($responseArray);
 
     }
+
+
+
+
+
+     /*********All MAster Type List**********/
+    public function getMasterUnitList(Request $request){
+    	if(self::isValidToekn($request)){
+    		$typeList = MasterUnit::where('parent_id','=',0)->where('status','=',1)->get()->toArray();
+    		if(count($typeList)>0){
+    			foreach($typeList as $k=>$child){
+    				$typeChildList = MasterUnit::where('parent_id','=',$child['id'])->where('status','=',1)->where('status','=',1)->get()->toArray();
+    				$typeList[$k]['Child']=$typeChildList;
+    			}
+    			$responseArray['status'] = false;
+	        	$responseArray['message'] = "success";
+	        	$responseArray['result'] = $typeList;
+
+    		}else{
+                	$responseArray['status'] = false;
+		        	$responseArray['message'] = "No Unit Type Found";
+            }
+    	}
+    	return response()->json($responseArray);
+
+    }
+
+
+
+
+    
 
 
 }

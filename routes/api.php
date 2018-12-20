@@ -16,6 +16,8 @@ Route::group(['middleware' => ['api'],'prefix' => 'en/v1/'], function (){
 	//All Sales API
 	Route::any('salesregister', 'Api\SaleUserController@register')->name('register');
 
+	/*******************All Master List Here************************************/
+
 	//Location API
 	Route::any('getstatelist', 'Api\GeneralController@getStateList')->name('getstatelist');
 	Route::any('getdistrictlist', 'Api\GeneralController@getDistrictList')->name('getdistrictlist');
@@ -30,7 +32,17 @@ Route::group(['middleware' => ['api'],'prefix' => 'en/v1/'], function (){
 
 	//Brand Type List
 	Route::any('getbrandtypelist', 'Api\GeneralController@getBrandTypeList')->name('getbrandtypelist');
-	
+
+	//Master Unit Type List
+	Route::any('getunitlist', 'Api\GeneralController@getMasterUnitList')->name('getunitlist');
+
+
+
+	/*******************All Master List Here************************************/
+
+
+
+
 	
 
 	//Feedback API

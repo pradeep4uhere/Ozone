@@ -11,7 +11,6 @@
 |
 */
 
-
 /*
 |--------------------------------------------------------------------------
 | USer Section Start Here 
@@ -33,7 +32,6 @@
     Route::get('password/reset','Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
     Route::get('getcity/{state_name}','Master@getCityList');
     Route::get('getdislist/{district}','Master@getlocationlist')->name('getdislist');
-
 
 
     Route::get('/', 'HomeController@index')->name('home');

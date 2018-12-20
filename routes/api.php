@@ -21,6 +21,10 @@ Route::group(['middleware' => ['api'],'prefix' => 'en/v1/'], function (){
 	Route::any('getdistrictlist', 'Api\GeneralController@getDistrictList')->name('getdistrictlist');
 	Route::any('getlocationlist', 'Api\GeneralController@getAllLocationList')->name('getlocationlist');
 
+	//Categpry List
+	Route::any('getallcategorylist', 'Api\GeneralController@getAllCategoryList')->name('getallcategorylist');
+	
+
 	//Feedback API
 	Route::any('feedbackquery','Api\FeedbackController@feedbackSubmitt')->name('feedbackquery');
 

@@ -11,6 +11,7 @@ use App\Location;
 use Session;
 use Illuminate\Support\Facades\Hash;
 use Mail;
+use App\Category;
 
 class GeneralController extends Master
 {
@@ -136,19 +137,24 @@ class GeneralController extends Master
 
 
 
+    /*********All Category List**********/
+    public function getAllCategoryList(Request $request){
+    	if(self::isValidToekn($request)){
+    		$parent_id = $request->get('parent_id');
+    		$categoryList = Category::where('parent_id','=',$parent_id)->where('status','=',1)->get()->toArray();
+    		if(count($categoryList)>0){
+    			$responseArray['status'] = false;
+	        	$responseArray['message'] = "success";
+	        	$responseArray['result'] = $categoryList;
 
+    		}else{
+                	$responseArray['status'] = false;
+		        	$responseArray['message'] = "No category found";
+            }
+    	}
+    	return response()->json($responseArray);
 
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 }

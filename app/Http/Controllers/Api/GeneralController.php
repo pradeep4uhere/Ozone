@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Mail;
 use App\Category;
 use App\StoreType;
+use App\Brand;
 
 class GeneralController extends Master
 {
@@ -174,6 +175,27 @@ class GeneralController extends Master
     		}else{
                 	$responseArray['status'] = false;
 		        	$responseArray['message'] = "No Store Type Found";
+            }
+    	}
+    	return response()->json($responseArray);
+
+    }
+
+
+
+
+    /*********All Brand Type List**********/
+    public function getBrandTypeList(Request $request){
+    	if(self::isValidToekn($request)){
+    		$typeList = Brand::where('status','=',1)->get()->toArray();
+    		if(count($typeList)>0){
+    			$responseArray['status'] = false;
+	        	$responseArray['message'] = "success";
+	        	$responseArray['result'] = $typeList;
+
+    		}else{
+                	$responseArray['status'] = false;
+		        	$responseArray['message'] = "No Brand Type Found";
             }
     	}
     	return response()->json($responseArray);

@@ -26,6 +26,10 @@ Route::group(['middleware' => ['api'],'prefix' => 'en/v1/'], function (){
 
 	//Store Type List
 	Route::any('getstoretypelist', 'Api\GeneralController@getStoreTypeList')->name('getstoretypelist');
+
+
+	//Brand Type List
+	Route::any('getbrandtypelist', 'Api\GeneralController@getBrandTypeList')->name('getbrandtypelist');
 	
 	
 

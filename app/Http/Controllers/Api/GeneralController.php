@@ -12,6 +12,7 @@ use Session;
 use Illuminate\Support\Facades\Hash;
 use Mail;
 use App\Category;
+use App\StoreType;
 
 class GeneralController extends Master
 {
@@ -150,6 +151,29 @@ class GeneralController extends Master
     		}else{
                 	$responseArray['status'] = false;
 		        	$responseArray['message'] = "No category found";
+            }
+    	}
+    	return response()->json($responseArray);
+
+    }
+
+
+
+
+
+
+    /*********All Store Type List**********/
+    public function getStoreTypeList(Request $request){
+    	if(self::isValidToekn($request)){
+    		$typeList = StoreType::where('status','=',1)->get()->toArray();
+    		if(count($typeList)>0){
+    			$responseArray['status'] = false;
+	        	$responseArray['message'] = "success";
+	        	$responseArray['result'] = $typeList;
+
+    		}else{
+                	$responseArray['status'] = false;
+		        	$responseArray['message'] = "No Store Type Found";
             }
     	}
     	return response()->json($responseArray);

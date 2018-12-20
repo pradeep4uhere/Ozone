@@ -23,6 +23,10 @@ Route::group(['middleware' => ['api'],'prefix' => 'en/v1/'], function (){
 
 	//Categpry List
 	Route::any('getallcategorylist', 'Api\GeneralController@getAllCategoryList')->name('getallcategorylist');
+
+	//Store Type List
+	Route::any('getstoretypelist', 'Api\GeneralController@getStoreTypeList')->name('getstoretypelist');
+	
 	
 
 	//Feedback API

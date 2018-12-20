@@ -41,8 +41,9 @@ Route::group(['middleware' => ['api'],'prefix' => 'en/v1/'], function (){
 	/*******************All Master List Here************************************/
 
 
-
-
+	//Add New Product
+	Route::any('addnewproduct', 'Api\ProductController@addNewProduct')->name('addnewproduct');
+	
 	
 
 	//Feedback API

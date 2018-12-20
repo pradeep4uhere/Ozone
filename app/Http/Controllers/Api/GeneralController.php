@@ -154,6 +154,9 @@ class GeneralController extends Master
                 	$responseArray['status'] = false;
 		        	$responseArray['message'] = "No category found";
             }
+    	}else{
+    		$responseArray['status'] = false;
+            $responseArray['message']= "Invalid Token.";
     	}
     	return response()->json($responseArray);
 

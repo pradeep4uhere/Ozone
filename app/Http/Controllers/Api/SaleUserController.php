@@ -13,7 +13,7 @@ use Mail;
 
 
 
-class SalesUserContoller extends Master
+class SaleUserController extends Master
 {
     
     public function register(Request $request){

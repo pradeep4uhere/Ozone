@@ -252,7 +252,7 @@ class ProductController extends Master
 
                         $userProductArr = UserProduct::where('user_id','=',$user_id)->where('id','=',$product_id)->get();
                         if(count($userProductArr)>0){
-                            $userProductArr = $userProductArr->toArray(); 
+                            $userProductArr = $userProductArr[0]->toArray(); 
                             $userProduct = UserProduct::find($userProductArr['id']);
                             $userProduct->id = $userProductArr['id'];
                             $userProduct->default_images = $fileName;

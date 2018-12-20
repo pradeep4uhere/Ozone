@@ -23,7 +23,13 @@ class Seller extends Model
         'user_id',
         'pincode_id',
         'state_id',
-        'city_id'
+        'city_id',
+        'district',
+        'state',
+        'location',
+        'location_id',
+        'pincode',
+        'referer_code'
     ];
 
     /**

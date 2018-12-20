@@ -13,6 +13,7 @@ use App\City;
 use App\DeliveryAddress;
 use Illuminate\Support\Facades\Hash;
 use Mail;
+use App\SaleUser;
 
 class SellerController extends Master
 {
@@ -31,9 +32,11 @@ class SellerController extends Master
                 'business_name' => 'required|min:6',
                 'address_1' => 'required|min:6',
                 'address_2' => 'required|min:6',
-                'state_id' => 'required|numeric',
-                'city_id' => 'required|numeric',
-                'pincode_id' => 'required|numeric',
+                'state' => 'required',
+                'district' => 'required',
+                'location' => 'required',
+                'pincode' => 'required|numeric|min:6',
+                'location_id' => 'required',
                 'contact_number' => 'required|unique:sellers|numeric'
             ]);
             if ($validator->fails()) {
@@ -49,13 +52,22 @@ class SellerController extends Master
 
                     if ($request->isMethod('post')) {
                         $data = $request->all();
+
+                            if(!self::IsValidRefer($data['referer_code'])){
+                                $responseArray['status'] = false;
+                                $responseArray['message'] = "Invalid Referer Code.";
+                                return response()->json($responseArray);
+                            }
                             $seller=Seller::create([
                                 'store_type_id' => $data['store_type_id'],
                                 'business_name' => $data['business_name'],
+                                'referer_code' => $data['referer_code'],
                                 'address_1' => $data['address_1'],
-                                'state_id' => $data['state_id'],
-                                'city_id' => $data['city_id'],
-                                'pincode_id' => $data['pincode_id'],
+                                'state' => $data['state'],
+                                'district' => $data['district'],
+                                'location' => $data['location'],
+                                'pincode' => $data['pincode'],
+                                'location_id' => $data['location_id'],
                                 'contact_number' => $data['contact_number'],
                                 'email_address' => $data['email'],
                                 'user_id' => decrypt($data['uid']),
@@ -104,6 +116,25 @@ class SellerController extends Master
             $responseArray['message'] = "Invalid Token";
         }
         return response()->json($responseArray);
+    }
+
+
+
+
+
+
+    private static function IsValidRefer($referer_code){
+        if($referer_code!=''){
+            $count= SaleUser::where('referer_code','=',$referer_code)->get()->count();
+            if($count>0){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return true;
+        }
+
     }
 
 

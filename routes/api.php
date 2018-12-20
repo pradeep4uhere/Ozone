@@ -4,8 +4,7 @@ Route::group(['middleware' => ['api'],'prefix' => 'en/v1/'], function (){
 	
 	Route::any('gettoken', 'Api\ApiController@gettoken')->name('gettoken');
 	Route::any('getstoretype', 'Api\ApiController@getStoreType')->name('getstoretype');
-	Route::any('getstatelist', 'Api\ApiController@getStateList')->name('getstatelist');
-	Route::any('getcitylist', 'Api\ApiController@getCitylist')->name('getcitylist');
+	
 
 	//All User Related API
 	Route::any('login', 'Api\UserController@login')->name('login');
@@ -16,6 +15,11 @@ Route::group(['middleware' => ['api'],'prefix' => 'en/v1/'], function (){
 
 	//All Sales API
 	Route::any('salesregister', 'Api\SaleUserController@register')->name('register');
+
+	//Location API
+	Route::any('getstatelist', 'Api\GeneralController@getStateList')->name('getstatelist');
+	Route::any('getdistrictlist', 'Api\GeneralController@getDistrictList')->name('getdistrictlist');
+	Route::any('getlocationlist', 'Api\GeneralController@getAllLocationList')->name('getlocationlist');
 
 	//Feedback API
 	Route::any('feedbackquery','Api\FeedbackController@feedbackSubmitt')->name('feedbackquery');

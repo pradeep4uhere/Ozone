@@ -43,6 +43,10 @@ class Product extends Model
     public function Unit() {
          return $this->belongsTo(Unit::class);
     }
+
+    public function UserProduct(){
+        return $this->hasMany(UserProduct::class);   
+    }
     
    
     

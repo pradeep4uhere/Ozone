@@ -13,9 +13,9 @@ use Mail;
 
 
 
-class SalesUserContoller extends Master
+class SaleUserController extends Master
 {
-    //
+    
     public function register(Request $request){
     	if(self::isValidToekn($request)){
     		$validator = Validator::make($request->all(), [
@@ -75,8 +75,12 @@ class SalesUserContoller extends Master
                     $responseArray['message'] = $e->getMessage();
                 }
             }
-            return response()->json($responseArray);
+            
+    	}else{
+    		$responseArray['status'] = false;
+            $responseArray['message'] = "Invalid Input";
     	}
+    	return response()->json($responseArray);die;
 
     }
 

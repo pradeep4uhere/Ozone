@@ -13,26 +13,44 @@ class FeedbackController extends Master
      
     public function feedbackSubmitt(Request $request){
     	try{
+            
             if(self::isValidToekn($request)){
+                $validator = Validator::make($request->all(), [
+                    'name' => 'required|min:6',
+                    'email' => 'required',
+                    'mobile' => 'required|min:10|numeric',
+                    'subject' => 'required|min:5',
+                    'description' => 'required|min:20'
+                ]);
+                if ($validator->fails()) {
+                    $errors = $validator->errors();
+                    $this->responseArray['status'] = false;
+                    $this->responseArray['message']= "Input are not valid";
+                    $this->responseArray['error']= $errors;
+                }else{
+                	$feedbackObj = new Feedback();
+                	$feedbackObj->name = $request->get('name');
+                	$feedbackObj->email = $request->get('email');
+                	$feedbackObj->contact_number = $request->get('mobile');
+                	$feedbackObj->subject = $request->get('subject');
+                	$feedbackObj->description = $request->get('description');
+                	$feedbackObj->created_at = self::getCreatedDate();
+                	$feedbackObj->save();
+                	if($feedbackObj->id){
+                        $this->sendEmailToAdmin($feedbackObj->id);
+                        $this->responseArray = self::getMessage(200,"Feedback Submitted");
 
-            	$feedbackObj = new Feedback();
-            	$feedbackObj->name = $request->get('name');
-            	$feedbackObj->email = $request->get('email');
-            	$feedbackObj->contact_number = $request->get('mobile');
-            	$feedbackObj->subject = $request->get('subject');
-            	$feedbackObj->description = $request->get('description');
-            	$feedbackObj->created_at = self::getCreatedDate();
-            	$feedbackObj->save();
-            	if($feedbackObj->id){
-                    $this->sendEmailToAdmin($feedbackObj->id);
-                    $this->responseArray = self::getMessage(200,"Feedback Submitted");
+                	}else{
+                		$this->responseArray['status'] = false;
+                        $this->responseArray['message'] = self::getMessage(500,"Feedback Not  Submitted");
+                	}
+                }
 
-            	}else{
-            		$this->responseArray['status'] = false;
-                    $this->responseArray['message'] = self::getMessage(500,"Feedback Not  Submitted");
-            	}
-
+        }else{
+                $this->responseArray['status'] = false;
+                $this->responseArray['message'] = "Invalid Token!!";
             }
+
         }catch (Exception $e) {
             $this->responseArray['status'] = false;
             $this->responseArray['message'] = self::getMessage(9999,$e->getMessage());
@@ -76,10 +94,10 @@ class FeedbackController extends Master
                 $m->to($user->email, ucwords(strtolower($user->first_name)))->subject('New feedback: '.$user->subject);
         });
         if($mail){
-               return true;
+               //return true;
           }
         }catch(Exception $e){
-            return false;
+            //return false;
         }
     }
 

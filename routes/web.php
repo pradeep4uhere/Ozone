@@ -10,27 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-$langCode = ['en','hn'];
-$siteprefix = Request::segment(1);//'en';  
-    if(empty($siteprefix) && in_array($siteprefix, $langCode)){
-        $default_lang = \App\Model\Language::getDefaultLanguge();
-        $redirect_url = Request::root().'/'.$default_lang->languageCode;
-        Session::put('lang_code',$default_lang->languageCode);
-        return Redirect::to($redirect_url)->send();
-        //exit;
-    }else{
-        //echo Session::get('lang_code'); die;
-        $langprefix = \App\Model\Language::select('languageCode', 'id')->where('languageCode', $siteprefix)->first();
-        if(empty($langprefix)){
-            $default_lang = \App\Model\Language::getDefaultLanguge();
-            $redirect_url = Request::root().'/'.$default_lang->languageCode;
-            Session::put('lang_code',$default_lang->languageCode);
-            return Redirect::to($redirect_url)->send();
-            //exit;
-        }
-    } 
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +21,21 @@ $siteprefix = Request::segment(1);//'en';
 | any other location as required by the application or its packages.
 |
 */
+    Route::get('storage/product/{productid}/{path}/{filename}', function ($productid,$path,$filename)
+    {
+        $path = storage_path('app/public/uploads/product/product_'.$productid .'/'.$path.'/'. $filename);
+        if (!File::exists($path)) {
+            return "Image Not Found.";
+        }else{
+            $file = File::get($path);
+            $type = File::mimeType($path);
+            $response = Response::make($file, 200);
+            $response->header("Content-Type", $type);
+            return $response;
+        }
+    });
 
-Route::group(array('prefix' =>$siteprefix.'/'), function () {
+
 
     Route::post('/feedback','FeedbackController@feedback')->name('feedback');
 
@@ -55,14 +47,8 @@ Route::group(array('prefix' =>$siteprefix.'/'), function () {
     Route::get('password/reset','Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
     Route::get('getcity/{state_name}','Master@getCityList');
     Route::get('getdislist/{district}','Master@getlocationlist')->name('getdislist');
-    
-    //    Route::post('password/email', ['as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail']);
-    //    Route::get('password/reset/{token}', ['as' => 'password.reset.token', 'uses' => 'Auth\ResetPasswordController@showResetForm']);
-    //    Route::post('password/reset', ['as' => 'password.reset.post', 'uses' => 'Auth\ResetPasswordController@reset']);
-});
 
 
-Route::group(array('prefix' =>$siteprefix.'/'), function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/listing', 'HomeController@listing')->name('listing');
     Route::get('/detail/{slug}/{id}', 'Product\ProductController@details')->name('details');
@@ -161,4 +147,3 @@ Route::group(array('prefix' =>$siteprefix.'/'), function () {
         Route::get('/dashboard', 'Seller\SellerController@dashboard')->name('sellerdashboard');
         Route::get('/addproduct', 'Product\ProductController@addProduct')->name('selleraddproduct');
     });
-});

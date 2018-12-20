@@ -26,10 +26,14 @@ class GeneralController extends Master
         			$stateValue = $stateListObj['state'];
         			$stateArray[$stateKey] = $stateValue;
         		}
+            	$responseArray['status'] = true;
+	        	$responseArray['message'] = "success";
+          		$responseArray['result'] = $stateArray;        	
+
+        	}else{
+            	$responseArray['status'] = false;
+	        	$responseArray['message'] = "No State Found";
         	}
-        	$responseArray['status'] = true;
-        	$responseArray['message'] = "success";
-        	$responseArray['result'] = $stateArray;        	
     	}catch (Exception $e) {
             $responseArray['status'] = false;
             $responseArray['message'] = $e->getMessage();
@@ -67,10 +71,14 @@ class GeneralController extends Master
 	        			$disValue = $distObj['district'];
             			$districtListArray[$disKey] = $disValue;
             		}
+	            	$responseArray['status'] = true;
+		        	$responseArray['message'] = "success";
+    		    	$responseArray['result'] = $districtListArray;  
+
+            	}else{
+                	$responseArray['status'] = false;
+		        	$responseArray['message'] = "No district found";
             	}
-            	$responseArray['status'] = true;
-	        	$responseArray['message'] = "success";
-    	    	$responseArray['result'] = $districtListArray;  
 
             }
     	}else{
@@ -105,11 +113,15 @@ class GeneralController extends Master
             	if(count($typeList)>0){
             		foreach($typeList as $typeObj){
             			$typeListArray[$typeObj['id']] = $typeObj;
-            		}
+	          		}
+                	$responseArray['status'] = true;
+		        	$responseArray['message'] = "success";
+    		    	$responseArray['result'] = $typeListArray;  
+
+            	}else{
+                	$responseArray['status'] = false;
+		        	$responseArray['message'] = "No district found";
             	}
-            	$responseArray['status'] = true;
-	        	$responseArray['message'] = "success";
-    	    	$responseArray['result'] = $typeListArray;  
 
             }
     	}else{

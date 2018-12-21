@@ -15,6 +15,7 @@ use App\Category;
 use App\StoreType;
 use App\Brand;
 use App\MasterUnit;
+use DB;
 
 class GeneralController extends Master
 {
@@ -235,7 +236,42 @@ class GeneralController extends Master
 
 
 
-    
+    /*** Location Search Result *****/
+  	public function getLocationResult(Request $request){
+  		$query = $request->get('text');
+		if($query != '')
+	      {
+	       $data = DB::table('locations')
+	         ->where('status', '=', '1')
+	         ->where('location', 'like', '%'.$query.'%')
+	         ->orWhere('pincode', 'like', '%'.$query.'%')
+	         ->orWhere('state', 'like', '%'.$query.'%')
+	         ->orWhere('district', 'like', '%'.$query.'%')
+	         ->get();
+	         $total_row = $data->count();
+	         $output=array();
+	         if($total_row > 0){
+
+	            foreach($data as $row){
+		            $output[]=array(
+		            		"location_id"=>$row->id,
+		            		"location"=>$row->location,
+		            		"district"=>$row->district,
+		            		"pincode"=>$row->pincode,
+		            		"state"=>$row->state
+		            );
+		        }
+		        $responseArray['status'] = true;
+		        $responseArray['result'] = $output;
+	        }else{
+	        	$responseArray['status'] = false;
+	 	        $responseArray['message'] = "No result found.";
+	        }
+	        
+	        return response()->json($responseArray);
+	    }  		
+    }
+  
 
 
 }

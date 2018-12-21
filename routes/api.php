@@ -50,4 +50,8 @@ Route::group(['middleware' => ['api'],'prefix' => 'en/v1/'], function (){
 	//Feedback API
 	Route::any('feedbackquery','Api\FeedbackController@feedbackSubmitt')->name('feedbackquery');
 
+	//Location Search
+	Route::any('getlocation','Api\GeneralController@getLocationResult')->name('getlocation');
+
+
 });

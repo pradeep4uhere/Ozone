@@ -1,0 +1,3 @@
+//Seller Id Into Product Table For Specfic Seller
+
+ALTER TABLE `so_user_products` ADD `seller_id` BIGINT NULL AFTER `user_id`;

@@ -241,7 +241,8 @@ class SellerController extends Master
         $total_row = $data->count();
         $output=array();
         if($total_row > 0){
-            foreach($data as $row){
+            foreach($data as $k=>$row){
+                $row->publicUrl = env('APP_URL').'/seller/'.str_slug($row->business_name).'/'.encrypt($row->id);
                 $output[]=$row;
             }
             $responseArray['status'] = true;
@@ -255,6 +256,8 @@ class SellerController extends Master
             $responseArray['misc']['perPage'] = $data->perPage();
             $responseArray['misc']['previousPageUrl'] = $data->previousPageUrl();
             $responseArray['result'] = $output;
+
+
         }else{
             $responseArray['status'] = false;
             $responseArray['message'] = "No result found.";

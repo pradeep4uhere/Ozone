@@ -14,6 +14,7 @@ use App\DeliveryAddress;
 use Illuminate\Support\Facades\Hash;
 use Mail;
 use App\SaleUser;
+use DB;
 
 class SellerController extends Master
 {
@@ -172,6 +173,95 @@ class SellerController extends Master
         }
     }
 
+
+
+
+    /****Get All the Seller List Based On Location**/
+    public function getSellerList(Request $request){
+        $state          =   $request->get('state');
+        $district       =   $request->get('district');
+        $location       =   $request->get('location');
+        $location_id    =   $request->get('location_id');
+        $pincode        =   $request->get('pincode');
+        $offset         =   $request->get('offset');
+        if($request->has('offset')){
+            $num = $offset;
+        }else{
+            $num = 9999;
+        }
+        
+        $data = DB::table('sellers')->where('sellers.status', '=', '1');
+        
+        //Join with Seller Image Table
+        $data->leftJoin('seller_images', 'sellers.id', '=', 'seller_images.seller_id');
+
+        //Join with Store Type Table
+        $data->leftJoin('store_types', 'sellers.store_type_id', '=', 'store_types.id');
+        
+        $data->select(
+            'sellers.id',
+            'sellers.user_id',
+            'sellers.business_name',
+            'sellers.address_1',
+            'sellers.address_2',
+            'sellers.state',
+            'sellers.district',
+            'sellers.location',
+            'sellers.location_id',
+            'sellers.pincode',
+            'sellers.contact_number',
+            'sellers.email_address',
+            'sellers.status',
+            'sellers.image_thumb',
+            'sellers.image_logo',
+            'seller_images.image_name',
+            'seller_images.is_default',
+            'store_types.name as StoreName',
+            'store_types.descriptions as StoreDescription');
+        
+        if($location_id!=''){                
+            $data->Where('location_id',   '=', $location_id);
+        }
+        if($state!='' && $location_id==''){            
+            $data->Where('state',      'like', '%'.$state.'%');
+        }
+        if($location!='' && $location_id==''){            
+            $data->where('location',     'like', '%'.$location.'%');
+        }
+        if($pincode!='' && $location_id==''){            
+            $data->Where('pincode',    'like', '%'.$pincode.'%');
+        }
+        if($district!='' && $location_id==''){                
+            $data->Where('district',   'like', '%'.$district.'%');
+        }
+        
+        $data->orderBy('sellers.business_name', 'asc');
+        //$data = $data->get();
+        $data = $data->paginate($num);
+        $total_row = $data->count();
+        $output=array();
+        if($total_row > 0){
+            foreach($data as $row){
+                $output[]=$row;
+            }
+            $responseArray['status'] = true;
+            $responseArray['misc']['count'] = $data->count();
+            $responseArray['misc']['firstItem'] = $data->firstItem();
+            $responseArray['misc']['currentPage'] = $data->currentPage();
+            $responseArray['misc']['hasMorePages'] = $data->hasMorePages();
+            $responseArray['misc']['lastItem'] = $data->lastItem();
+            $responseArray['misc']['nextPageUrl'] = $data->nextPageUrl();
+            $responseArray['misc']['onFirstPage'] = $data->onFirstPage();
+            $responseArray['misc']['perPage'] = $data->perPage();
+            $responseArray['misc']['previousPageUrl'] = $data->previousPageUrl();
+            $responseArray['result'] = $output;
+        }else{
+            $responseArray['status'] = false;
+            $responseArray['message'] = "No result found.";
+        }
+        return response()->json($responseArray);
+
+    }
 
 
 

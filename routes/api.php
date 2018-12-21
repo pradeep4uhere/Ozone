@@ -12,6 +12,8 @@ Route::group(['prefix' => 'en/v1/'], function (){
 	Route::any('sellerregister', 'Api\SellerController@registerAsSeller')->name('sellerregister');
 	Route::any('getproductlist', 'Api\UserController@register')->name('getproductlist');
 	Route::get('sendemail','Api\UserController@sendEmailReminder');
+	Route::any('updateuserprofile','Api\UserController@updateUserProfile')->name('updateuserprofile');
+	
 
 	//All Sales API
 	Route::any('salesregister', 'Api\SaleUserController@register')->name('register');
@@ -49,5 +51,13 @@ Route::group(['prefix' => 'en/v1/'], function (){
 
 	//Feedback API
 	Route::any('feedbackquery','Api\FeedbackController@feedbackSubmitt')->name('feedbackquery');
+
+	//Location Search
+	Route::any('getlocation','Api\GeneralController@getLocationResult')->name('getlocation');
+
+	//Seller List
+	Route::any('getsellerlist','Api\SellerController@getSellerList')->name('getsellerlist');
+
+
 
 });

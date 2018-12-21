@@ -200,4 +200,50 @@ class UserController extends Master
 
 
 
+    /***User Profile Update**/
+    public function updateUserProfile(Request $request){
+        if(self::isValidToekn($request)){
+            $userId = $request->get('user_id');
+           $validator = Validator::make($request->all(), [
+                'first_name' => 'required|max:50',
+                'last_name' => 'required|max:50',
+                'email' => 'required|unique:users,email,'.$userId,
+                'mobile' => 'required|numeric|unique:users,mobile,'.$userId,
+            ]);
+            if ($validator->fails()) {
+                $errors = $validator->errors();
+                $responseArray['status'] = false;
+                $responseArray['message']= "Input are not valid";
+                $responseArray['error']= $errors;
+            }else{
+                try{
+                    $user = User::find($request->get('user_id'));
+                    $user->first_name = $request->get('first_name');
+                    $user->email = $request->get('email');
+                    $user->mobile = $request->get('mobile');
+                    $user->last_name = $request->get('last_name');
+                    $res = $user->save();
+                    if($res){
+                        $responseArray['status'] = true;
+                        $responseArray['message'] = "User Profile Updated";
+                    }else{
+                        $responseArray['status'] = false;
+                        $responseArray['message'] = "somthing went wrong.";
+                    }
+                }catch(Exception $e){
+
+                    $responseArray['status'] = false;
+                    $responseArray['message'] = "User Profile Not Updated";
+                }
+            }
+        }else{
+            $responseArray['status'] = false;
+            $responseArray['message'] = "Invalid Token";
+        }
+        return response()->json($responseArray);
+
+    }
+
+
+
 }

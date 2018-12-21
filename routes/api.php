@@ -12,6 +12,8 @@ Route::group(['middleware' => ['api'],'prefix' => 'en/v1/'], function (){
 	Route::any('sellerregister', 'Api\SellerController@registerAsSeller')->name('sellerregister');
 	Route::any('getproductlist', 'Api\UserController@register')->name('getproductlist');
 	Route::get('sendemail','Api\UserController@sendEmailReminder');
+	Route::any('updateuserprofile','Api\UserController@updateUserProfile')->name('updateuserprofile');
+	
 
 	//All Sales API
 	Route::any('salesregister', 'Api\SaleUserController@register')->name('register');

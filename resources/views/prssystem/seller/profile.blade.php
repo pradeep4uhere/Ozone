@@ -47,10 +47,10 @@ Home Page
                     </div>
                     <div class="form-group">
                         <label for="focusedinput" class="col-sm-2 control-label">@lang('seller.profile.business_url_name'):</label>
-                        <div class="col-sm-3" style="margin-right: 0px;padding-right: 0px;">
+                        <div class="col-sm-5" style="margin-right: 0px;padding-right: 0px;">
                            <input type="text" class="form-control1" value="{{env('APP_URL')}}/seller/" readonly="readonly" disabled="disabled" style=" background-color: #f1f1f1">
                         </div>
-                        <div class="col-sm-5" style="margin-left: 0px;padding-left: 0px;">
+                        <div class="col-sm-3" style="margin-left: 0px;padding-left: 0px;">
                             <input type="text" class="form-control1" id="businessusername" placeholder="YouBusinessName (without any space space)" name="businessusername" value="{{(!empty($user))?$user->businessusername:''}}" pattern="^[a-zA-Z0-9]+$" required="required" title="Please fill username without any space e.g pradsgenerlstore">
                         </div>
                         <div class="col-sm-2 jlkdfj1" style="display: none">

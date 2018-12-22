@@ -150,7 +150,7 @@ Home Page
                      <div class="form-group">
                         <label for="inputPassword" class="col-sm-2 control-label">@lang('seller.profile.email_address')</label>
                         <div class="col-sm-8">
-                            <input readonly=""  type="text" maxlength="100" class="form-control1" id="email_address" placeholder="Email Address" name="email_address" value="{{(!empty($user))?$user->email_address:Auth::user()->email}}">
+                            <input  type="text" maxlength="100" class="form-control1" id="email_address" placeholder="Email Address" name="email_address" value="{{(!empty($user))?$user->email_address:Auth::user()->email}}">
                             <input  type="hidden" class="form-control1" id="country_id" placeholder="Choose Country" name="country_id" value="1">
                             <input  type="hidden" class="form-control1" id="location_id" name="location_id">
                             <input  type="hidden" class="form-control1" id="user_id" name="user_id" value="{{Auth::user()->id}}">

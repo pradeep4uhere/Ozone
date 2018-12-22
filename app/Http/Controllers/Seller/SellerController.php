@@ -550,8 +550,16 @@ class SellerController extends Master
 
 
         if($seller->user_id==$data['user_id']){
+            $username = "";
+            if(preg_match('/^[a-zA-Z]+[a-zA-Z0-9._]+$/', $data['businessusername'])){
+                $username = $data['businessusername'];
+            }else{
+                $username = str_replace(" ", "", $data['businessusername']);
+            }
+
             $seller->store_type_id =$data['store_type_id'];
             $seller->business_name =$data['business_name'];
+            $seller->businessusername =$username;
             $seller->address_1 =$data['address_1'];
             $seller->address_2 =$data['address_2'];
             $seller->state =$data['state'];
@@ -592,9 +600,18 @@ class SellerController extends Master
 
         try{
             $locationArr = explode("-",$data['location']);
+            //Save Business Username
+            // validate alphanumeric
+            $username = "";
+            if(preg_match('/^[a-zA-Z]+[a-zA-Z0-9._]+$/', $data['businessusername'])){
+                $username = $data['businessusername'];
+            }else{
+                $username = str_replace(" ", "", $data['businessusername']);
+            }
             $seller=Seller::create([
                 'store_type_id' => $data['store_type_id'],
                 'business_name' => $data['business_name'],
+                'businessusername' => $username,
                 'address_1' => $data['address_1'],
                 'state' => $data['state'],
                 'district' => $data['district'],
@@ -627,6 +644,7 @@ class SellerController extends Master
         $user= \App\Seller::find(Auth::user()->id);
         return Validator::make($data, [
             'business_name' => 'required|string|min:1',
+            'businessusername' => 'required|string|min:6|unique:sellers,businessusername,'.$data['id'],
             'address_1'=>'required|string|max:255',
             'country_id' => 'required|string|max:255',
             'state' => 'required|string|max:255',
@@ -634,9 +652,7 @@ class SellerController extends Master
             'location' => 'required|string|max:255',
             'pincode' => 'required|string|min:6',
             'contact_number' => 'required|string|min:10',
-            'email_address' => 'required|string|email|min:10',
-            
-            
+            'email_address' => 'required|string|min:10|unique:sellers,email_address,'.$data['id']
         ]);
     }
 	

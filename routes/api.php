@@ -54,7 +54,7 @@ Route::group(['prefix' => 'en/v1/'], function (){
 
 	//Location Search
 	Route::any('getlocation','Api\GeneralController@getLocationResult')->name('getlocation');
-
+	
 	//Seller List
 	Route::any('getsellerlist','Api\SellerController@getSellerList')->name('getsellerlist');
 

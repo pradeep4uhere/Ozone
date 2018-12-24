@@ -106,6 +106,7 @@ class ProductController extends Master
     private function saveProduct($request){
         $data=$request->all();
         $data['user_id']=$data['created_by'];
+        $data['seller_id']=$data['seller_id'];
         try{
 
                 //Check is this Product is alredy Present 
@@ -135,6 +136,7 @@ class ProductController extends Master
                             $userProduct =  new \App\UserProduct();
                             $userProduct->product_id=$lastId;
                             $userProduct->user_id=$data['user_id'];
+                            $userProduct->seller_id=$data['seller_id'];
                             $userProduct->quantity_in_unit=$data['quantity'];
                             $userProduct->product_in_stock=$data['product_in_stock'];
                             $userProduct->unlimited_product=$data['product_unlimited'];

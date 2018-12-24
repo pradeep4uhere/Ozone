@@ -13,6 +13,10 @@ Route::group(['prefix' => 'en/v1/'], function (){
 	Route::any('getproductlist', 'Api\UserController@register')->name('getproductlist');
 	Route::get('sendemail','Api\UserController@sendEmailReminder');
 	Route::any('updateuserprofile','Api\UserController@updateUserProfile')->name('updateuserprofile');
+
+	//Cart Related API
+	Route::any('adddeliveraddress','Api\OrderController@addDeliveryAddress')->name('adddeliveraddress');
+	
 	
 
 	//All Sales API

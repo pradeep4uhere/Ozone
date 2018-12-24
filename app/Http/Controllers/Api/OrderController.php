@@ -41,7 +41,7 @@ class OrderController extends Master
                     $responseArray['error']= $errors;   
                 }else{
                     $data = $request->all();
-
+                    $oldDelAddress = array();
                     //Check is this Address Already Present
                     $oldDelAddress = DeliveryAddress::where('user_id','=',$data['user_id'])
                                         ->where('user_type','=',$data['user_type'])

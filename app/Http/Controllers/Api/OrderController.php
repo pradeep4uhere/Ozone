@@ -51,9 +51,8 @@ class OrderController extends Master
                                         ->where('address_1','=',$data['address_1'])
                                         ->where('address_2','=',$data['address_2'])
                                         ->where('pincode','=',$data['pincode'])
-                                        ->orwhere('location_id','=',$data['location_id'])
                                         ->first();
-                    if(count($oldDelAddress)>0){
+                    if($oldDelAddress->count()>0){
                         $lastId = $oldDelAddress->id;
                         $responseArray['message'] = "You address already exists.";
                     }else{

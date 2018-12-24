@@ -43,7 +43,7 @@ class OrderController extends Master
                     $data = $request->all();
                     $oldDelAddress = array();
                     //Check is this Address Already Present
-                    $oldDelAddress = DeliveryAddress::where('user_id','=',$data['user_id'])
+                    /*$oldDelAddress = DeliveryAddress::where('user_id','=',$data['user_id'])
                                         ->where('user_type','=',$data['user_type'])
                                         ->where('mobile','=',$data['mobile'])
                                         ->where('email_address','=',$data['email_address'])
@@ -51,7 +51,7 @@ class OrderController extends Master
                                         ->where('address_1','=',$data['address_1'])
                                         ->where('address_2','=',$data['address_2'])
                                         ->where('pincode','=',$data['pincode'])
-                                        ->first();
+                                        ->first();*/
                     if(count($oldDelAddress)>0){
                         $lastId = $oldDelAddress->id;
                         $responseArray['message'] = "You address already exists.";

@@ -252,15 +252,27 @@ class GeneralController extends Master
 	         $output=array();
 	         if($total_row > 0){
 
-	            foreach($data as $row){
-		            $output[]=array(
-		            		"location_id"=>$row->id,
-		            		"location"=>$row->location,
-		            		"district"=>$row->district,
-		            		"pincode"=>$row->pincode,
-		            		"state"=>$row->state
-		            );
-		        }
+                if($request->has('type')){
+                    $list="<ul  class='list-group'>";
+                    foreach($data as $row){
+                        $list.="<li class='list-group-item listItem' id='listid_".$row->id."' onclick='setLocationId(".$row->id.")'>".$row->location." ".$row->district." ".$row->pincode." ".$row->state."</li>";
+                    }
+                    $list.="</ul>";
+                    $output = $list;
+
+                }else{
+                    
+                    foreach($data as $row){
+                        $output[]=array(
+                            "location_id"=>$row->id,
+                            "location"=>$row->location,
+                            "district"=>$row->district,
+                            "pincode"=>$row->pincode,
+                            "state"=>$row->state
+                        );
+                }
+
+                }
 		        $responseArray['status'] = true;
 		        $responseArray['result'] = $output;
 	        }else{

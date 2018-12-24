@@ -24,6 +24,12 @@ return [
         'pincode'   => 'Pincode',
         'contact_number'=>'Contact Number',
         'email_address'=>'Email Address',
-        'add_new_seller_img'=>'Add Seller Images'
+        'add_new_seller_img'=>'Add Seller Images',
+        'state'=>'State',
+        'District'=>'District',
+        'location'=>'Location',
+        'business_type'=>'Store Type',
+        'upload_business_logo'=>'Business Logo',
+        'business_url_name'=>'Business Username URL'
     ],
 ];

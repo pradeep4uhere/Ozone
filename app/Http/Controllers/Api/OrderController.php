@@ -52,6 +52,8 @@ class OrderController extends Master
                                         ->where('address_2','=',$data['address_2'])
                                         ->where('pincode','=',$data['pincode'])
                                         ->first();
+                    print_r($oldDelAddress);
+                    die;
                     if($oldDelAddress->count()>0){
                         $lastId = $oldDelAddress->id;
                         $responseArray['message'] = "You address already exists.";

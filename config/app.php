@@ -146,7 +146,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
 		
         
 
@@ -220,6 +219,7 @@ return [
         'Cart'=>App\Providers\CartServiceProvider::class,
 		'Image' => 'Intervention\Image\Facades\Image',
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class
+
     ],
 
 ];

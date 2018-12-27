@@ -69,6 +69,7 @@ Route::group(['prefix' => 'en/v1/'], function (){
 	//Cart 
 	Route::any('addtocart','Api\CartController@addToCart')->name('addtocart');
 	Route::any('removeitemfromcart','Api\CartController@removeCartItem')->name('removeitemfromcart');
+	Route::any('updatecart','Api\CartController@updateCart')->name('updatecart');
 
 	
 

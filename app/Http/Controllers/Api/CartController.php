@@ -189,4 +189,76 @@ class CartController extends Master
         return response()->json($responseArray);
      }
 
+
+
+
+
+
+
+
+
+
+      /**
+       * @Author: Pradeep Kumar
+       * @Description: Remove Cart Item From Table
+       * removes an item on cart by item ID
+       *
+       * @param $id
+       */
+      public function updateCart(Request $request){
+        if(self::isValidToekn($request)){
+
+            $validator = Validator::make($request->all(), [
+                'item_id'   => 'required|numeric',
+                'user_id'   => 'required|numeric',
+                'qnty'      => 'required|numeric'
+            ]);
+
+
+           if ($validator->fails()) {
+                $errors = $validator->errors();
+                $responseArray['status'] = false;
+                $responseArray['message']= "Input are not valid";
+                $responseArray['error']= $errors;
+            }else{
+
+                $userId = $request->get('user_id');
+                $rowId=$request->get('item_id');
+                $qnty=$request->get('qnty');
+                $updateArr =array(
+                    'quantity' => array(
+                                    'relative' => false,
+                                    'value' => $qnty
+                                    ),
+                );
+                $upAct = \Cart::session($userId)->update($rowId,$updateArr);
+                if($upAct){
+                    $cartCollection = \Cart::getContent();
+                    $cartData = array(
+                        'item'=>$cartCollection,
+                        'count'=>$cartCollection->count(),
+                        'quantity'=>\Cart::getTotalQuantity(),
+                        'subTotal'=>\Cart::session($userId)->getSubTotal(),
+                        'total'=>\Cart::session($userId)->getTotal()
+                    );
+
+                    $responseArray['status'] = true;
+                    $responseArray['message'] = "Cart Updated";
+                    $responseArray['result'] = $cartData;
+
+
+                }else{
+                    $responseArray['status'] = false;
+                    $responseArray['message'] = "Cart Not Updated";
+                }
+            }
+        }else{
+            $responseArray['status'] = false;
+            $responseArray['message'] = "Invalid Token";
+        }
+
+        return response()->json($responseArray);
+        
+    }
+
 }

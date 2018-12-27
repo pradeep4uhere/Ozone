@@ -291,6 +291,15 @@ class ProductController extends Master
         return response()->json($responseArray);
 
     }    
+
+
+
+
+    //Get All Product List Of the Seller
+    public function allSellerProductList(Request $request){
+        echo "dasd"; die;
+
+    }
     
 
 }

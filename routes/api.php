@@ -62,6 +62,10 @@ Route::group(['prefix' => 'en/v1/'], function (){
 	//Seller List
 	Route::any('getsellerlist','Api\SellerController@getSellerList')->name('getsellerlist');
 
+	//Get All Seller Products List
+	Route::any('allproductlist','Api\SellerController@allSellerProductList')->name('allproductlist');
+
+
 
 
 });

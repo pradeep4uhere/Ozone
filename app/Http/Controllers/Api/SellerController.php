@@ -15,11 +15,123 @@ use Illuminate\Support\Facades\Hash;
 use Mail;
 use App\SaleUser;
 use DB;
+use App\UserProduct;
+
 
 class SellerController extends Master
 {
+
+    protected $perPageItem = '2';
+
+    public function __construct(){
+        $this->perPageItem = 2;
+    }
      
- 
+    //Get All Product List Of the Seller
+     /**
+     *@Author       : Pradeep Kumar
+     *@Description  : PRoduct List API 
+     *@Created Date : 27 Dec 2018
+     */
+    public function allSellerProductList(Request $request){
+        $seller_id = $request->get('seller_id');
+        if($seller_id>0){
+            $seller = Seller::find($seller_id);
+            if(empty($seller)){
+                $responseArray['status'] = false;
+                $responseArray['message'] = "Seller not found";
+                return response()->json($responseArray);
+            }
+
+        }else{
+            $responseArray['status'] = false;
+            $responseArray['message'] = "Invalid Seller Id Request";
+            return response()->json($responseArray);
+
+        }
+
+
+
+        try{
+            $page = $request->get('page');
+            $allProduct = UserProduct::select('id','user_id','seller_id','product_id','product_sku','default_images','default_thumbnail','quantity_in_unit','product_in_stock','quantity','default_price','isDiscounted','price','discountType','discount_value','status')->with('Product')->where('seller_id','=',$seller_id)->paginate($this->perPageItem)->toArray();
+            $productArray= array();
+            //Formate All the Product Array
+            if(array_key_exists('total', $allProduct)){
+                if($allProduct['total']>0){
+                    foreach ($allProduct['data'] as $key => $value) {
+                        $productArray[$key]['productDetails']['id'] = $value['id'];
+                        $productArray[$key]['productDetails']['user_id'] = $value['user_id'];
+                        $productArray[$key]['productDetails']['seller_id'] = $value['seller_id'];
+                        $productArray[$key]['productDetails']['product_id'] = $value['product_id'];
+
+                        // Data From Main Product
+                        $productArray[$key]['productDetails']['name'] = $value['product']['title'];
+                        $productArray[$key]['productDetails']['description'] = $value['product']['description'];
+
+                        //Category
+                        $productArray[$key]['productDetails']['categoryId'] = $value['product']['category']['id'];
+                        $productArray[$key]['productDetails']['categoryName'] = $value['product']['category']['name'];
+
+                        $productArray[$key]['productDetails']['subCategoryId'] = $value['product']['sub_category']['id'];
+                        $productArray[$key]['productDetails']['subCategoryName'] = $value['product']['sub_category']['name'];
+
+                        $productArray[$key]['productDetails']['brandId'] = $value['product']['brand']['id'];
+                        $productArray[$key]['productDetails']['brandName'] = $value['product']['brand']['name'];
+
+                        $productArray[$key]['productDetails']['unitId'] = $value['product']['unit']['id'];
+                        $productArray[$key]['productDetails']['unitName'] = $value['product']['unit']['name'];
+
+                        $productArray[$key]['productDetails']['product_sku'] = $value['product_sku'];
+                        $productArray[$key]['productDetails']['default_images'] = $value['default_images'];
+                        $productArray[$key]['productDetails']['default_thumbnail'] = $value['default_thumbnail'];
+                        $productArray[$key]['productDetails']['quantity_in_unit'] = $value['quantity_in_unit'];
+                        $productArray[$key]['productDetails']['product_in_stock'] = $value['product_in_stock'];
+                        $productArray[$key]['productDetails']['quantity'] = $value['quantity'];
+                        $productArray[$key]['productDetails']['default_price'] = $value['default_price'];
+                        $productArray[$key]['productDetails']['isDiscounted'] = $value['isDiscounted'];
+                        $productArray[$key]['productDetails']['price'] = $value['price'];
+                        $productArray[$key]['productDetails']['discountType'] = $value['discountType'];
+                        $productArray[$key]['productDetails']['discount_value'] = $value['discount_value'];
+                        $productArray[$key]['productDetails']['status'] = $value['status'];
+                    }
+                    $productArray['first_page_url'] = $allProduct['first_page_url'];
+                    $productArray['from']           = $allProduct['from'];
+                    $productArray['last_page']      = $allProduct['last_page'];
+                    $productArray['last_page_url']  = $allProduct['last_page_url'];
+                    $productArray['next_page_url']  = $allProduct['next_page_url'];
+                    $productArray['path']           = $allProduct['path'];
+                    $productArray['per_page']       = $allProduct['per_page'];
+                    $productArray['prev_page_url']  = $allProduct['prev_page_url'];
+                    $productArray['to']             = $allProduct['to'];
+                    $productArray['total']          = $allProduct['total'];
+
+
+                    $responseArray['status'] = true;
+                    $responseArray['result'] = $productArray;
+                }else{
+                    $responseArray['status'] = false;
+                    $responseArray['message'] = "No products added by this seller";
+                }
+
+
+            }else{
+                $responseArray['status'] = false;
+                $responseArray['message'] = "Invalid Request";
+            }
+
+        }catch(Exception $e){
+            $responseArray['status'] = false;
+            $responseArray['message'] = "Invalid Seller";
+
+        }
+
+        return response()->json($responseArray);
+
+    }
+
+
+
      /**
      *@Author       : Pradeep Kumar
      *@Description  : Register API 

@@ -22,7 +22,7 @@
 							<h4 class="text-center">Thank You</h4>
 							<p class="text-center">Your submissions has been sent successfully!</p>
 							<p class="text-center"><b>Please check your email for further instructions on how to complete your account setup.</b></p>
-               							<p class="text-center">By Clicking <a href="{{route('login')}}" class="main-title red-text">Login</a> You can  login into your account.							</p>
+               							<p class="text-center" >By Clicking <a href="{{route('login')}}" class="main-title red-text" style="color: #000000">Login</a> You can  login into your account.							</p>
                 
                </form> 
                                     </div>

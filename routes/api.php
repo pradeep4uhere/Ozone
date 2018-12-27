@@ -66,6 +66,10 @@ Route::group(['prefix' => 'en/v1/'], function (){
 	Route::any('allproductlist','Api\SellerController@allSellerProductList')->name('allproductlist');
 
 
+	//Cart 
+	Route::any('addtocart','Api\CartController@addToCart')->name('addtocart');
+
+	
 
 
 });

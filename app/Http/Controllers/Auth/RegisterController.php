@@ -90,7 +90,7 @@ class RegisterController extends Controller
         // Sending email, sms or doing anything you want
         //$this->activationService->sendActivationMail($user);
 
-        return redirect('thankyou')->with('message', 'We sent a comfirmation email to your email, please click on link inside before login');
+        return redirect('user/thankyou')->with('message', 'We sent a comfirmation email to your email, please click on link inside before login');
     }
 	 // override default register method
     

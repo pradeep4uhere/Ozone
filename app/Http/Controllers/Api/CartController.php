@@ -79,7 +79,6 @@ class CartController extends Master
                         $item = \Cart::session($this->userId)->add($this->productId, $productName , $price, $qty, $productDetails);
                         // then you can:
                         $cartCollection = \Cart::getContent();
-                        session(['countItem' => $cartCollection->count()]);
                         $cartData = array(
                             'item'=>$cartCollection,
                             'count'=>$cartCollection->count(),
@@ -119,6 +118,53 @@ class CartController extends Master
     private function isProductInStock(){
         return true;
     }
-    
+
+
+
+
+
+
+    /**
+     * @Author: Pradeep Kumar
+     * @Description: Remove Cart Item From Table
+     * removes an item on cart by item ID
+     *
+     * @param $id
+     */
+
+     public function removeCartItem(Request $request){
+        $itemId = $request->get('item_id');
+        $userId = $request->get('user_id');
+         if($itemId>0){
+            // removing cart item for a specific user's cart
+            $itemDetails = \Cart::session($userId)->get($itemId);
+            \Cart::session($userId)->remove($itemId);
+            if(\Cart::session($userId)->isEmpty()){
+                \Cart::session($userId)->clear();
+            }
+            
+            $cartCollection = \Cart::getContent();
+            $cartData = array(
+                'item'=>$cartCollection,
+                'count'=>$cartCollection->count(),
+                'quantity'=>\Cart::getTotalQuantity(),
+                'subTotal'=>\Cart::session($userId)->getSubTotal(),
+                'total'=>\Cart::session($userId)->getTotal()
+            );
+            if(!empty($itemDetails)){
+                $responseArray['status'] = true;
+                $responseArray['message'] = ucwords($itemDetails->name).' removed from cart successfully!';
+                $responseArray['result']['cart'] = $cartData;
+                $responseArray['result']['user_id'] = $userId;
+            }else{
+                $responseArray['status'] = false;
+                $responseArray['message'] = 'Invalid item';
+            }
+         }else{
+            $responseArray['status'] = false;
+            $responseArray['message'] = 'Somthing went wrong.';
+         }
+         return response()->json($responseArray);
+     }
 
 }

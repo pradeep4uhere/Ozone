@@ -133,38 +133,60 @@ class CartController extends Master
      */
 
      public function removeCartItem(Request $request){
-        $itemId = $request->get('item_id');
-        $userId = $request->get('user_id');
-         if($itemId>0){
-            // removing cart item for a specific user's cart
-            $itemDetails = \Cart::session($userId)->get($itemId);
-            \Cart::session($userId)->remove($itemId);
-            if(\Cart::session($userId)->isEmpty()){
-                \Cart::session($userId)->clear();
-            }
-            
-            $cartCollection = \Cart::getContent();
-            $cartData = array(
-                'item'=>$cartCollection,
-                'count'=>$cartCollection->count(),
-                'quantity'=>\Cart::getTotalQuantity(),
-                'subTotal'=>\Cart::session($userId)->getSubTotal(),
-                'total'=>\Cart::session($userId)->getTotal()
-            );
-            if(!empty($itemDetails)){
-                $responseArray['status'] = true;
-                $responseArray['message'] = ucwords($itemDetails->name).' removed from cart successfully!';
-                $responseArray['result']['cart'] = $cartData;
-                $responseArray['result']['user_id'] = $userId;
-            }else{
+        if(self::isValidToekn($request)){
+
+
+            $validator = Validator::make($request->all(), [
+                'item_id' => 'required|numeric',
+                'user_id' => 'required|numeric'
+            ]);
+            if ($validator->fails()) {
+                $errors = $validator->errors();
                 $responseArray['status'] = false;
-                $responseArray['message'] = 'Invalid item';
+                $responseArray['message']= "Input are not valid";
+                $responseArray['error']= $errors;
+            }else{
+
+                $itemId = $request->get('item_id');
+                $userId = $request->get('user_id');
+                 if($itemId>0){
+                    // removing cart item for a specific user's cart
+                    $itemDetails = \Cart::session($userId)->get($itemId);
+                    \Cart::session($userId)->remove($itemId);
+                    if(\Cart::session($userId)->isEmpty()){
+                        \Cart::session($userId)->clear();
+                    }
+                    
+                    $cartCollection = \Cart::getContent();
+                    $cartData = array(
+                        'item'=>$cartCollection,
+                        'count'=>$cartCollection->count(),
+                        'quantity'=>\Cart::getTotalQuantity(),
+                        'subTotal'=>\Cart::session($userId)->getSubTotal(),
+                        'total'=>\Cart::session($userId)->getTotal()
+                    );
+                    if(!empty($itemDetails)){
+                        $responseArray['status'] = true;
+                        $responseArray['message'] = ucwords($itemDetails->name).' removed from cart successfully!';
+                        $responseArray['result']['cart'] = $cartData;
+                        $responseArray['result']['user_id'] = $userId;
+                    }else{
+                        $responseArray['status'] = false;
+                        $responseArray['message'] = 'Invalid item';
+                    }
+                 }else{
+                    $responseArray['status'] = false;
+                    $responseArray['message'] = 'Somthing went wrong.';
+                 }
+
             }
+
          }else{
             $responseArray['status'] = false;
-            $responseArray['message'] = 'Somthing went wrong.';
-         }
-         return response()->json($responseArray);
+            $responseArray['message'] = "Invalid Token";
+        }
+
+        return response()->json($responseArray);
      }
 
 }

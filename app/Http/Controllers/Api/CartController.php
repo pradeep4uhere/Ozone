@@ -261,4 +261,45 @@ class CartController extends Master
         
     }
 
+
+
+     /**
+       * @Author: Pradeep Kumar
+       * @Description: Get all the cart item List
+       * @param $user_id
+       */
+    public function getcartlist(Request $request){
+        if(self::isValidToekn($request)){
+            $validator = Validator::make($request->all(), [
+                'user_id'   => 'required|numeric',
+            ]);
+           if ($validator->fails()) {
+                $errors = $validator->errors();
+                $responseArray['status'] = false;
+                $responseArray['message']= "Input are not valid";
+                $responseArray['error']= $errors;
+            }else{
+                $userId = $request->get('user_id');
+                $cartCollection = \Cart::session($userId);
+                $cartCollections = \Cart::getContent();
+                $cartItem = $cartCollections->toArray();
+
+                $cartData = array(
+                    'item'=>$cartItem,
+                    'quantity'=>\Cart::getTotalQuantity(),
+                    'subTotal'=>\Cart::session($userId)->getSubTotal(),
+                    'total'=>\Cart::session($userId)->getTotal()
+                );
+                $responseArray['status'] = true;
+                $responseArray['result'] = $cartData;
+            }
+        }else{
+            $responseArray['status'] = false;
+            $responseArray['message'] = "Invalid Token";
+        }
+
+        return response()->json($responseArray);
+
+    }
+
 }

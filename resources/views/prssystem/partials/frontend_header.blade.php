@@ -3,8 +3,8 @@
                 <div class="row" style="background-color:#87d372">
 				
                     <div class="col-md-3"><nav class="navbar navbar-expand-lg navbar-light">
-                            <a class="navbar-brand" href="{{route('home')}}">
-                                <img src="{{config('global.LOGO')}}"> GrabMoreNow
+                            <a class="navbar-brand" href="{{route('home')}}" style="font-size: 24px;">
+                                <img src="{{config('global.LOGO')}}">&nbsp;Go4shop
 
                              </a>
                              <span class="navbar-toggler">

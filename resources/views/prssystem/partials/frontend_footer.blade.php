@@ -54,12 +54,12 @@
                         Noida, Sector 16C,
                         Pin-201016 (Uttar Pradesh)</br>
                         Phone: 0120-420420</br>
-                        Email: info@packitnow.com
+                        Email: info@go4shop.online
                         
                         </div>
                     </div>
                 </div>
                 <hr style="color: #CCC" />
-                <center>&copy 2018 www.packitnow.com</center>
+                <center>&copy 2019 www.go4shop.online</center>
             </div>
     </footer>

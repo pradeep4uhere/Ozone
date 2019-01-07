@@ -29,7 +29,7 @@ function getCallbackUrl()
       <input type="hidden" name="firstname" id="firstname" value="<?php echo $customerName; ?>" />
       <input type="hidden" name="email" id="email" value="<?php echo $customerEmail; ?>" />
       <input type="hidden" name="phone" value="<?php echo $mobile; ?>" />
-      <textarea type="hidden" name="productinfo"><?php echo $productInfo; ?></textarea>
+      <input type="hidden" name="productinfo" value="<?php echo $productInfo; ?>"/>
       <input type="hidden" name="surl" value="<?php echo $successUrl ?>"/>
       <input type="hidden" name="furl" value="<?php echo $failedUrl ?>" />
       <input type="hidden" name="service_provider" value="payu_paisa" size="64" />

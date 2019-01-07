@@ -122,8 +122,8 @@ class OrderController extends Controller
 							$hash = '';
 							$hash_string = $merchentKey.'|'.$transxId.'|'.$total.'|'.$productInfo.'|'.$customerName.'|'.$customerEmail.'|||||'.$udf5.'||||||'.$merchentSalt;
 							$hash = strtolower(hash('sha512', $hash_string));
-							$successUrl = route('success');
-							$failedUrl = route('failed');
+							$successUrl = route('success', ['token'=>Session::get('_token'),'id'=>encrypt($transxId)]);
+							$failedUrl = route('failed', ['token'=>Session::get('_token'),'id'=>encrypt($transxId)]);
 							$PAYU_BASE_URL = env('PAYU_BASE_URL');
 							//return redirect()->route('thanks', ['token'=>Session::get('_token'),'id'=>encrypt($lastOrderId)]);
 					}

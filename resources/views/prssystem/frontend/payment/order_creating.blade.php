@@ -24,28 +24,28 @@ function getCallbackUrl()
       <input type="hidden" name="key" value="<?php echo $merchentKey ?>" />
       <input type="hidden" name="hash" value="<?php echo $hash ?>"/>
       <input type="hidden" name="txnid" value="<?php echo $transxId ?>" />
-      <input name="amount" value="<?php echo $total; ?>" />
-      <input name="firstname" id="firstname" value="<?php echo $customerName; ?>" />
-      <input name="email" id="email" value="<?php echo $customerEmail; ?>" />
-      <input name="phone" value="<?php echo $mobile; ?>" />
-      <textarea name="productinfo"><?php echo $productInfo; ?></textarea>
-      <input name="surl" value="<?php echo $successUrl ?>"/>
-      <input name="furl" value="<?php echo $failedUrl ?>" />
+      <input type="hidden" name="amount" value="<?php echo $total; ?>" />
+      <input type="hidden" name="firstname" id="firstname" value="<?php echo $customerName; ?>" />
+      <input type="hidden" name="email" id="email" value="<?php echo $customerEmail; ?>" />
+      <input type="hidden" name="phone" value="<?php echo $mobile; ?>" />
+      <textarea type="hidden" name="productinfo"><?php echo $productInfo; ?></textarea>
+      <input type="hidden" name="surl" value="<?php echo $successUrl ?>"/>
+      <input type="hidden" name="furl" value="<?php echo $failedUrl ?>" />
       <input type="hidden" name="service_provider" value="payu_paisa" size="64" />
-      <input name="lastname" id="lastname" value="" />
-      <input name="curl" value="" />
-      <input name="address1" value="" />
-      <input name="address2" value="" />
-      <input name="city" value="" />
-      <input name="state" value="" />
-      <input name="country" value="" />
-      <input name="zipcode" value="" />
-      <input name="udf1" value="" />
-      <input name="udf2" value="" />
-      <input name="udf3" value="" />
-      <input name="udf4" value="" />
-      <input name="udf5" value="" />
-      <input name="pg" value="" />
+      <input type="hidden" name="lastname" id="lastname" value="" />
+      <input type="hidden" name="curl" value="" />
+      <input type="hidden" name="address1" value="" />
+      <input type="hidden" name="address2" value="" />
+      <input type="hidden" name="city" value="" />
+      <input type="hidden" name="state" value="" />
+      <input type="hidden" name="country" value="" />
+      <input type="hidden" name="zipcode" value="" />
+      <input type="hidden" name="udf1" value="" />
+      <input type="hidden" name="udf2" value="" />
+      <input type="hidden" name="udf3" value="" />
+      <input type="hidden" name="udf4" value="" />
+      <input type="hidden" name="udf5" value="" />
+      <input type="hidden" name="pg" value="" />
     </form>
 <script type="text/javascript">
 submitPayuForm();

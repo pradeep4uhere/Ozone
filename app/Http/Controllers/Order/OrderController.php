@@ -58,6 +58,7 @@ class OrderController extends Controller
 				//Create Each Order For Item
 				$lastOrderId = $orderObj->id;
 				$item=0;
+				$productInfo = array();
 				foreach ($cartItem as $key => $value) {
 					$odObj =array();
 					$odObj = new OrderDetail();
@@ -75,7 +76,10 @@ class OrderController extends Controller
 					$odObj->unit_price=$value['price'];
 					$odObj->shipping_amount='0.00';
 					$odObj->gst_amount='0.00';
-					$odObj->total_amount=$this->getTotalAmountOfItem($value);
+
+					$totalPayAmt = $this->getTotalAmountOfItem($value);
+					$odObj->total_amount=$totalPayAmt;
+					$productInfo[]=$value['attributes']['product_id'];
 					try{
 						$odObj->save();
 						$this->saveOrderIdOfItem($lastOrderId,$odObj->id);
@@ -89,14 +93,39 @@ class OrderController extends Controller
 				if($item==$count){
 					//Update Order Id of the Table
 					$orderNewObj = Order::find($lastOrderId);
-					$orderNewObj->orderId = $this->getOrderId($lastOrderId);
+					$lastOrderIdStr = $this->getOrderId($lastOrderId);
+					$orderNewObj->orderId = $lastOrderIdStr;
 					if($orderNewObj->save()){
 							session(['order_id' => $lastOrderId]);
-							\Cart::clear();
-							\Cart::session($userId)->clear();
+							// \Cart::clear();
+							// \Cart::session($userId)->clear();
 							//\Cart::where('id','=',$cart_id)->delete();
-							session(['countItem' => 0]);
-							return redirect()->route('thanks', ['token'=>Session::get('_token'),'id'=>encrypt($lastOrderId)]);
+							//session(['countItem' => 0]);
+
+							//Set All the Prameter For Payment Gatway
+							$merchentKey = env('PAYYOU_MERCHENT_KEY');
+							$merchentSalt = env('PAYYOU_MERCHENT_SALT');
+							$transxId = $lastOrderIdStr;
+							$productInfo = implode(',', $productInfo);
+							$customerName = Auth::user()->first_name;
+							$customerEmail = Auth::user()->email;
+
+							//Get Shipping Address Details
+							$shippingId = decrypt($shippingId);
+							$deliveryAddress = DeliveryAddress::find($shippingId);
+							if(!empty($deliveryAddress)){
+								$mobile = $deliveryAddress->mobile;
+							}else{
+								$mobile = Auth::user()->mobile;
+							}
+							$udf5 = '';
+							$hash = '';
+							$hash_string = $merchentKey.'|'.$transxId.'|'.$total.'|'.$productInfo.'|'.$customerName.'|'.$customerEmail.'|||||'.$udf5.'||||||'.$merchentSalt;
+							$hash = strtolower(hash('sha512', $hash_string));
+							$successUrl = route('success');
+							$failedUrl = route('failed');
+							$PAYU_BASE_URL = env('PAYU_BASE_URL');
+							//return redirect()->route('thanks', ['token'=>Session::get('_token'),'id'=>encrypt($lastOrderId)]);
 					}
 				}
 
@@ -114,7 +143,19 @@ class OrderController extends Controller
 			'quantity'=>$quantity,
 			'subTotal'=>$subTotal,
 			'total'=>$total,
-			'cartItem'=>$cartItem
+			'cartItem'=>$cartItem,
+			'merchentKey'=>$merchentKey,
+			'merchentSalt'=>$merchentSalt,
+			'transxId'=>$transxId,
+			'productInfo'=>$productInfo,
+			'customerName'=>$customerName,
+			'customerEmail'=>$customerEmail,
+			'mobile'=>$mobile,
+			'hash'=>$hash,
+			'successUrl'=>$successUrl,
+			'failedUrl'=>$failedUrl,
+			'PAYU_BASE_URL'=>$PAYU_BASE_URL
+
 		)); 
     }
 
@@ -199,6 +240,28 @@ class OrderController extends Controller
     }
 
 
+
+
+
+    /*
+     *@Author      : Pradeep Kumar
+     *@Description : Failed Url
+     */
+    public function paymentFailed(Request $request){
+    	dd($request->all());
+    	die("Payment Failed");
+
+    }
+
+
+    /*
+     *@Author      : Pradeep Kumar
+     *@Description : Success Url
+     */
+    public function paymentSuccess(Request $request){
+    	dd($request->all());
+    	die("Payment Success");
+    }
 
 
 

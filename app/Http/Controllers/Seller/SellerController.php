@@ -220,7 +220,7 @@ class SellerController extends Master
         $city =$cityObj->getAllCity();
         $seller=Seller::where('user_id','=',Auth::user()->id)->first();
 		//Get Business Type List
-		$businessType = StoreType::all();
+		$businessType = StoreType::where('status','=',1)->all();
 		if(!empty($seller)){
 			return redirect()->route('seller');
 		}else{

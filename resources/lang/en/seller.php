@@ -21,6 +21,7 @@ return [
         'address2'   => 'Address-2',
         'state'   => 'State',
         'city'   => 'City',
+        'district' => 'District',
         'pincode'   => 'Pincode',
         'contact_number'=>'Contact Number',
         'email_address'=>'Email Address',

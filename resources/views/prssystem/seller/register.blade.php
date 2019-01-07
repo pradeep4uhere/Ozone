@@ -44,7 +44,7 @@ Add your Business infront of millions and earn 3x profits from our listing
                         {{ csrf_field() }}
 						<div class="form-row">
 						<div class="form-group col-md-6 text-left">
-						  <label for="name" class="col-md-12 control-label">Choose Business Type</label>
+						  <label for="name" class="col-md-12 control-label">Choose Business Type </label>
 						  <select class="form-control" data-live-search="true" id="store_type_id" name="store_type_id">
                                 <option data-tokens="">Choose Store Type</option>
                                 @if(!empty($businessType))
@@ -119,10 +119,11 @@ Add your Business infront of millions and earn 3x profits from our listing
 						@endif
 						</div>
 						
-						<div class="form-group col-md-6">
-                        <label for="inputPassword" class="col-sm-2 control-label">@lang('seller.profile.city')</label>
+						
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword" class="col-sm-2 control-label">@lang('seller.profile.district')</label>
                         <select class="form-control" data-live-search="true" id="city_id" name="city_id">
-                                <option data-tokens="">Choose City</option>
+                                <option data-tokens="">Choose District</option>
                                 @if(!empty($cityList))
                                 @foreach($cityList as $id=>$name)
                                 <option value="{{$id}}" @if(!empty($user)) @if($user->city_id==$id) {{"selected"}} @endif @endif>{{$name}}</option>
@@ -131,6 +132,22 @@ Add your Business infront of millions and earn 3x profits from our listing
                               </select>
                         
                     </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword" class="col-sm-2 control-label">@lang('seller.profile.location')</label>
+                        <select class="form-control" data-live-search="true" id="city_id" name="city_id">
+                                <option data-tokens="">Choose Location</option>
+                                @if(!empty($cityList))
+                                @foreach($cityList as $id=>$name)
+                                <option value="{{$id}}" @if(!empty($user)) @if($user->city_id==$id) {{"selected"}} @endif @endif>{{$name}}</option>
+                                @endforeach
+                                @endif
+                              </select>
+                        
+                    </div>
+                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} col-md-6">
+						  <label for="mobile" class="col-md-12 control-label">Pincode</label>
+						  <input  type="text" class="form-control" id="pincode_id" placeholder="Enter Pincode" name="pincode_id" required>
+						</div>
 						
 						</div>
 						
@@ -151,10 +168,7 @@ Add your Business infront of millions and earn 3x profits from our listing
 						</div>
 						
 						
-						<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} col-md-6">
-						  <label for="mobile" class="col-md-12 control-label">Pincode</label>
-						  <input  type="text" class="form-control" id="pincode_id" placeholder="Enter Pincode" name="pincode_id" required>
-						</div>
+						
 						
 						<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} col-md-6">
 						  <label for="mobile" class="col-md-12 control-label">Email Address</label>

@@ -49,7 +49,7 @@
                         <b>ADDRESS</b>
                         </br>
                         </br>
-                        <div>PackitNow Pvt Ltd</br>
+                        <div>www.go4shop.online</br>
                         Greater Noida Extension</br>
                         Noida, Sector 16C,
                         Pin-201016 (Uttar Pradesh)</br>

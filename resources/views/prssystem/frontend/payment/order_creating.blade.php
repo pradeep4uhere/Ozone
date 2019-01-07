@@ -21,6 +21,7 @@ function getCallbackUrl()
 </center>
 
 <form action="<?php echo $PAYU_BASE_URL; ?>" method="post" name="payuForm">
+	  {{ csrf_field() }}
       <input type="hidden" name="key" value="<?php echo $merchentKey ?>" />
       <input type="hidden" name="hash" value="<?php echo $hash ?>"/>
       <input type="hidden" name="txnid" value="<?php echo $transxId ?>" />

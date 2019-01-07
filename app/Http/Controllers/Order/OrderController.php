@@ -23,8 +23,9 @@ use App\Order;
 use App\OrderDetail;
 use Darryldecode\Cart\CartCondition;
 use App\Services\PayUService\Exception;
+use App\Payment;
 
-class OrderController extends Controller
+class OrderController extends Master
 {
     //
     public function orderpost(Request $request){
@@ -259,12 +260,87 @@ class OrderController extends Controller
      *@Description : Success Url
      */
     public function paymentSuccess(Request $request){
-    	dd($request->all());
-    	die("Payment Success");
+    	if ($request->isMethod('post')) {
+    		$orderId = $request->get('txnid');
+    		if(!empty($orderId)){
+    			$orderDeails = Order::where('orderID','=',$orderId)->get();
+    			//Update the Order Table Status
+    			if($request->get('status')=='success'){
+    				$res = Order::where('orderID','=',$orderId)->update(['payment_status' => 'Success','order_status'=>'Confirm']);
+    				if($res==1){
+    					//Save All the Details Of Payment Table
+    					$payment = Payment::where('order_id','=',$orderId)->get();
+    					if(count($payment)==0){
+	    					$payment = new Payment();
+	    					$payment->order_id = $orderId;
+	    					$payment->merchent_id = $request->get('mihpayid');
+	    					$payment->mode = $request->get('mode');
+	    					$payment->status = $request->get('status');
+	    					$payment->unmappedstatus = $request->get('unmappedstatus');
+	    					$payment->txnid = $request->get('txnid');
+	    					$payment->amount = $request->get('amount');
+	    					$payment->payment_date = $request->get('addedon');
+	    					$payment->firstname = $request->get('firstname');
+	    					$payment->email = $request->get('email');
+	    					$payment->phone = $request->get('phone');
+	    					$payment->bank_ref_num = $request->get('bank_ref_num');
+	    					$payment->bankcode = $request->get('bankcode');
+	    					$payment->error = $request->get('error');
+	    					$payment->error_Message = $request->get('error_Message');
+	    					$payment->name_on_card = $request->get('name_on_card');
+	    					$payment->cardnum = $request->get('cardnum');
+	    					$payment->payuMoneyId = $request->get('payuMoneyId');
+	    					$payment->net_amount_debit = $request->get('net_amount_debit');
+	    					$payment->payment_details = json_encode($request->all());
+	    					$payment->created_at = $this->getCreatedDate();
+	    					$payment->save();
+	    					return redirect()->route('thanks', ['token'=>Session::get('_token'),'id'=>encrypt($orderDeails[0]['id'])]);
+    					}
+    				}
+    			}
+    		}
+    	}else{
+    		$ordeId = session('order_id');
+	    	//DD($ordeId);
+	    	$ids = decrypt($id);
+	    	if($ordeId==$ids){
+	    		$count='';
+	    		$quantity='';
+	    		$subTotal='';
+	    		$total='';
+	    		$cartItem='';
+	    		$orderArr=Order::with('OrderDetail')->find($ordeId);
+	    		if(count($orderArr['OrderDetail'])==0){
+	    			session(['order_id' => '']);
+	    			return redirect()->route('home', ['token'=>Session::get('_token')]);
+
+	    		}
+	    		$orderDate = date('d M Y',strtotime($orderArr['created_at']));
+	    		$totalAmount = $orderArr['totalAmount'];
+	    		$shipping_id = $orderArr['shipping_id'];
+	    		//Delevry Addredd
+				if($shipping_id!=''){
+					$address = DeliveryAddress::where('id','=',$shipping_id)->where('user_id','=',Auth::user()->id)->first();
+				}
+				//DD($address);
+	    		return view(Master::loadFrontTheme('frontend.payment.thankyou'),
+					array(
+						'count'=>$count,
+						'quantity'=>$quantity,
+						'subTotal'=>$subTotal,
+						'total'=>$total,
+						'cartItem'=>$cartItem,
+						'orderID'=>$this->getOrderId($ordeId),
+						'orderDetails'=>$orderArr,
+						'orderDate'=>$orderDate,
+						'totalAmount'=>$totalAmount,
+						'address'=>$address
+					)); 
+	    	}else{
+	    		abort(404);
+	    	}
+
+
+    	}
     }
-
-
-
-
-
 }

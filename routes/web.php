@@ -72,7 +72,7 @@
         Route::any('/orderpost', 'Order\OrderController@orderpost')->name('orderpost');
         Route::get('/thanks/{token}/{id}', 'Order\OrderController@thankyou')->name('thanks');
         Route::post('/addaddress', 'User\UserController@AddAddress')->name('addaddress');
-        Route::post('/failed', 'Order\Order@paymentFailed')->name('failed');
+        Route::post('/failed', 'Order\OrderController@paymentFailed')->name('failed');
         Route::post('/success', 'Order\OrderController@paymentSuccess')->name('success');
 
         Route::get('/updateprofile', 'User\UserController@profile')->name('updateProfile');        

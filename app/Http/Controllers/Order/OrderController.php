@@ -253,6 +253,69 @@ class OrderController extends Master
     	die("Payment Failed");
 
     }
+    
+
+
+      /*
+     *@Author: Pradeep Kumar
+     *@Description: Update Payment Details Via PayU Payment Gateway
+     *@params Request
+     */
+    private function updatePaymentDetailsViaPayU($request){
+    	$result = false;
+    	$orderId = $request->get('txnid');
+		//Save All the Details Of Payment Table
+		$paymentArr = Payment::where('order_id','=',$orderId)->get();
+		if(count($paymentArr)==0){
+
+			$payment = new Payment();
+			$payment->order_id = $orderId;
+			$payment->merchent_id = $request->get('mihpayid');
+			$payment->mode = $request->get('mode');
+			$payment->status = $request->get('status');
+			$payment->unmappedstatus = $request->get('unmappedstatus');
+			$payment->txnid = $request->get('txnid');
+			$payment->amount = $request->get('amount');
+			$payment->payment_date = $request->get('addedon');
+			$payment->firstname = $request->get('firstname');
+			$payment->email = $request->get('email');
+			$payment->phone = $request->get('phone');
+			$payment->bank_ref_num = $request->get('bank_ref_num');
+			$payment->bankcode = $request->get('bankcode');
+			$payment->error = $request->get('error');
+			$payment->error_Message = $request->get('error_Message');
+			$payment->payuMoneyId = $request->get('payuMoneyId');
+			$payment->payment_details = json_encode($request->all());
+			$payment->net_amount_debit = $request->get('net_amount_debit');
+			$payment->created_at = $this->getCreatedDate();
+			//Payment Via Debit Card
+			if($request->get('mode')=='CC'){
+				
+				$payment->name_on_card = $request->get('name_on_card');
+				$payment->cardnum = $request->get('cardnum');
+
+			}else if($request->get('mode')=='UPI'){
+
+				$payment->upi_id = $request->get('field1');
+				$payment->upi_ref = $request->get('field2');
+				$payment->paymentId = $request->get('paymentId');
+
+			}else{
+
+				$payment->name_on_card = $request->get('name_on_card');
+				$payment->cardnum = $request->get('cardnum');
+			}
+
+			$payment->save();
+			$result = true;
+
+		}
+		return $result;
+
+    }
+
+
+
 
 
     /*
@@ -268,34 +331,18 @@ class OrderController extends Master
     			if($request->get('status')=='success'){
     				$res = Order::where('orderID','=',$orderId)->update(['payment_status' => 'Success','order_status'=>'Confirm']);
     				if($res==1){
-    					//Save All the Details Of Payment Table
-    					$payment = Payment::where('order_id','=',$orderId)->get();
-    					if(count($payment)==0){
-	    					$payment = new Payment();
-	    					$payment->order_id = $orderId;
-	    					$payment->merchent_id = $request->get('mihpayid');
-	    					$payment->mode = $request->get('mode');
-	    					$payment->status = $request->get('status');
-	    					$payment->unmappedstatus = $request->get('unmappedstatus');
-	    					$payment->txnid = $request->get('txnid');
-	    					$payment->amount = $request->get('amount');
-	    					$payment->payment_date = $request->get('addedon');
-	    					$payment->firstname = $request->get('firstname');
-	    					$payment->email = $request->get('email');
-	    					$payment->phone = $request->get('phone');
-	    					$payment->bank_ref_num = $request->get('bank_ref_num');
-	    					$payment->bankcode = $request->get('bankcode');
-	    					$payment->error = $request->get('error');
-	    					$payment->error_Message = $request->get('error_Message');
-	    					$payment->name_on_card = $request->get('name_on_card');
-	    					$payment->cardnum = $request->get('cardnum');
-	    					$payment->payuMoneyId = $request->get('payuMoneyId');
-	    					$payment->net_amount_debit = $request->get('net_amount_debit');
-	    					$payment->payment_details = json_encode($request->all());
-	    					$payment->created_at = $this->getCreatedDate();
-	    					$payment->save();
-	    					return redirect()->route('thanks', ['token'=>Session::get('_token'),'id'=>encrypt($orderDeails[0]['id'])]);
-    					}
+    					//Update Payment Details VIA PayU Payment Gateway
+    					$res = $this->updatePaymentDetailsViaPayU($request);
+
+    					if($res){
+
+   							return redirect()->route('thanks', ['token'=>Session::get('_token'),'id'=>encrypt($orderDeails[0]['id'])]);
+
+   						}else{
+
+   							return redirect()->route('failed', ['token'=>Session::get('_token'),'id'=>encrypt($orderDeails[0]['id'])]);
+
+   						}
     				}
     			}
     		}

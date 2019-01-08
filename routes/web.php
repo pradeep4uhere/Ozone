@@ -21,6 +21,14 @@
 | any other location as required by the application or its packages.
 |
 */
+
+
+    /**************Import Product****************************/
+    Route::get('/importproduct', 'Import\ImportController@getImport')->name('import');
+    Route::post('/import_parse', 'Import\ImportController@parseImport')->name('import_parse');
+    Route::post('/import_process', 'Import\ImportController@processImport')->name('import_process');
+
+
     Route::get('storage/product/{productid}/{path}/{filename}', function ($productid,$path,$filename)
     {
         $path = storage_path('app/public/uploads/product/product_'.$productid .'/'.$path.'/'. $filename);

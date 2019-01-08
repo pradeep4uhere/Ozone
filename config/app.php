@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'GabeMoreNow'),
+    'name' => env('APP_NAME', 'www.go4shop.online'),
 
     /*
     |--------------------------------------------------------------------------

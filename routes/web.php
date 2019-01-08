@@ -28,6 +28,17 @@
     Route::post('/import_parse', 'Import\ImportController@parseImport')->name('import_parse');
     Route::post('/import_process', 'Import\ImportController@processImport')->name('import_process');
 
+    //General Page
+    Route::get('/termsandconditions', 'Page\PageController@termsConditions')->name('termsandconditions');
+    Route::get('/aboutus', 'Page\PageController@aboutUs')->name('aboutus');
+    Route::get('/career', 'Page\PageController@career')->name('career');
+    Route::get('/privacy', 'Page\PageController@Privacy')->name('privacy');
+    Route::get('/cookies', 'Page\PageController@Cookies')->name('cookies');
+    Route::get('/help', 'Page\PageController@Help')->name('help');
+    Route::get('/faq', 'Page\PageController@FAQ')->name('faq');
+    Route::get('/contactus', 'Page\PageController@contactus')->name('contactus');
+    Route::post('/contactus', 'Page\PageController@contactus')->name('contactus');
+
 
     Route::get('storage/product/{productid}/{path}/{filename}', function ($productid,$path,$filename)
     {

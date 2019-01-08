@@ -164,7 +164,8 @@ return [
         App\Providers\HelperServiceProvider::class,
 	    'Intervention\Image\ImageServiceProvider',
 		App\Providers\CartServiceProvider::class,
-        Darryldecode\Cart\CartServiceProvider::class
+        Darryldecode\Cart\CartServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 		
 
     ],

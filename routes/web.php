@@ -27,6 +27,7 @@
     Route::get('/importproduct', 'Import\ImportController@getImport')->name('import');
     Route::post('/import_parse', 'Import\ImportController@parseImport')->name('import_parse');
     Route::post('/import_process', 'Import\ImportController@processImport')->name('import_process');
+    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
     //General Page
     Route::get('/termsandconditions', 'Page\PageController@termsConditions')->name('termsandconditions');

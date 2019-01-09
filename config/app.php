@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => env('APP_ENV', 'development'),
 
     /*
     |--------------------------------------------------------------------------
@@ -166,6 +166,7 @@ return [
 		App\Providers\CartServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Kordy\Ticketit\TicketitServiceProvider::class,
 		
 
     ],

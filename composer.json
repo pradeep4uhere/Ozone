@@ -11,8 +11,10 @@
         "guzzlehttp/guzzle": "^6.3",
         "hisorange/browser-detect": "^3.1",
         "intervention/image": "^2.4",
+        "kordy/ticketit": "0.*",
         "laravel/framework": "5.6.*",
         "maatwebsite/excel": "^2.1",
+        "pusher/pusher-php-server": "^3.3",
         "rap2hpoutre/laravel-log-viewer": "^1.0"
     },
     "require-dev": {

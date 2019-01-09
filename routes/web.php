@@ -28,6 +28,8 @@
     Route::post('/import_parse', 'Import\ImportController@parseImport')->name('import_parse');
     Route::post('/import_process', 'Import\ImportController@processImport')->name('import_process');
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+    Route::get('/notify', 'PusherController@sendNotification');
+    Route::view('/home', 'home');
 
     //General Page
     Route::get('/termsandconditions', 'Page\PageController@termsConditions')->name('termsandconditions');

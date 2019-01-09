@@ -13,6 +13,12 @@ use App\Cart;
 
 class HomeController extends Master
 {
+
+
+	function notification(Request $request){
+		
+
+	}
     /**
      * Create a new controller instance.
      *

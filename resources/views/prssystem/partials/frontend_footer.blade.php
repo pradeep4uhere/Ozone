@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-md-2">
                         <b>ABOUT</b></br></br>
-                        <div><a href="#" >Contact Us</a></br>
+                        <a href="#" >Contact Us</a></br>
                        <a href="{{route('aboutus')}}" target="_blank" > About Us</a></br>
                        <a href="{{route('career')}}" target="_blank" >Careers</a></br>
                        <a href="{{route('contactus')}}" target="_blank" >Contact Us</a></br>

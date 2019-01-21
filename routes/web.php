@@ -42,6 +42,8 @@
     Route::get('/contactus', 'Page\PageController@contactus')->name('contactus');
     Route::post('/contactus', 'Page\PageController@contactus')->name('contactus');
 
+    //ExamplePages
+    Route::view('/page1', 'prssystem.page.page1');
 
     Route::get('storage/product/{productid}/{path}/{filename}', function ($productid,$path,$filename)
     {
@@ -162,6 +164,9 @@
 		Route::get('/sellerregister', 'Seller\SellerController@sellerregister')->name('sellerregister');
 		Route::get('/profile', 'User\UserController@dashboard')->name('dashboard');
 		Route::post('/profile', 'User\UserController@updateProfile')->name('updateUserProfile');
+
+        //Get All User Order list
+        Route::get('/myorders', 'User\UserController@getOrderList')->name('myorders');
     });
 
 

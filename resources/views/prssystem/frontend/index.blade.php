@@ -291,6 +291,8 @@ input[type=submit] {
             </div>
         </div>
     </section>
+
+    @include('prssystem.partials.slider.testimonials');
     <script>
     <script>
         $(window).scroll(function() {

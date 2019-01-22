@@ -105,12 +105,10 @@ input[type=submit] {
     <!--//END HEADER -->
     <!--============================= FIND PLACES =============================-->
 
-	<!--Start Caegory SliderList-->
-	<hr/>
-        <p>
-            @include('prssystem.partials.slider.feedback')
-        </p>
-    <hr/>
+	 <!--Start Caegory SliderList-->
+   <section class="main-block">
+	          @include('prssystem.partials.slider.feedback')
+   </section>
     <!--End Caegory Slider List-->
     
 
@@ -273,10 +271,12 @@ input[type=submit] {
     <!--//END CATEGORIES -->
     <!--============================= ADD LISTING =============================-->
 
-    <section>
-      @include('prssystem.partials.slider.testimonials');
+    <section >
+      <div>
+      @include('prssystem.partials.slider.testimonials',array('itemList'=>$Testimonials))
+    </div>
     </section>
-    <section class="main-block ">
+    <section class="main-block light-bg">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">

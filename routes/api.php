@@ -72,6 +72,10 @@ Route::group(['prefix' => 'en/v1/'], function (){
 	Route::any('updatecart','Api\CartController@updateCart')->name('updatecart');
 	Route::any('getcartlist','Api\CartController@getCartList')->name('getcartlist');
 
+	//Testimonials
+	Route::any('addtestimonial','Api\FeedbackController@addTestimonial')->name('addtestimonial');
+
+
 	
 
 

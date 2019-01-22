@@ -9,6 +9,7 @@ use App\Seller;
 use App\Location;
 use App\Pin;
 use App\Cart;
+use App\Testimonial;
 
 
 class HomeController extends Master
@@ -91,10 +92,18 @@ class HomeController extends Master
 		//Get All Seller List
 		$seller = Seller::with('StoreType')->with('SellerImage')->get();
 		//dd($seller);
+
+
+		//Get All the Testimonials
+		$testimonials = array();
+		$testimonials = Testimonial::with('User')->where('status','=',1)->get()->toArray();
+
         return view(Master::loadFrontTheme('frontend.index'),array(
 		'catJson'=>json_encode($catJson),
 		'cityArr'=>json_encode($cityArr),
-		'sellerArr'=>$seller));
+		'sellerArr'=>$seller,
+		'Testimonials'=>$testimonials
+		));
     }
     
     

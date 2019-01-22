@@ -152,11 +152,12 @@
             });
         });
     </script>
-    <hr/>
     <div class="demo row" style="padding-top: 40px;">
             <div class="col-sm-2">&nbsp;</div>
             <div class="item col-sm-8 text-center">
             <ul id="testimonial-slider" class="content-slider">
+                @if(!empty($itemList))
+                @foreach($itemList as $testimonials)
                 <li>
                  <div class="carousel-inner">
                   <!-- Quote 3 -->
@@ -167,52 +168,16 @@
                           <img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/keizgoesboom/128.jpg" style="width: 100px;height:100px;">
                         </div>
                         <div class="col-sm-9">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rutrum elit in arcu blandit, eget pretium nisl accumsan. Sed ultricies commodo tortor, eu pretium mauris.</p>
-                          <small>--Someone famous</small>
+                          <p>{{$testimonials['text']}}</p>
+                          <small>--{{$testimonials['full_name']}}</small>
                         </div>
                       </div>
                     </blockquote>
                   </div>
                   </div>  
                 </li>
-                <li>
-                    <div class="carousel-inner">
-                    <!-- Quote 2 -->
-                  <div class="item">
-                    <blockquote>
-                      <div class="row">
-                        <div class="col-sm-2 text-center">
-                          <img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/mijustin/128.jpg" style="width: 100px;height:100px;">
-                        </div>
-                        <div class="col-sm-9">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam auctor nec lacus ut tempor. Mauris.</p>
-                          <small>--Someone famous</small>
-                        </div>
-                      </div>
-                    </blockquote>
-                  </div>
-                  </div>
-                </li>
-
-                <li>
-                    <div class="carousel-inner">
-                    <!-- Quote 1 -->
-                      <div class="item active">
-                        <blockquote>
-                          <div class="row">
-                            <div class="col-sm-2 text-center">
-                              <img class="img-circle" src="http://www.reactiongifs.com/r/overbite.gif" style="width: 100px;height:100px;">
-                            </div>
-                            <div class="col-sm-9">
-                              <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit!</p>
-                              <small>--Someone famous</small>
-                            </div>
-                          </div>
-                        </blockquote>
-                      </div>
-                      </div>
-
-                </li>
+                @endforeach
+                @endif
             </ul>
         </div>
     </div>  

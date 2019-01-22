@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Master;
 use Mail;
 use App\Feedback;
+use App\Testimonial;
 
 class FeedbackController extends Master
 {
@@ -99,6 +100,60 @@ class FeedbackController extends Master
         }catch(Exception $e){
             //return false;
         }
+    }
+
+
+
+
+
+    /**
+     * Add new Tesimonials By the user.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function addTestimonial(Request $request){
+        try{
+            
+            if(self::isValidToekn($request)){
+                $validator = Validator::make($request->all(), [
+                    'name' => 'required|min:6',
+                    'text' => 'required',
+                    'user_id' => 'required|numeric'
+                ]);
+                if ($validator->fails()) {
+                    $errors = $validator->errors();
+                    $this->responseArray['status'] = false;
+                    $this->responseArray['message']= "Input are not valid";
+                    $this->responseArray['error']= $errors;
+                }else{
+                    $name = $request->get('name');
+                    $user_id = $request->get('user_id');
+                    $text = $request->get('text');
+                    $testimonialsObj = new Testimonial();
+                    $testimonialsObj->full_name = $name;
+                    $testimonialsObj->user_id = $user_id;
+                    $testimonialsObj->text = $text;
+                    $testimonialsObj->created_at = self::getCreatedDate();
+                    try{
+                        $testimonialsObj->save();
+                        $testimonialsObj->id;
+                        $this->responseArray = self::getMessage(200,"Thanks for your time.");
+                    }catch (Exception $e) {
+                        $this->responseArray['status'] = false;
+                        $this->responseArray['message'] = self::getMessage(9999,$e->getMessage());
+                    }
+
+                }
+
+            }
+        }catch (Exception $e) {
+            $this->responseArray['status'] = false;
+            $this->responseArray['message'] = self::getMessage(9999,$e->getMessage());
+        }
+        return response()->json($this->responseArray);
+
+
     }
 
 }

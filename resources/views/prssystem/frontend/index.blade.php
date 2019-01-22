@@ -106,17 +106,21 @@ input[type=submit] {
     <!--============================= FIND PLACES =============================-->
 
 	 <!--Start Caegory SliderList-->
-   <section class="main-block">
-	          @include('prssystem.partials.slider.feedback')
+   <section class="main-block light-bg">
+        <div class="row justify-content-center">
+            <div class="styled-heading">
+              <h3>Featured Stores Near You</h3>
+            </div>
+        </div>
+	      @include('prssystem.partials.slider.featuresSeller',array('sellerArr'=>$sellerArr))
    </section>
     <!--End Caegory Slider List-->
     
-
+<section class="main-block">
     <!--Start Caegory List-->
-    <p>
         @include('prssystem.partials.slider.category')
-    </p>
     <!--End Caegory List-->
+  </section>
         
 	<hr/>
 <section class="main-block">

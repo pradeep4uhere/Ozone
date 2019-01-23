@@ -7,6 +7,7 @@
         color: #FFF; text-decoration: none;
      }
  </style>
+
  <footer class="main-block dark-bg" style="color: #FFF; font-size: 12px; font-weight: normal;">
             <div class="container">
                 <div class="row">
@@ -63,3 +64,4 @@
                 <center>&copy 2019 www.go4shop.online</center>
             </div>
     </footer>
+ <!-- @include('prssystem.partials.alert.location') -->

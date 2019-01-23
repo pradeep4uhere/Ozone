@@ -70,3 +70,7 @@ https://github.com/rap2hpoutre/laravel-log-viewer
 
 ##Support Ticket System
 https://github.com/thekordy/ticketit
+
+##Editior
+https://medium.com/@bvipul/integrate-tinymce-editor-in-your-laravel-installation-with-a-filemanager-235894910531
+https://github.com/UniSharp/laravel-filemanager

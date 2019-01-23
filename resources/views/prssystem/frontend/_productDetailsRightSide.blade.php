@@ -3,6 +3,7 @@
                 <div class="col-md-12 responsive-wrap">
                     <div class="row light-bg detail-options-wrap">
                         <!--Product Box Start-->
+                       
                         @if(!empty($productList))
                         @foreach($productList as $prodObj)
                         <div class="col-md-3 featured-responsive" >
@@ -16,8 +17,8 @@
                                 <p style="font-size: 16px;">{{ucwords($prodObj['Product']['title'])}}</p>
                                 <p style="font-size: 12px;">Category ::
                                  {{$prodObj['Product']['Category']['name']}} > {{str_limit($prodObj['Product']['SubCategory']['name'],8)}}</p>
-                                <p style="font-size: 12px;">Manufacture By: <span>{{$prodObj['Product']->Brand['name']}}</span></p><BR/>
-                                <p style="font-size: 12px;">Unit: {{$prodObj['UserProduct']['quantity_in_unit']}}&nbsp;{{$prodObj['Product']->Unit['name']}}</p>
+                                <p style="font-size: 12px;">Manufacture By: <span>{{$prodObj['Product']['Brand']['name']}}</span></p><BR/>
+                                <p style="font-size: 12px;">Unit: {{$prodObj['UserProduct']['quantity_in_unit']}}&nbsp;{{$prodObj['Product']['Unit']['name']}}</p>
                                 <div class="bottom-icons">
                                 <div class="closed-now">
                                     <a href="javascript:void(0)" class="btn" style="background-color:#ff3a6d;color:#FFF;" onClick="addToCart('{{encrypt($prodObj['UserProduct']['id'])}}','{{str_slug($prodObj['Product']['title'])}}')">Add To Cart</a>

@@ -167,6 +167,8 @@ return [
         Darryldecode\Cart\CartServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         Kordy\Ticketit\TicketitServiceProvider::class,
+        Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 		
 
     ],
@@ -220,7 +222,8 @@ return [
         'Helper' => App\Helpers\Helper::class,
         'Cart'=>App\Providers\CartServiceProvider::class,
 		'Image' => 'Intervention\Image\Facades\Image',
-        'Cart' => Darryldecode\Cart\Facades\CartFacade::class
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 

@@ -238,6 +238,8 @@ li.fancyTab.active a {
         
 }
 </style>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<!-- <script src="{{config('global.THEME_URL_JS').'/profile/tinymce.min.js'}}"></script> -->
     <div class="container"> 
 <section id="fancyTabWidget" class="tabs t-tabs">
         <ul class="nav nav-tabs fancyTabs" role="tablist">
@@ -253,7 +255,7 @@ li.fancyTab.active a {
                     
                     <li class="tab fancyTab">
                     <div class="arrow-down"><div class="arrow-down-inner"></div></div>
-                        <a id="tab3" href="#tabBody3" role="tab" aria-controls="tabBody3" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-image"></span><span class="hidden-xs">Product Images</span></a>
+                        <a id="tab3" href="#tabBody3" role="tab" aria-controls="tabBody3" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-image"></span><span class="hidden-xs">About Product</span></a>
                         <div class="whiteBlock"></div>
                     </li> 
                          
@@ -268,13 +270,13 @@ li.fancyTab.active a {
                         <a id="tab5" href="#tabBody5" role="tab" aria-controls="tabBody5" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-question-circle"></span><span class="hidden-xs">Return Policy</span></a>
                         <div class="whiteBlock"></div>
                     </li>
-                    <li class="tab fancyTab">
+                    <li class="tab fancyTab" style="display: none">
                     <div class="arrow-down"><div class="arrow-down-inner"></div></div>
                         <a id="tab1" href="#tabBody1" role="tab" aria-controls="tabBody1" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-firefox"></span><span class="hidden-xs">More</span></a>
                         <div class="whiteBlock"></div>
                     </li>
                     
-                    <li class="tab fancyTab">
+                    <li class="tab fancyTab" style="display: none">
                     <div class="arrow-down"><div class="arrow-down-inner"></div></div>
                         <a id="tab2" href="#tabBody2" role="tab" aria-controls="tabBody2" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-envira"></span><span class="hidden-xs">Discover</span></a>
                         <div class="whiteBlock"></div>
@@ -296,46 +298,62 @@ li.fancyTab.active a {
                         <div class="row">
                                 
                                 <div class="col-md-12">
-                                    
-                                   
+                                    <h2>Comming Soon</h2>
                                 </div>
                             </div>
                     </div>
                     <div class="tab-pane  fade" id="tabBody2" role="tabpanel" aria-labelledby="tab2" aria-hidden="true" tabindex="0">
                         <div class="row">
                                 <div class="col-md-12">
-                                    <h2>This is the content of tab three.</h2>
-                                    <p>This field is a rich HTML field with a content editor like others used in Sitefinity. It accepts images, video, tables, text, etc. Street art polaroid microdosing la croix taxidermy. Jean shorts kinfolk distillery lumbersexual pinterest XOXO semiotics. Tilde meggings asymmetrical literally pork belly, heirloom food truck YOLO. Meh echo park lyft typewriter. </p>
-                                  
+                                    <h2>Comming Soon</h2>
                                 </div>
                             </div>
                     </div>
                     <div class="tab-pane  fade" id="tabBody3" role="tabpanel" aria-labelledby="tab3" aria-hidden="true" tabindex="0">
-                    <div class="row">
-                        <div class="col-md-12">
-                                    <h2>This is the content of tab four.</h2>
-                                    <p>This field is a rich HTML field with a content editor like others used in Sitefinity. It accepts images, video, tables, text, etc. Street art polaroid microdosing la croix taxidermy. Jean shorts kinfolk distillery lumbersexual pinterest XOXO semiotics. Tilde meggings asymmetrical literally pork belly, heirloom food truck YOLO. Meh echo park lyft typewriter. </p>
-                                  
-                                </div>
-                            </div>
+                     <div class="row">
+                      <div class="col-md-1">
+                        <label>Enter Description</label>
+                      </div>
+                      <div class="col-md-11">
+                            <form action="{{route('productattr',['id'=>$userProduct['id']])}}" method="POST">
+                              {{csrf_field()}}
+                              @include('prssystem.partials.product.editor',array('name'=>'aboutproduct','fieldName'=>'aboutproduct','value'=>$userProduct['about_product']))
+                              <input type="submit" name="Save" value="Save" class="btn btn-success">&nbsp;
+                              <input type="button" name="cancel" value="Cancel" class="btn btn-danger">
+                            </form>
+                          </div>
+                      </div>
                     </div>
                     <div class="tab-pane  fade" id="tabBody4" role="tabpanel" aria-labelledby="tab4" aria-hidden="true" tabindex="0">
-                    <div class="row">
-                        <div class="col-md-12">
-                                    <h2>This is the content of tab five.</h2>
-                                    <p>This field is a rich HTML field with a content editor like others used in Sitefinity. It accepts images, video, tables, text, etc. Street art polaroid microdosing la croix taxidermy. Jean shorts kinfolk distillery lumbersexual pinterest XOXO semiotics. Tilde meggings asymmetrical literally pork belly, heirloom food truck YOLO. Meh echo park lyft typewriter. </p>
-                                  
-                                </div>
-                            </div>
+                   <div class="row">
+                      <div class="col-md-1">
+                        <label>Enter Description</label>
+                      </div>
+                      <div class="col-md-11">
+                          <form action="{{route('productattr',['id'=>$userProduct['id']])}}" method="POST">
+                              {{csrf_field()}}
+                              @include('prssystem.partials.product.editor',array('name'=>'aboutproduct','fieldName'=>'offer','value'=>$userProduct['offers']))
+                              <input type="submit" name="Save" value="Save" class="btn btn-success">&nbsp;
+                              <input type="button" name="cancel" value="Cancel" class="btn btn-danger">
+                          </form>
+                      </div>
+                  </div>
+                  </div>
+                  <div class="tab-pane  fade" id="tabBody5" role="tabpanel" aria-labelledby="tab5" aria-hidden="true" tabindex="0">
+                  <div class="row">
+                    <div class="col-md-1">
+                      <label>Enter Description</label>
                     </div>
-                    <div class="tab-pane  fade" id="tabBody5" role="tabpanel" aria-labelledby="tab5" aria-hidden="true" tabindex="0">
-                    <div class="row">
-                        <div class="col-md-12">
-                                    <h2>This is the content of tab six.</h2>
-                                    <p>This field is a rich HTML field with a content editor like others used in Sitefinity. It accepts images, video, tables, text, etc. Street art polaroid microdosing la croix taxidermy. Jean shorts kinfolk distillery lumbersexual pinterest XOXO semiotics. Tilde meggings asymmetrical literally pork belly, heirloom food truck YOLO. Meh echo park lyft typewriter. </p>
-                                  
-                                </div>
-                            </div>
+                    <div class="col-md-11">
+                        <form action="{{route('productattr',['id'=>$userProduct['id']])}}" method="POST">
+                              {{csrf_field()}}
+                              @include('prssystem.partials.product.editor',array('name'=>'aboutproduct','fieldName'=>'returnpolicy','value'=>$userProduct['return_policy']))
+                              <input type="submit" name="Save" value="Save" class="btn btn-success">&nbsp;
+                              <input type="button" name="cancel" value="Cancel" class="btn btn-danger">
+                        </form>
+
+                    </div>
+                          </div>
                     </div>
         </div>
 

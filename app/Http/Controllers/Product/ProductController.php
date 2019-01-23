@@ -442,4 +442,38 @@ class ProductController extends Master
             );
     }
 
+
+
+
+    public function productAttr(Request $request,$id){
+        if ($request->isMethod('post')) {
+            $productId = $id;
+            $aboutproduct = $request->get('aboutproduct');
+            $offer = $request->get('offer');
+            $returnpolicy = $request->get('returnpolicy');
+            $userProduct =  UserProduct::find($productId);
+            $tag = 'Product';
+            if($aboutproduct!=''){
+                $tag = 'About Product updated!';
+                $userProduct->about_product = $aboutproduct;
+            }
+            if ($offer!='') {
+                $tag = 'Product Offer updated!';
+                $userProduct->offers = $offer;
+            }
+            if ($returnpolicy!='') {
+                $tag = 'Product Return Policy updated!';
+                $userProduct->return_policy = $returnpolicy;
+            }
+            try{
+                $userProduct->save();
+                Session::flash('message', $tag);
+            }catch(Exception $e){
+                Session::flash('message', 'Product not updated!');
+            }
+            return redirect()->route('editProduct', ['upid' => $productId]);
+        }
+
+    }
+
 }

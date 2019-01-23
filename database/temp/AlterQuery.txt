@@ -15,3 +15,9 @@ ALTER TABLE `so_delivery_addresses` ADD `status` VARCHAR(100) NULL AFTER `distri
 ALTER TABLE `so_delivery_addresses` ADD `location_id` INT NOT NULL DEFAULT '0' AFTER `country`;
 ALTER TABLE `so_delivery_addresses` ADD `email_address` VARCHAR(225) NULL AFTER `mobile`;
 ALTER TABLE `so_delivery_addresses` ADD `state` VARCHAR(100) NULL AFTER `district`;
+
+
+23-01-2019
+ALTER TABLE `so_user_products` ADD `offers` LONGTEXT NULL AFTER `discount_value`;
+ALTER TABLE `so_user_products` ADD `return_policy` LONGTEXT NULL AFTER `offers`;
+ALTER TABLE `so_user_products` ADD `about_product` LONGTEXT NULL AFTER `discount_value`;

@@ -137,6 +137,9 @@
         Route::get('/hideProductImage/{id}', 'Product\ProductImageController@hideProductImage')->name('hideProductImage');
         Route::get('/showProductImage/{id}', 'Product\ProductImageController@showProductImage')->name('showProductImage');
         Route::get('/setAsDefault/{prod_id}/{id}', 'Product\ProductImageController@setProductImageAsDefault')->name('setProductImageAsDefault');
+        Route::post('/productattr/{id}', 'Product\ProductController@productAttr')->name('productattr');
+
+
         
         //Category Section
 		Route::get('/allcategory', 'Category\CategoryController@allcategory')->name('allcategory');
@@ -151,6 +154,10 @@
 		//All Ajax Call herer
         Route::post('/getSubCategory', 'Category\CategoryController@getSubCategory')->name('getSubCategory');
         Route::post('/getBrandList', 'Brand\BrandController@getBrandList')->name('getBrandList');
+
+        //File Manager
+        Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show');
+        Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload');
     });
         
 

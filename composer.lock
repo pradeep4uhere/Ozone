@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "21e5166b78ab286acc7552ddd57ca375",
-    "content-hash": "2795617e6e89e9715a60ed6a980057ea",
+    "hash": "b25ae5abca1cd65c4dc0e668ddf35dc2",
+    "content-hash": "79f364f6d73508003b7d6743e4a01712",
     "packages": [
         {
             "name": "darryldecode/cart",
@@ -3884,6 +3884,81 @@
             ],
             "description": "A multi-language port of Browserscope's user agent parser.",
             "time": "2018-12-14 12:44:10"
+        },
+        {
+            "name": "unisharp/laravel-filemanager",
+            "version": "v2.0.0-alpha7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/UniSharp/laravel-filemanager.git",
+                "reference": "f25ea4d4f4e782fc20e690d121daacf1539ae032"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/UniSharp/laravel-filemanager/zipball/f25ea4d4f4e782fc20e690d121daacf1539ae032",
+                "reference": "f25ea4d4f4e782fc20e690d121daacf1539ae032",
+                "shasum": ""
+            },
+            "require": {
+                "ext-exif": "*",
+                "ext-fileinfo": "*",
+                "illuminate/config": "5.4.* || 5.5.* || 5.6.* || 5.7.*",
+                "illuminate/container": "5.4.* || 5.5.* || 5.6.* || 5.7.*",
+                "illuminate/filesystem": "5.4.* || 5.5.* || 5.6.* || 5.7.*",
+                "illuminate/http": "5.4.* || 5.5.* || 5.6.* || 5.7.*",
+                "illuminate/support": "5.4.* || 5.5.* || 5.6.* || 5.7.*",
+                "intervention/image": "2.*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.9",
+                "phpunit/phpunit": "^6.2",
+                "squizlabs/php_codesniffer": "^3.1"
+            },
+            "suggest": {
+                "ext-gd": "to use GD library based image processing.",
+                "ext-imagick": "to use Imagick based image processing."
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "UniSharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider"
+                    ],
+                    "aliases": []
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "UniSharp\\LaravelFilemanager\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Trevor Sawler",
+                    "email": "trevor.sawler@gmail.com"
+                },
+                {
+                    "name": "UniSharp Ltd.",
+                    "email": "opensource@unisharp.com"
+                }
+            ],
+            "description": "A file upload/editor intended for use with Laravel 5 and CKEditor / TinyMCE",
+            "keywords": [
+                "CKEditor",
+                "file",
+                "filemanager",
+                "image",
+                "laravel",
+                "manager",
+                "tinymce",
+                "upload"
+            ],
+            "time": "2018-12-05 14:33:04"
         },
         {
             "name": "vlucas/phpdotenv",

@@ -181,10 +181,12 @@ class SellerController extends Master
 	*@Description: View Seller Prifole
 	*/
 	public function sellerview($seller,$id){
+    $metaTags = self::getMetaTags();
 		if($id!=''){
 			$id=decrypt($id);
 			$seller = Seller::where('id','=',$id)->with('User')->first();
 		} 
+
 		//dd($seller['user_id']);
         $lsitArr=array();
         $productList=array();
@@ -200,10 +202,41 @@ class SellerController extends Master
                     
                 }
             }
+
+        $metaTitle = $seller['business_name'];
+        $metaDesc = $seller['business_name'].', Near '.$seller['address_1'].', '.$seller['address_2'];
+        $metaKeywords = 'Seller, Near Store';
+        $pageImage = self::getLogo();
+        $pageUrl = self::getURL().'/seller/'.str_slug($seller['business_name']).'/'.encrypt($seller['id']);
+        $createdAtStr = $seller['created_at'];
+        $updatedAtStr = $seller['updated_at'];
+        $section      = 'Seller';
+        $category     = 'Seller Page';
+        $tag          = 'Buy, Sell, Lower Price, Hot Deal';
+        $article      = 'Seller Business Page';
+
+        $metaTags['title']        =$metaTitle;
+        $metaTags['description']  =$metaDesc;
+        $metaTags['keywords']     =$metaKeywords;
+        $metaTags['pageimage']    =$pageImage;
+        $metaTags['pageurl']      =$pageUrl;
+        $metaTags['publishedTime']=$createdAtStr;
+        $metaTags['modifiedTime'] =$updatedAtStr;
+        $metaTags['section']      =$section;
+        $metaTags['category']     =$category;
+        $metaTags['tag']          =$tag;
+        $metaTags['article']      =$article;
+        $metaTags['twittersite']  ='';
+        $metaTags['urlimage']     =self::getLogo();
+        $metaTags['url']          =$pageUrl;
+        $metaTags['sitename']     =self::getAppName();
+
+
 		return view(Master::loadFrontTheme('seller.details'),array(
 				'seller'=>$seller,
 				'productDetails'=>$productList,
-                'productList'=>$lsitArr
+        'productList'=>$lsitArr,
+        'metaTags'=>$metaTags
 				)
 			);
 		

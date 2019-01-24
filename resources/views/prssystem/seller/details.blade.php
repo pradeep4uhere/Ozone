@@ -1,7 +1,5 @@
 @extends('prssystem/layouts/frontDetails')
-@section('title')
-{{$seller['business_name']}}
-@stop
+@include('prssystem.partials.metatags',array('meta'=>$metaTags))
 @section('content')
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!--main section-->

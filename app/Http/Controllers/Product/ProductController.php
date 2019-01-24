@@ -451,6 +451,7 @@ class ProductController extends Master
             $aboutproduct = $request->get('aboutproduct');
             $offer = $request->get('offer');
             $returnpolicy = $request->get('returnpolicy');
+            $misc = $request->get('misc');
             $userProduct =  UserProduct::find($productId);
             $tag = 'Product';
             if($aboutproduct!=''){
@@ -464,6 +465,10 @@ class ProductController extends Master
             if ($returnpolicy!='') {
                 $tag = 'Product Return Policy updated!';
                 $userProduct->return_policy = $returnpolicy;
+            }
+            if ($misc!='') {
+                $tag = 'Product Misc updated!';
+                $userProduct->misc = $misc;
             }
             try{
                 $userProduct->save();

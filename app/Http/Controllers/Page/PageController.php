@@ -1,14 +1,40 @@
 <?php
-
 namespace App\Http\Controllers\Page;
 use App\Http\Controllers\Master;
 use Illuminate\Http\Request;
 use App\ContactUs;
 use Illuminate\Support\Facades\Validator;
+use App\Page;
 
 
 class PageController extends Master
 {
+
+
+    /***************Update Page Content****************/
+    public function updatePage(Request $request,$slug){
+        $pageRow = Page::where('slug','=',$slug)->first()->toArray();
+        if ($request->isMethod('post')) {
+            $id =  $pageRow['id'];
+            $pageObj = Page::find($id);
+            $pageObj->title = $request->get('title');
+            $pageObj->description = $request->get('misc');
+            $pageObj->created_at = self::getCreatedDate();
+            $pageObj->save();
+        }
+        $pageRow = Page::where('slug','=',$slug)->first()->toArray();
+        return view(Master::loadFrontTheme('page.editcontent'),array('pageRow'=>$pageRow));
+    }
+
+
+
+
+
+
+
+
+
+
 
     /***************Terms and Conditions***************************/
     public function termsConditions(Request $request){

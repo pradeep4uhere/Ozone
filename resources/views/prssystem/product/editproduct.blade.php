@@ -270,15 +270,20 @@ li.fancyTab.active a {
                         <a id="tab5" href="#tabBody5" role="tab" aria-controls="tabBody5" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-question-circle"></span><span class="hidden-xs">Return Policy</span></a>
                         <div class="whiteBlock"></div>
                     </li>
-                    <li class="tab fancyTab" style="display: none">
+                    <li class="tab fancyTab">
                     <div class="arrow-down"><div class="arrow-down-inner"></div></div>
-                        <a id="tab1" href="#tabBody1" role="tab" aria-controls="tabBody1" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-firefox"></span><span class="hidden-xs">More</span></a>
+                        <a id="tab1" href="#tabBody1" role="tab" aria-controls="tabBody1" aria-selected="true" data-toggle="tab" tabindex="0">
+                          <span class="fa fa-list"></span>
+                          <span class="hidden-xs">Other</span></a>
                         <div class="whiteBlock"></div>
                     </li>
                     
                     <li class="tab fancyTab" style="display: none">
                     <div class="arrow-down"><div class="arrow-down-inner"></div></div>
-                        <a id="tab2" href="#tabBody2" role="tab" aria-controls="tabBody2" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-envira"></span><span class="hidden-xs">Discover</span></a>
+                        <a id="tab2" href="#tabBody2" role="tab" aria-controls="tabBody2" aria-selected="true" data-toggle="tab" tabindex="0">
+                          <span class="fa fa-envira"></span>
+                          <span class="hidden-xs">Discover</span>
+                        </a>
                         <div class="whiteBlock"></div>
                     </li>
         </ul>
@@ -298,7 +303,12 @@ li.fancyTab.active a {
                         <div class="row">
                                 
                                 <div class="col-md-12">
-                                    <h2>Comming Soon</h2>
+                                    <form action="{{route('productattr',['id'=>$userProduct['id']])}}" method="POST">
+                                      {{csrf_field()}}
+                                      @include('prssystem.partials.product.editor',array('name'=>'misc','fieldName'=>'misc','value'=>$userProduct['misc']))
+                                      <input type="submit" name="Save" value="Save" class="btn btn-success">&nbsp;
+                                      <input type="button" name="cancel" value="Cancel" class="btn btn-danger">
+                                    </form>
                                 </div>
                             </div>
                     </div>

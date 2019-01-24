@@ -183,3 +183,10 @@
         Route::get('/dashboard', 'Seller\SellerController@dashboard')->name('sellerdashboard');
         Route::get('/addproduct', 'Product\ProductController@addProduct')->name('selleraddproduct');
     });
+
+    // Admin routes
+    Route::group(['middleware' => 'auth','prefix' =>'admin'], function () {
+            Route::get('/page/{slug}', 'Page\PageController@updatePage')->name('editContent');
+            Route::get('/page/allpagelist', 'Page\PageController@allPageList')->name('allPageList');
+            Route::post('/page/{slug}', 'Page\PageController@updatePage')->name('updatePage');
+    });

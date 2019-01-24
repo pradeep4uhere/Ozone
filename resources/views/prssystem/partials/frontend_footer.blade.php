@@ -14,16 +14,16 @@
                     <div class="col-md-2">
                         <b>ABOUT</b></br></br>
                         <a href="#" >Contact Us</a></br>
-                       <a href="{{route('aboutus')}}" target="_blank" > About Us</a></br>
-                       <a href="{{route('career')}}" target="_blank" >Careers</a></br>
-                       <a href="{{route('contactus')}}" target="_blank" >Contact Us</a></br>
+                       <a href="{{url('/aboutus')}}" target="_blank" > About Us</a></br>
+                       <a href="{{url('/career')}}" target="_blank" >Careers</a></br>
+                       <a href="{{url('/contactus')}}" target="_blank" >Contact Us</a></br>
                     </div>
                     <div class="col-md-2">
                         <b>HELP</b>
                         </br></br>
                         <div><a href="#" >Payments</a></br>
-                        <a href="{{route('termsandconditions')}}" target="_blank"  >Shipping</a></br>
-                        <a href="{{route('termsandconditions')}}" target="_blank"  >Cancellation & Returns</a></br>
+                        <a href="{{url('/termsandconditions')}}" target="_blank"  >Shipping</a></br>
+                        <a href="{{url('/termsandconditions')}}" target="_blank"  >Cancellation & Returns</a></br>
                         <a href="{{route('faq')}}" target="_blank" >FAQ</a></div>
                     </div>
                     <div class="col-md-2">
@@ -31,10 +31,10 @@
                         </br>
                         </br>
                         <div><a href="#" >Return Policy</a></br>
-                        <a href="{{route('termsandconditions')}}" target="_blank"  >Terms Of Use</a></br>
-                        <a href="{{route('termsandconditions')}}" target="_blank"  >Security</a></br>
-                        <a href="{{route('termsandconditions')}}" target="_blank"  >Privacy</a></br>
-                        <a href="{{route('termsandconditions')}}" target="_blank"  >Sitemap</a></div>
+                        <a href="{{url('/termsandconditions')}}" target="_blank"  >Terms Of Use</a></br>
+                        <a href="{{url('/termsandconditions')}}" target="_blank"  >Security</a></br>
+                        <a href="{{url('/termsandconditions')}}" target="_blank"  >Privacy</a></br>
+                        <a href="{{url('/termsandconditions')}}" target="_blank"  >Sitemap</a></div>
                     </div>
                     
                     <div class="col-md-2">

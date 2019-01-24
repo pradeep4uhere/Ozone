@@ -31,16 +31,7 @@
     Route::get('/notify', 'PusherController@sendNotification');
     Route::view('/home', 'home');
 
-    //General Page
-    Route::get('/termsandconditions', 'Page\PageController@termsConditions')->name('termsandconditions');
-    Route::get('/aboutus', 'Page\PageController@aboutUs')->name('aboutus');
-    Route::get('/career', 'Page\PageController@career')->name('career');
-    Route::get('/privacy', 'Page\PageController@Privacy')->name('privacy');
-    Route::get('/cookies', 'Page\PageController@Cookies')->name('cookies');
-    Route::get('/help', 'Page\PageController@Help')->name('help');
-    Route::get('/faq', 'Page\PageController@FAQ')->name('faq');
-    Route::get('/contactus', 'Page\PageController@contactus')->name('contactus');
-    Route::post('/contactus', 'Page\PageController@contactus')->name('contactus');
+    
 
     //ExamplePages
     Route::view('/page1', 'prssystem.page.page1');
@@ -82,6 +73,12 @@
     Route::any('/seller/{seller}/{id}', 'Seller\SellerController@sellerview')->name('sellerview');
 	
     
+    //General Page
+    Route::get('/page/faq', 'Page\PageController@FAQ')->name('faq');
+    Route::get('/{slug}', 'Page\PageController@viewPage')->name('viewPage');
+    Route::get('/allfaqs', 'Page\PageController@allfaqs')->name('allfaqs');
+    Route::get('/contactus', 'Page\PageController@contactus')->name('contactus');
+    Route::post('/contactus', 'Page\PageController@contactus')->name('contactus');
     
     Route::group(['middleware' => 'auth'], function () {
         Route::post('/cart/{id}', 'Product\CartController@addToCart')->name('addtoCart');
@@ -189,4 +186,6 @@
             Route::get('/page/{slug}', 'Page\PageController@updatePage')->name('editContent');
             Route::get('/page/allpagelist', 'Page\PageController@allPageList')->name('allPageList');
             Route::post('/page/{slug}', 'Page\PageController@updatePage')->name('updatePage');
+            Route::get('/page/faq/{id}', 'Page\PageController@updateFaq')->name('updatePageFaq');
+            Route::post('/page/faq/{id}', 'Page\PageController@updateFaq')->name('updatePageFaq');
     });

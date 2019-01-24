@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\ContactUs;
 use Illuminate\Support\Facades\Validator;
 use App\Page;
+use App\Faq;
 
 
 class PageController extends Master
@@ -12,6 +13,24 @@ class PageController extends Master
 
 
     /***************Update Page Content****************/
+    public function updateFaq(Request $request,$id){
+
+        $pageRow = Faq::find($id);
+        if ($request->isMethod('post')) {
+            $id =  $pageRow['id'];
+            $pageObj = Faq::find($id);
+            $pageObj->title = $request->get('title');
+            $pageObj->descriptions = $request->get('misc');
+            $pageObj->status = $request->get('status');
+            $pageObj->created_at = self::getCreatedDate();
+            $pageObj->save();
+        }
+        $pageRow = Faq::find($id);
+        return view(Master::loadFrontTheme('page.editfaq'),array('pageRow'=>$pageRow));
+    }
+
+
+     /***************Update Page Content****************/
     public function updatePage(Request $request,$slug){
         $pageRow = Page::where('slug','=',$slug)->first()->toArray();
         if ($request->isMethod('post')) {
@@ -27,53 +46,62 @@ class PageController extends Master
     }
 
 
-
-
-
-
-
-
-
-
-
-    /***************Terms and Conditions***************************/
-    public function termsConditions(Request $request){
-        return view(Master::loadFrontTheme('page.terms_conditions'));
+    /***************Update Page Content****************/
+    public function viewPage(Request $request,$slug){
+        $pageRowObj = Page::where('slug','=',$slug)->first();
+        
+        if(!empty($pageRowObj)){
+            $pageRow = $pageRowObj->toArray();
+        }else{
+            return abort('404');
+        }
+        return view(Master::loadFrontTheme('page.static'),array('pageRow'=>$pageRow));
     }
 
-
-    /***************Terms and Conditions***************************/
-    public function aboutUs(Request $request){
-        return view(Master::loadFrontTheme('page.about_us'));
-    }
-
-
-    /***************Career***************************/
-    public function career(Request $request){
-        return view(Master::loadFrontTheme('page.career'));
-    }
-
-    /***************Privacy***************************/
-    public function Privacy(Request $request){
-        return view(Master::loadFrontTheme('page.privacy'));
-    }
-
-    /***************Privacy***************************/
-    public function Cookies(Request $request){
-        return view(Master::loadFrontTheme('page.cookies'));
-    }
-
-
-    /***************Help***************************/
-    public function Help(Request $request){
-        return view(Master::loadFrontTheme('page.help'));
-    }
 
 
     /***************FAQ***************************/
     public function FAQ(Request $request){
-        return view(Master::loadFrontTheme('page.faq'));
+        $metaTags = self::getMetaTags();
+        $faqObj = FAQ::with('Child')->where('status','=','1')->orderBy('type','ASC')->get();
+        $newFaq = array();
+        if(!empty($faqObj)){
+            $faqObjArr = $faqObj->toArray();
+            $count = 1;
+            $titleStr = "";
+            $descriptionStr = "";
+            $createdAtStr = "";
+            $updatedAtStr= "";
+            foreach($faqObjArr as $val){
+                if($count==1){
+                    $titleStr = $val['title'];
+                    $descriptionStr = $val['descriptions'];
+                    $createdAtStr = $val['created_at'];
+                    $updatedAtStr = $val['updated_at'];
+                }
+                $count++;
+                $newFaq[$val['type']][]=$val;
+            }
+        }
+        $metaTags['description'] ='FAQ-'.$descriptionStr;
+        $metaTags['keywords'] ='Faq,User,Seller, Buyer, General';
+        $metaTags['pageimage'] =self::getLogo();
+        $metaTags['pageurl'] =self::getURL().'/page/faqs';
+        $metaTags['publishedTime'] =$createdAtStr;
+        $metaTags['modifiedTime'] =$updatedAtStr;
+        $metaTags['section'] ='FAQ';
+        $metaTags['category'] ='Help';
+        $metaTags['tag'] ='Faq';
+        $metaTags['article'] ='Faq';
+        $metaTags['twittersite'] ='';
+        $metaTags['urlimage'] =self::getLogo();
+        $metaTags['title'] ='Faq-'.$titleStr;
+        $metaTags['url'] =self::getURL().'/page/faqs';
+        $metaTags['sitename'] =self::getAppName();
+        return view(Master::loadFrontTheme('page.faq'),array('faqArr'=>$newFaq,'metaTags'=>$metaTags));
     }
+
+
 
     /***************FAQ***************************/
     public function contactus(Request $request){

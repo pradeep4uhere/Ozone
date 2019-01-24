@@ -39,6 +39,49 @@ class Master extends Controller {
      return strtoupper(substr(md5(uniqid(rand(time(),time()), true)),0,8));   
     }
 
+    public static function getMetaTags(){
+        $meta = [
+            'description'=>'',
+            'keywords'=>'',
+            'pageimage'=>'',
+            'pageurl'=>'',
+            'publishedTime'=>'',
+            'modifiedTime'=>'',
+            'section'=>'',
+            'category'=>'',
+            'tag'=>'',
+            'article'=>'',
+            'twittersite'=>'',
+            'urlimage'=>'',
+            'title'=>'',
+            'url'=>'',
+            'sitename'=>''
+        ];
+
+        return $meta;
+    }
+
+    public static function getLogo(){
+        //$img = 'cat/images.jpeg';
+        $img = 'logo1.png';
+        $img = 'go4shop.online.jpg';
+        return self::getURL().'/public/theme/prssystem/img/front/'.$img;
+    }
+
+
+    public static function getURL(){
+        return env('APP_URL');
+    }
+
+    public static function getAppName(){
+        return env('APP_NAME');
+    }
+
+
+    public function setMetaTags($meta,$value){
+
+    }
+
 
     public static function getMessage($code,$msg){
         $responseArray = array();

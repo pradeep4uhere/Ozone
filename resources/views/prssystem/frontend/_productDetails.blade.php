@@ -32,57 +32,64 @@
 															<a href="javascript:void(0)" onClick="buyNow('{{encrypt($productDetails->id)}}','{{str_slug($productDetails->product['title'])}}')" class="btn btn-success">Buy Now </a>
 								
 							</div>
-							
-							
-						</div>
-						
-						
-						
-						<div class="details col-md-12">
-						<div class="tabs">
-	  <div class="tab-button-outer">
-		<ul id="tab-button">
-		  <li><a href="#tab01">Overview</a></li>
-		  <li><a href="#tab02">Product Highlights</a></li>
-		  <li><a href="#tab03">Offers</a></li>
-		  <li><a href="#tab04">About Brand</a></li>
-		  <li><a href="#tab05">Return Policy</a></li>
-		</ul>
-	  </div>
-	  <div class="tab-select-outer">
-		<select id="tab-select">
-		  <option value="#tab01">Overview</option>
-		  <option value="#tab02">Product Highlights</option>
-		  <option value="#tab03">Offers</option>
-		  <option value="#tab04">About Brand</option>
-		  <option value="#tab05">Return Policy</option>
-		</select>
-	  </div>
 
-	  <div id="tab01" class="tab-contents">
-		<h5>Overview</h5>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
-	  </div>
-	  <div id="tab02" class="tab-contents">
-		<h5>Product Highlights</h5>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
-	  </div>
-	  <div id="tab03" class="tab-contents">
-		<h5>Offers</h5>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
-	  </div>
-	  <div id="tab04" class="tab-contents">
-		<h5>About Brand</h5>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
-	  </div>
-	  <div id="tab05" class="tab-contents">
-		<h5>Return Policy</h5>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
-	  </div>
-	</div>
+							
+							
 						</div>
-					</div>
+						
+						
+		<div class="col-md-12">
+			<div class="tabs">
+				<div class="sharethis-inline-share-buttons"></div>				
+			</div>
+		</div>
+		<div class="details col-md-12">
+			<div class="tabs">
+				  <div class="tab-button-outer">
+					<ul id="tab-button">
+					  <li><a href="#tab01">Overview</a></li>
+					  <li><a href="#tab02">Product Highlights</a></li>
+					  <li><a href="#tab03">Offers</a></li>
+					  <li><a href="#tab04">About Brand</a></li>
+					  <li><a href="#tab05">Return Policy</a></li>
+					</ul>
+				  </div>
+				  <div class="tab-select-outer">
+					<select id="tab-select">
+					  <option value="#tab01">Overview</option>
+					  <option value="#tab02">Product Highlights</option>
+					  <option value="#tab03">Offers</option>
+					  <option value="#tab04">About Brand</option>
+					  <option value="#tab05">Return Policy</option>
+					</select>
+				  </div>
+
+				  <div id="tab01" class="tab-contents">
+					<h5>Overview</h5>
+					<p>{!! $productDetails['about_product'] !!}</p>
+				  </div>
+				  <div id="tab02" class="tab-contents">
+					<h5>Product Highlights</h5>
+					<p>{!! $productDetails['offers'] !!}</p>
+				  </div>
+				  <div id="tab03" class="tab-contents">
+					<h5>Offers</h5>
+					<p>{!! $productDetails['offers'] !!}</p>
+				  </div>
+				  <div id="tab04" class="tab-contents">
+					<h5>About Brand</h5>
+					<p>{!! $productDetails['offers'] !!}</p>
+				  </div>
+				  <div id="tab05" class="tab-contents">
+					<h5>Return Policy</h5>
+					<p>{!! $productDetails['return_policy'] !!}</p>
+				  </div>
 				</div>
+			</div>
+
+
+		</div>
+	</div>
 				
 										<div class="col-md-3 sdBox">
 										<div class="wrapper row">
@@ -116,7 +123,7 @@
 											</p>
 											<hr/>
 											<center><span class="open-now">OPEN NOW</span></center>
-								
+											<hr/>
 							
 										
 										</div>

@@ -1,8 +1,10 @@
 @extends('prssystem/layouts/frontDetails')
+@include('prssystem.partials.metatags',array('meta'=>$metaTags))
 @section('title')
     Home Page
 @stop
 @section('content')
+<script src="//platform-api.sharethis.com/js/sharethis.js#property=5c4aa4aac9830d001319ada0&product=inline-share-buttons"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!--main section-->
     <!--============================= DETAIL =============================-->
@@ -66,7 +68,7 @@
                     <div class="reserve-seat-block">
                         <div class="reserve-btn">
                             <div class="featured-btn-wrap">
-								<a href="{{route('sellerview',['seller'=>str_slug($seller['business_name']),'id'=>encrypt($seller['id'])])}}" class="btn btn-success">Go To Seller Page</a>
+                                <a href="{{route('sellerview',['seller'=>str_slug($seller['business_name']),'id'=>encrypt($seller['id'])])}}" class="btn btn-success">Go To Seller Page</a>
                                 <a href="#" class="btn btn-info">Call +91-{{$seller['contact_number']}}</a>
                             </div>
                         </div>
@@ -91,112 +93,110 @@
     </section>
     <!--//END BOOKING DETAILS -->
     <script>
-  var $tabButtonItem = $('#tab-button li'),
-      $tabSelect = $('#tab-select'),
-      $tabContents = $('.tab-contents'),
-      activeClass = 'is-active';
+          var $tabButtonItem = $('#tab-button li'),
+              $tabSelect = $('#tab-select'),
+              $tabContents = $('.tab-contents'),
+              activeClass = 'is-active';
 
-  $tabButtonItem.first().addClass(activeClass);
-  $tabContents.not(':first').hide();
+          $tabButtonItem.first().addClass(activeClass);
+          $tabContents.not(':first').hide();
 
-  $tabButtonItem.find('a').on('click', function(e) {
-    var target = $(this).attr('href');
+          $tabButtonItem.find('a').on('click', function(e) {
+            var target = $(this).attr('href');
 
-    $tabButtonItem.removeClass(activeClass);
-    $(this).parent().addClass(activeClass);
-    $tabSelect.val(target);
-    $tabContents.hide();
-    $(target).show();
-    e.preventDefault();
-  });
+            $tabButtonItem.removeClass(activeClass);
+            $(this).parent().addClass(activeClass);
+            $tabSelect.val(target);
+            $tabContents.hide();
+            $(target).show();
+            e.preventDefault();
+          });
 
-  $tabSelect.on('change', function() {
-    var target = $(this).val(),
-        targetSelectNum = $(this).prop('selectedIndex');
+          $tabSelect.on('change', function() {
+            var target = $(this).val(),
+                targetSelectNum = $(this).prop('selectedIndex');
 
-    $tabButtonItem.removeClass(activeClass);
-    $tabButtonItem.eq(targetSelectNum).addClass(activeClass);
-    $tabContents.hide();
-    $(target).show();
-  });
+            $tabButtonItem.removeClass(activeClass);
+            $tabButtonItem.eq(targetSelectNum).addClass(activeClass);
+            $tabContents.hide();
+            $(target).show();
+          });
 
-  
+          
 
 
-function getAlert(a,b,c){
-    swal({
-      title:a,
-      text: b,
-      icon: c,
-    });
-}
-//Add To Cart 
-function addToCart(pid,title){
-@if(Auth::check()) 
-var Auth ="<?php echo Auth::user()->id ?>";
-@else
-var Auth =0;
-@endif
-if(Auth>0){
-    var csrf="{{csrf_token()}}";
-    var postJson={_token:csrf,pid:pid,name:title};
-    $.ajax({
-        type:'POST',
-        url:"{{route('addtocart')}}",
-        data:postJson,        
-        dataType:'json',        
-        success:function(res){
-            //var result = JSON.parse(res);
-            console.log(res);
-            if(res.status=='success'){
-                getAlert('Great',res.message,res.status);
-                $('#itemCount').text(res.cart.count);
-            }
+        function getAlert(a,b,c){
+            swal({
+              title:a,
+              text: b,
+              icon: c,
+            });
+        }
+        //Add To Cart 
+        function addToCart(pid,title){
+        @if(Auth::check()) 
+        var Auth ="<?php echo Auth::user()->id ?>";
+        @else
+        var Auth =0;
+        @endif
+        if(Auth>0){
+            var csrf="{{csrf_token()}}";
+            var postJson={_token:csrf,pid:pid,name:title};
+            $.ajax({
+                type:'POST',
+                url:"{{route('addtocart')}}",
+                data:postJson,        
+                dataType:'json',        
+                success:function(res){
+                    //var result = JSON.parse(res);
+                    console.log(res);
+                    if(res.status=='success'){
+                        getAlert('Great',res.message,res.status);
+                        $('#itemCount').text(res.cart.count);
+                    }
 
-            if(res.status=='error'){
-                getAlert('Great',res.message,res.status);
+                    if(res.status=='error'){
+                        getAlert('Great',res.message,res.status);
+                    }
+                }
+            });
+        }else{
+            getAlert('Opps Login Required!!','You have to login first!!','error');
+        }
+        }
+
+
+        function buyNow(pid,title){
+            @if(Auth::check()) 
+            var Auth ="<?php echo Auth::user()->id ?>";
+            @else
+            var Auth =0;
+            @endif
+            if(Auth>0){
+                var csrf="{{csrf_token()}}";
+                var postJson={_token:csrf,pid:pid,name:title};
+                $.ajax({
+                    type:'POST',
+                    url:"{{route('addtocart')}}",
+                    data:postJson,        
+                    dataType:'json',        
+                    success:function(res){
+                        if(res.status=='success'){
+                            location.href="{{route('cart')}}";
+                            $('#itemCount').text(res.cart.count);
+                        }
+
+                        if(res.status=='error'){
+                            getAlert('Great',res.message,res.status);
+                        }
+                    }
+                });
+            }else{
+                getAlert('Opps Login Required!!','You have to login first!!','error');
             }
         }
-    });
-}else{
-    getAlert('Opps Login Required!!','You have to login first!!','error');
-}
-}
-
-
-function buyNow(pid,title){
-    @if(Auth::check()) 
-    var Auth ="<?php echo Auth::user()->id ?>";
-    @else
-    var Auth =0;
-    @endif
-    if(Auth>0){
-        var csrf="{{csrf_token()}}";
-        var postJson={_token:csrf,pid:pid,name:title};
-        $.ajax({
-            type:'POST',
-            url:"{{route('addtocart')}}",
-            data:postJson,        
-            dataType:'json',        
-            success:function(res){
-                if(res.status=='success'){
-                    location.href="{{route('cart')}}";
-                    $('#itemCount').text(res.cart.count);
-                }
-
-                if(res.status=='error'){
-                    getAlert('Great',res.message,res.status);
-                }
-            }
-        });
-    }else{
-        getAlert('Opps Login Required!!','You have to login first!!','error');
-    }
-}
 
 </script>	
 @stop
-
 @section('footer_scripts')
-    
 @stop

@@ -24,21 +24,21 @@
                             <li><a href="{{ route('sellerdashboard') }}">Seller Profile</a> </li>
                         </ul>
                     </li>
-                    <li class="menu-list">
+                    <!-- <li class="menu-list">
                         <a href="#"><i class="lnr lnr-cog"></i>
                             <span>Category</span></a>
                         <ul class="sub-menu-list">
                             <li><a href="{{ route('addcategory') }}">Add New Category</a> </li>
                             <li><a href="{{ route('allcategory') }}">All Category</a> </li>
                         </ul>
-                    </li>
-                     <li class="menu-list">
+                    </li> -->
+                     <!-- <li class="menu-list">
                         <a href="#"><i class="lnr lnr-cog"></i>
                             <span>Brands</span></a>
                         <ul class="sub-menu-list">
                             <li><a href="{{ route('getbrands') }}">All Brands</a> </li>
                         </ul>
-                    </li>
+                    </li> -->
 					<li class="menu-list">
                         <a href="#"><i class="lnr lnr-cog"></i>
                             <span>Products</span></a>
@@ -56,7 +56,7 @@
                             <li><a href="{{ route('sellerimggallery',['id'=>'2']) }}">Image Gallery</a> </li>
                         </ul>
                     </li>
-					<li><a href="forms.html"><i class="lnr lnr-spell-check"></i> <span>Forms</span></a></li>
+					<!-- <li><a href="forms.html"><i class="lnr lnr-spell-check"></i> <span>Forms</span></a></li>
                     <li><a href="tables.html"><i class="lnr lnr-menu"></i> <span>Tables</span></a></li>              
                     <li class="menu-list"><a href="#"><i class="lnr lnr-envelope"></i> <span>MailBox</span></a>
                         <ul class="sub-menu-list">
@@ -77,7 +77,7 @@
                             <li><a href="sign-up.html">Sign Up</a></li>
                             <li><a href="blank_page.html">Blank Page</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
                 <!--sidebar nav end-->
             </div>

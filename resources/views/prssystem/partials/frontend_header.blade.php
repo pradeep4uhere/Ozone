@@ -51,31 +51,22 @@
                                     </li>
                                     @if(Auth::check()) 
 									<li class="nav-item mr-3">
-                                        
 										<a href="{{route('cart')}}" class="btn btn-info">
 											<span class="ti-shopping-cart" style="font-size:20px;"></span>
 											<span id="itemCount" style="font-size:16px;">{{session('countItem')}}</span> Item
 										</a>
-		
-										
                                     </li>
 									@endif
 									@if(!Auth::check()) 
                                     <li><a href="{{route('register')}}" class="btn top-btn" style="background-color:#ff3a6d;color:#FFF"><span class="ti-plus"></span> Become Seller</a></li>
 									@else
-									<li><a href="{{route('sellerregister')}}" class="btn top-btn" style="background-color:#ff3a6d;color:#FFF"><span class="ti-plus"></span> Become Seller</a></li>
+									<li><a href="{{route('seller')}}" class="btn top-btn" style="background-color:#ff3a6d;color:#FFF"><span class="ti-plus"></span> Become Seller</a></li>
 									@endif
                                 </ul>
                             </div>
-
-
                         </nav>
 						</div>
-
-						
 					</div>
-					
-                        
                     </div>
                 </div>
             

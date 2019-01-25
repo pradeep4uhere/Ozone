@@ -75,7 +75,7 @@
     
     //General Page
     Route::get('/page/faq', 'Page\PageController@FAQ')->name('faq');
-    Route::get('/{slug}', 'Page\PageController@viewPage')->name('viewPage');
+    Route::get('/page/{slug}', 'Page\PageController@viewPage')->name('viewPage');
     Route::get('/allfaqs', 'Page\PageController@allfaqs')->name('allfaqs');
     Route::get('/contactus', 'Page\PageController@contactus')->name('contactus');
     Route::post('/contactus', 'Page\PageController@contactus')->name('contactus');

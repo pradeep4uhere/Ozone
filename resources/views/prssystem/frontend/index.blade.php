@@ -1,7 +1,5 @@
 @extends('prssystem/layouts/front')
-@section('title')
-    Home Page
-@stop
+@include('prssystem.partials.metatags',array('meta'=>$metaTags))
 @section('content')
 <style>
 .listItem{ cursor: pointer; }
@@ -64,8 +62,8 @@ input[type=submit] {
 
     <!--main section-->
      <!-- SLIDER -->
-    <section class="slider d-flex align-items-center">
-         <!--<img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/slider.jpg" class="img-fluid" alt="#">--> 
+    <section class="slider d-flex align-items-center" style="background-image: url('{{ Config('global.THEME_URL_FRONT_IMAGE') }}/slider.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+         <!-- <img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/slider.jpg" class="img-fluid" alt="#">  -->
         <div class="container">
             <div class="row d-flex justify-content-center">
                 <div class="col-md-12">
@@ -73,7 +71,7 @@ input[type=submit] {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="slider-content_wrap">
-                                    <h5>Let's uncover the best grocery shop nearest to you.</h5>
+                                    <h3>Let's uncover the best shops nearest to you.</h3>
                                 </div>
                             </div>
                         </div>
@@ -84,12 +82,9 @@ input[type=submit] {
 								{{ csrf_field() }}
                                     <div class="btn-group" role="group" aria-label="Basic example">
 									<div class="autocomplete">
-                                        <input type="text" placeholder="Enter your location" class="btn-group1" id="myInput" name="place">
+                                        <input type="text" placeholder="e.g Bisrakh Gautam Buddha nagar 201301 Uttar Pradesh" class="btn-group1" id="myInput" name="place">
 										<div id="display" style="z-index:9999; position: absolute;border-top: none;z-index: 99;top: 100%;left: 0;right: 0;height: 250px; overflow: auto; font-size: 12px; "></div>
                                     </div>
-										<!--<div class="autocomplete" >
-                                        <input type="text" placeholder="Enter Your ZIPCODE OR Locality Name" class="btn-group2" id="myInput2" name="city">
-										</div>-->
                                         <input type="hidden" name="locationId" id="locationIdStr">
                                         <button type="submit" class="btn-form"><span class="icon-magnifier search-icon"></span>SEARCH<i class="pe-7s-angle-right"></i></button>
                                     </div>
@@ -109,7 +104,7 @@ input[type=submit] {
    <section class="main-block light-bg">
         <div class="row justify-content-center">
             <div class="styled-heading">
-              <h3>Featured Stores Near You</h3>
+              <h3>Featured Seller</h3>
             </div>
         </div>
 	      @include('prssystem.partials.slider.featuresSeller',array('sellerArr'=>$sellerArr))
@@ -117,6 +112,11 @@ input[type=submit] {
     <!--End Caegory Slider List-->
     
 <section class="main-block">
+  <div class="row justify-content-center">
+            <div class="styled-heading">
+              <h3>Top Category</h3>
+            </div>
+        </div>
     <!--Start Caegory List-->
         @include('prssystem.partials.slider.category')
     <!--End Caegory List-->
@@ -299,9 +299,6 @@ input[type=submit] {
             </div>
         </div>
     </section>
-
-    
-    <script>
     <script>
         $(window).scroll(function() {
             // 100 = The point you would like to fade the nav in.
@@ -326,10 +323,6 @@ function setLocationId(id){
     $("#display").hide();
 }
 $(document).ready(function() {
-   
-
-    
-
     //On pressing a key on "Search box" in "search.php" file. This function will be called.
    $("#myInput").keyup(function() {
        //Assigning search box value to javascript variable named as "name".
@@ -365,7 +358,5 @@ $(document).ready(function() {
 });
 </script>
 @stop
-
 @section('footer_scripts')
-    
 @stop

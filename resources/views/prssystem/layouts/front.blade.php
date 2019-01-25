@@ -1,15 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="grabmorenow">
-    <meta name="description" content="Become Seller Now Or Order Online From Nearest Shop">
-    <meta name="keywords" content="Best Grocery Items, Best Seller Platform">
-    <!-- Page Title -->
-     <title>{{ config('app.name') }}</title>
+    @include('prssystem.layouts.metaHead')
+    
     <!-- Bootstrap CSS -->
     <link href="{{config('global.THEME_URL_FRONT_CSS').'/bootstrap.min.css'}}" rel="stylesheet">
     <!-- Google Fonts -->

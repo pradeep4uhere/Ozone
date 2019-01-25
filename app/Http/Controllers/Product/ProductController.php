@@ -415,6 +415,7 @@ class ProductController extends Master
      * @Description: For Product Details
      */
     public function details(Request $request,$slug,$id){
+        $metaTags = self::getMetaTags();
 		$lsitArr = array();
         $userProductId=decrypt($id);
         if($userProductId>0){
@@ -432,12 +433,42 @@ class ProductController extends Master
                 }
             }
         }else{
-            abort();
+            abort(404);
         }
+        
+        $productImage = config('global.PRODUCT_IMG_GALLERY').'/prod_00'.$userProductId.'/'.$userProduct['ProductImage'][0]['image_name'];
+        $metaTitle = $userProduct['product']['title'];
+        $metaDesc = 'Buy '.$userProduct['product']['title'].' at ₹'.$userProduct['price'].' only.';
+        $metaKeywords = $userProduct['product']['title'];
+        $pageImage = $productImage;
+        $pageUrl = self::getURL().'/detail/'.str_slug($userProduct['product']['title']).'/'.$id;
+        $createdAtStr = $userProduct['created_at'];
+        $updatedAtStr = $userProduct['updated_at'];
+        $section      = 'Product';
+        $category     = 'Product Page';
+        $tag          = 'Buy, Sell, Lower Price, Hot Deal';
+        $article      = 'Buy '. $userProduct['product']['title'];
+
+        $metaTags['title']        =$metaTitle;
+        $metaTags['description']  =$metaDesc;
+        $metaTags['keywords']     =$metaKeywords;
+        $metaTags['pageimage']    =$pageImage;
+        $metaTags['pageurl']      =$pageUrl;
+        $metaTags['publishedTime']=$createdAtStr;
+        $metaTags['modifiedTime'] =$updatedAtStr;
+        $metaTags['section']      =$section;
+        $metaTags['category']     =$category;
+        $metaTags['tag']          =$tag;
+        $metaTags['article']      =$article;
+        $metaTags['twittersite']  ='';
+        $metaTags['urlimage']     =$pageImage;
+        $metaTags['url']          =$pageUrl;
+        $metaTags['sitename']     =self::getAppName();
         return view(Master::loadFrontTheme('frontend.details'),array(
                     'productDetails'=>$userProduct,
                     'seller'=>$seller,
-                    'productList'=>$lsitArr
+                    'productList'=>$lsitArr,
+                    'metaTags'=>$metaTags
                 )
             );
     }

@@ -160,14 +160,18 @@ p {
   //background: url(../../img/front/online-shopping-seamless-pattern-background-vector-21460486.jpg) repeat-x; 
   background-color: #FFF;
   background-size: cover;
-  min-height: 440px; }
+  min-height: 640px; }
   @media (max-width: 992px) {
     .slider {
       min-height: 700px; } }
 .slider:after{
 	opacity:0.1;
 }
-.btn-outline-light {
+
+.slider h3{
+  color: #DDD;
+}
+  .btn-outline-light {
   padding: 10px 16px; }
   @media (max-width: 992px) {
     .btn-outline-light {

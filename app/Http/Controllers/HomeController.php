@@ -63,6 +63,7 @@ class HomeController extends Master
      * @return \Illuminate\Http\Response
      */
     public function index() {
+    	 $metaTags = self::getMetaTags();
 		$this->saveZipcode();
 //         if(Auth::check()){
 //            return $this->redirect('profile');
@@ -98,11 +99,40 @@ class HomeController extends Master
 		$testimonials = array();
 		$testimonials = Testimonial::with('User')->where('status','=',1)->get()->toArray();
 
+
+		//Set Meta Section Data
+		
+        $metaTitle = "Go4Shop- Your Own Online Shop";
+        $metaDesc = 'Go4shop offer you to sell your own products online. The best online local near you store in India. Best way buy or sell your products here.';
+        $metaKeywords = 'online grocery,vegetable store, Furniture shops, online local seller in Noida, Greater Noida, delhi, buy groceries, vegitables and many more from local shop';
+        $pageImage = self::getLogo();
+        $pageUrl = self::getURL();
+        $section      = 'Buy and Sell';
+        $category     = 'Online Supermarket';
+        $tag          = 'Online, Supermarket,Seller, Buyer';
+        $article      = 'Near Online Supermarket';
+
+        $metaTags['title']        =$metaTitle;
+        $metaTags['description']  =$metaDesc;
+        $metaTags['keywords']     =$metaKeywords;
+        $metaTags['pageimage']    =$pageImage;
+        $metaTags['pageurl']      =$pageUrl;
+        $metaTags['section']      =$section;
+        $metaTags['category']     =$category;
+        $metaTags['tag']          =$tag;
+        $metaTags['article']      =$article;
+        $metaTags['twittersite']  ='';
+        $metaTags['urlimage']     =$pageImage;
+        $metaTags['url']          =$pageUrl.'/user/register';
+        $metaTags['sitename']     =self::getAppName();
+
+
         return view(Master::loadFrontTheme('frontend.index'),array(
 		'catJson'=>json_encode($catJson),
 		'cityArr'=>json_encode($cityArr),
 		'sellerArr'=>$seller,
-		'Testimonials'=>$testimonials
+		'Testimonials'=>$testimonials,
+		'metaTags'=>$metaTags
 		));
     }
     

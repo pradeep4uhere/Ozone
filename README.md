@@ -74,3 +74,6 @@ https://github.com/thekordy/ticketit
 ##Editior
 https://medium.com/@bvipul/integrate-tinymce-editor-in-your-laravel-installation-with-a-filemanager-235894910531
 https://github.com/UniSharp/laravel-filemanager
+
+##Fontawesome Icons
+http://corporate.joostrap.com/features/fontawesome-icons

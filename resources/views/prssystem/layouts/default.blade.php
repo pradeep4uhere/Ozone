@@ -11,6 +11,7 @@
     <link href="{{config('global.THEME_URL_CSS').'/profile/bootstrap.min.css'}}" rel="stylesheet">
     <link href="{{config('global.THEME_URL_CSS').'/profile/style.css'}}" rel="stylesheet">
     <link href="{{config('global.THEME_URL_CSS').'/profile/font-awesome.css'}}" rel="stylesheet">
+    <link href="{{config('global.THEME_URL_CSS').'/profile/font-awesome.min.css'}}" rel="stylesheet">
     <link href="{{config('global.THEME_URL_CSS').'/profile/icon-font.min.css'}}" rel="stylesheet">
     <script src="{{config('global.THEME_URL_JS').'/profile/Chart.js'}}"></script>
     <link href="{{config('global.THEME_URL_CSS').'/profile/animate.css'}}" rel="stylesheet">

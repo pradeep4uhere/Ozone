@@ -110,11 +110,11 @@ new UISearch(document.getElementById('sb-search'));
                         </ul>
                     </li>	
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tasks"></i><span class="badge blue1">22</span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-truck"></i><span class="badge blue1">22</span></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <div class="notification_header">
-                                    <h3>You have 8 pending task</h3>
+                                    <h3>You have 0 new order</h3>
                                 </div>
                             </li>
                             <li><a href="#">

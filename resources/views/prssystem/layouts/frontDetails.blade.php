@@ -52,6 +52,7 @@
     <link href="{{config('global.THEME_URL_FRONT_CSS').'/bootstrap.min.css'}}" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+    <link href="{{config('global.THEME_URL_FRONT_CSS').'/font-awesome-4.7.0/css/font-awesome.min.css'}}" rel="stylesheet">
     <!-- Simple line Icon -->
     <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/simple-line-icons.css'}}">
     <!-- Themify Icon -->
@@ -80,7 +81,7 @@
 <!-- END MAIN CONTENT -->
 <!--============================= FOOTER =============================-->
 
-    @include('prssystem.partials.frontend_footer')
+    @include('prssystem.partials.theme_footer')
     <!--//END FOOTER -->
     <!-- jQuery, Bootstrap JS. -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

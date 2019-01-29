@@ -73,7 +73,7 @@
                 <div class="row">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-6"></div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                     	<a href="{{route('checkoutinit')}}" class="btn top-btn" style="background-color:#017eb0;color:#FFF" id="payment"> Back</a>
                         &nbsp;<a href="{{route('choosepayment')}}?act=paymentOptions&t={{encrypt($total)}}&s={{encrypt($address['id'])}}" class="btn top-btn" style="background-color:#ff3a6d;color:#FFF" id="payment"> Procced To Payment</a>
                     </div>

@@ -5,6 +5,7 @@
     
     <!-- Bootstrap CSS -->
     <link href="{{config('global.THEME_URL_FRONT_CSS').'/bootstrap.min.css'}}" rel="stylesheet">
+    <link href="{{config('global.THEME_URL_FRONT_CSS').'/font-awesome-4.7.0/css/font-awesome.min.css'}}" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
     <!-- Simple line Icon -->
@@ -40,23 +41,22 @@
 <!--============================= HEADER ENDS HERE=============================-->
 </div>    
 </div>    
-</div>    
-   
+</div>  
 <!-- BEGIN MAIN CONTENT -->
    @yield('content')
 <!-- END MAIN CONTENT -->
 <!--============================= FOOTER =============================-->
-    @include('prssystem.partials.frontend_footer')
-	<script>
-		var CSRF_TOKEN = '{{csrf_token()}}';
-		var POST_LOCATION_URL = '{{route('getlocation')}}';
-	</script>
-    <!--//END FOOTER -->
-    <!-- jQuery, Bootstrap JS. -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{{config('global.THEME_URL_FRONT_JS').'/popper.min.js'}}"></script>
-    <script src="{{config('global.THEME_URL_FRONT_JS').'/bootstrap.min.js'}}"></script>
-	<script src="{{config('global.THEME_URL_FRONT_JS').'/custome.js'}}"></script>
+@include('prssystem.partials.theme_footer')
+<script>
+	var CSRF_TOKEN = '{{csrf_token()}}';
+	var POST_LOCATION_URL = '{{route('getlocation')}}';
+</script>
+<!--//END FOOTER -->
+<!-- jQuery, Bootstrap JS. -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{{config('global.THEME_URL_FRONT_JS').'/popper.min.js'}}"></script>
+<script src="{{config('global.THEME_URL_FRONT_JS').'/bootstrap.min.js'}}"></script>
+<script src="{{config('global.THEME_URL_FRONT_JS').'/custome.js'}}"></script>
 <!-- begin page level js -->
 @yield('footer_scripts')
 <!-- end page level js -->

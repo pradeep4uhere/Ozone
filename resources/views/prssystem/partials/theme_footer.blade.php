@@ -10,7 +10,7 @@
                         <div class="row">
                            <div class="footer-content col-md-3 col-sm-12 footer-block">
                               <div class="footer-title clearfix hidden-lg-up collapsed" data-target="#contact-info-container" data-toggle="collapse">
-                                 <span class="h3 block-heading">STORE INFORMATION</span>
+                                 <span class="h3 block-heading">INFORMATION</span>
                                  <span class="navbar-toggler collapse-icons">
                                  <i class="material-icons add"></i>
                                  <i class="material-icons remove"></i>
@@ -95,7 +95,7 @@
                            </div>
                            <div class="bottom-link-list footer-block col-md-3 col-sm-12">
                               <div class="footer-title clearfix hidden-lg-up collapsed" data-target="#account-info-container" data-toggle="collapse">
-                                 <span class="h3 block-heading">YOUR ACCOUNT</span>
+                                 <span class="h3 block-heading">SOCIAL</span>
                                  <span class="navbar-toggler collapse-icons">
                                  <i class="material-icons add"></i>
                                  <i class="material-icons remove"></i>
@@ -124,7 +124,7 @@
                            </div>
                            <div class="bottom-link-list footer-information col-md-3 col-sm-12 footer-block">
                               <div class="footer-title clearfix hidden-lg-up collapsed" data-target="#product-info-container" data-toggle="collapse">
-                                 <span class="h3 block-heading">PRODUCTS </span>
+                                 <span class="h3 block-heading">PAYMENTS </span>
                                  <span class="navbar-toggler collapse-icons">
                                  <i class="material-icons add"></i>
                                  <i class="material-icons remove"></i>

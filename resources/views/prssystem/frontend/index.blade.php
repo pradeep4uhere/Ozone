@@ -275,7 +275,7 @@ input[type=submit] {
     <!--//END CATEGORIES -->
     <!--============================= ADD LISTING =============================-->
 
-    <section >
+    <section>
       <div>
       @include('prssystem.partials.slider.testimonials',array('itemList'=>$Testimonials))
     </div>
@@ -298,6 +298,9 @@ input[type=submit] {
                 </div>
             </div>
         </div>
+    </section>
+    <section>
+      @include('prssystem.partials.slider.focus')
     </section>
     <script>
         $(window).scroll(function() {

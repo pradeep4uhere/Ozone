@@ -10,7 +10,7 @@
                             <div class="featured-place-wrap">
                         <a href="{{route('details',['slug'=>str_slug($prodObj['Product']['title']),'id'=>encrypt($prodObj['UserProduct']['id'])])}}">
                             <center style="border-bottom:solid 1px #EEE; ">
-                                <img style="width:150px;height: 150px; " src="{{ config('global.PRODUCT_IMG_URL').DIRECTORY_SEPARATOR.$prodObj['UserProduct']['default_images'] }}" class="img-fluid" alt="#">
+                                <img style="width:150px;height: 150px; " src="{{ config('global.PRODUCT_IMG_URL').DIRECTORY_SEPARATOR.$prodObj['UserProduct']['default_images'] }}" class="img-fluid" alt="#" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';">
                                 </center>
                             <span class="featured-rating-orange">₹ {{$prodObj['UserProduct']['price']}}</span>
                             <div class="featured-title-box">

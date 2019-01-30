@@ -52,16 +52,16 @@
                         <a href="{{route('sellerview',['seller'=>str_slug($seller['business_name']),'id'=>encrypt($seller['id'])])}}">
                             @if(count($seller['SellerImage']))
 							@foreach($seller['SellerImage'] as $SellerImage)
-						<?php //sprint_r($SellerImage);?>
+						  <?php //sprint_r($SellerImage);?>
 							@if($SellerImage->is_default==1)
-                            <img height="250px" src="{{config('global.SELLER_IMG_GALLERY').DIRECTORY_SEPARATOR.'seller_'.$SellerImage->seller_id.DIRECTORY_SEPARATOR.$SellerImage->image_name}}" />
+                            <img height="250" src="{{config('global.SELLER_IMG_GALLERY').DIRECTORY_SEPARATOR.'seller_'.$SellerImage->seller_id.DIRECTORY_SEPARATOR.$SellerImage->image_name}}" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';" style="height: 300px;">
 							@endif
 							@endforeach
 							@else
-							<img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/featured1.jpg" class="img-fluid" alt="#">
+							<img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg" class="img-fluid" alt="#" style="height: 300px;">
 							@endif
                             <div class="featured-title-box">
-                                <h6>{{$seller['business_name']}}</h6>
+                                <h2>{{ucwords($seller['business_name'])}}</h2>
                                 <p>{{$seller['StoreType']['name']}} </p> <span>• </span>
                                 <p>3 Reviews</p> <span> • </span>
                                 <p><span>Open Now</span></p>

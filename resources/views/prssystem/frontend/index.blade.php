@@ -241,7 +241,7 @@ input[type=submit] {
 							<img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/featured1.jpg" class="img-fluid" alt="#">
 							@endif
                             <div class="featured-title-box">
-                                <h6>{{$seller['business_name']}}</h6>
+                                <h2>{{$seller['business_name']}}</h2>
                                 <p>{{$seller['StoreType']['name']}} </p> <span>• </span>
                                 <p>3 Reviews</p> <span> • </span>
                                 <p><span>Open Now</span></p>
@@ -286,7 +286,7 @@ input[type=submit] {
                 <div class="col-md-12">
                     <div class="add-listing-wrap">
                         <h2>Reach millions of People</h2>
-                        <p>Add your Business infront of millions and earn 3x profits from our listing</p>
+                        <p>Add your Business infront of millions and earn 3X profits from your own listing</p>
                     </div>
                 </div>
             </div>

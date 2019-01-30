@@ -1,7 +1,4 @@
 @extends('prssystem/layouts/listing')
-@section('title')
-    Home Page
-@stop
 @section('content')
     <!--main section-->
     <!--============================= DETAIL =============================-->
@@ -68,7 +65,7 @@
                                 </center>
                             <span class="featured-rating-orange">₹ {{$prodObj['UserProduct']['price']}}</span>
                             <div class="featured-title-box">
-                                <h6>{{$prodObj['Product']['title']}}</h6>
+                                <h2>{{ucwords($prodObj['Product']['title'])}}</h2>
                                 <ul>
                                     <li><span class="icon-location-pin"></span>
                                         <p><span>{{$prodObj['Product']->Brand['name']}}</span></p>

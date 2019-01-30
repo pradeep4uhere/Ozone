@@ -2,9 +2,10 @@
 <html lang="en">
     <head>
     @include('prssystem.layouts.metaHead')
-    
     <!-- Bootstrap CSS -->
     <link href="{{config('global.THEME_URL_FRONT_CSS').'/bootstrap.min.css'}}" rel="stylesheet">
+        <link href="{{config('global.THEME_URL_FRONT_CSS').'/material-icons.css'}}" rel="stylesheet">
+
     <link href="{{config('global.THEME_URL_FRONT_CSS').'/font-awesome-4.7.0/css/font-awesome.min.css'}}" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
@@ -20,31 +21,23 @@
     <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/style.css'}}">
 	<script src="{{config('global.THEME_URL_FRONT_JS').'/jquery-3.2.1.min.js'}}"></script>
 	<script src="{{config('global.THEME_URL_FRONT_JS').'/sweetalert.min.js'}}"></script>
-     <!-- Hotjar Tracking Code for www.go4shop.online -->
-    <script>
-        (function(h,o,t,j,a,r){
-            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:1168165,hjsv:6};
-            a=o.getElementsByTagName('head')[0];
-            r=o.createElement('script');r.async=1;
-            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-    </script>
+    <link href="{{config('global.THEME_URL_FRONT_CSS').'/bootstrap/3.3.7/bootstrap.min.css'}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/theme.css'}}">
+    <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/custom.scss.css'}}">
+    <script src="{{config('global.THEME_URL_FRONT_JS').'/bootstrap.min.js'}}"></script>
+    <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/footer.css'}}">
 </head>
-<body>
-<div class="nav-menu">
-        <div class="bg transition">
-            <div class="container-fluid fixed">
+<body class="template-index" style="">
+<div class="whole-content">
 <!--============================= HEADER START HERE =============================-->
 @include('prssystem.partials.frontend_header')
 <!--============================= HEADER ENDS HERE=============================-->
-</div>    
-</div>    
-</div>  
+<div class="page-container drawer-page-content" id="PageContainer">
+<main class="main-content" id="MainContent" role="main">
 <!-- BEGIN MAIN CONTENT -->
    @yield('content')
 <!-- END MAIN CONTENT -->
+
 <!--============================= FOOTER =============================-->
 @include('prssystem.partials.theme_footer')
 <script>
@@ -60,5 +53,31 @@
 <!-- begin page level js -->
 @yield('footer_scripts')
 <!-- end page level js -->
+</main>
+</div>
+
+</div>
+<script type="text/javascript">
+    if($(window).width() < 992) {
+    //convertToMobile();
+  }
+  $(document).ready(function(){
+
+      $('#menu-icon').on('click', function() {
+    $("#mobile_top_menu_wrapper").animate({
+      width: "toggle"
+    });
+  });
+
+  $('#top_menu_closer i').on('click', function() {
+    $("#mobile_top_menu_wrapper").animate({
+      width: "toggle"
+    });
+  });
+
+
+  });
+
+</script>
     </body>
 </html>

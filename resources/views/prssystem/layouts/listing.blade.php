@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="Colorlib">
-    <meta name="description" content="#">
-    <meta name="keywords" content="#">
-    <!-- Page Title -->
-    <title>@yield('title')</title>
+    @include('prssystem.layouts.metaHead')
+
+    <link href="{{config('global.THEME_URL_FRONT_CSS').'/bootstrap.min.css'}}" rel="stylesheet">
+    <link href="{{config('global.THEME_URL_FRONT_CSS').'/material-icons.css'}}" rel="stylesheet">
+    <link href="{{config('global.THEME_URL_FRONT_CSS').'/font-awesome-4.7.0/css/font-awesome.min.css'}}" rel="stylesheet">
+    <link href="{{config('global.THEME_URL_FRONT_CSS').'/bootstrap/3.3.7/bootstrap.min.css'}}" rel="stylesheet">
+    <link href="{{config('global.THEME_URL_FRONT_CSS').'/material-icons.css'}}" rel="stylesheet">
+    <script src="{{config('global.THEME_URL_FRONT_JS').'/bootstrap/3.3.7/bootstrap.min.js'}}"></script>
+
+
     <!-- Bootstrap CSS -->
 	<link href="http://localhost/laravel/public/css/app.css" rel="stylesheet">
     <link href="{{config('global.THEME_URL_FRONT_CSS').'/bootstrap.min.css'}}" rel="stylesheet">
@@ -25,52 +25,61 @@
     <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/style.css'}}">
 	<script src="{{config('global.THEME_URL_FRONT_JS').'/jquery-3.2.1.min.js'}}"></script>
 	<script src="{{config('global.THEME_URL_FRONT_JS').'/sweetalert.min.js'}}"></script>
+    <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/theme.css'}}">
+    <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/custom.scss.css'}}">
+    <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/theme.custom.css'}}">
+    <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/footer.css'}}">
+
 
 </head>
-<body>
+<body class="template-index" style="">
+<div class="whole-content">
 <!--============================= HEADER =============================-->
-    <div class="dark-bg sticky-top">
-        <div class="container-fluid">
-                @include('prssystem.partials.frontend_header')
-            </div>
-        </div>
-<!-- BEGIN MAIN CONTENT -->
-   @yield('content')
-<!-- END MAIN CONTENT -->
+@include('prssystem.partials.frontend_header')
+<div class="page-container drawer-page-content" id="PageContainer">
+<main class="main-content" id="MainContent" role="main">
+
+<!--============================= MAIN CONTENT =============================-->
+@yield('content')
 <!--============================= FOOTER =============================-->
-    <footer class="main-block dark-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="copyright">
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        <div class="slider-link"><center><b>Your Current Location</b></center>
-                                    <a href="#" id="location" style="font-size:16px">Choose You Location</a>
-                                </div>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        <ul>
-                            <li><a href="#"><span class="ti-facebook"></span></a></li>
-                            <li><a href="#"><span class="ti-twitter-alt"></span></a></li>
-                            <li><a href="#"><span class="ti-instagram"></span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-	<script>
-		var CSRF_TOKEN = '{{csrf_token()}}';
-		var POST_LOCATION_URL = '{{route('getlocation')}}';
-	</script>
-    <!--//END FOOTER -->
-    <!-- jQuery, Bootstrap JS. -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{{config('global.THEME_URL_FRONT_JS').'/popper.min.js'}}"></script>
-    <script src="{{config('global.THEME_URL_FRONT_JS').'/bootstrap.min.js'}}"></script>
-	<script src="{{config('global.THEME_URL_FRONT_JS').'/custome.js'}}"></script>
-    
+@include('prssystem.partials.theme_footer')
+<script>
+var CSRF_TOKEN = '{{csrf_token()}}';
+var POST_LOCATION_URL = '{{route('getlocation')}}';
+</script>
+<script type="text/javascript">
+    if($(window).width() < 992) {
+    //convertToMobile();
+  }
+  $(document).ready(function(){
+
+      $('#menu-icon').on('click', function() {
+    $("#mobile_top_menu_wrapper").animate({
+      width: "toggle"
+    });
+  });
+
+  $('#top_menu_closer i').on('click', function() {
+    $("#mobile_top_menu_wrapper").animate({
+      width: "toggle"
+    });
+  });
+
+
+  });
+
+</script>
+<!--//END FOOTER -->
+<!-- jQuery, Bootstrap JS. -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{{config('global.THEME_URL_FRONT_JS').'/popper.min.js'}}"></script>
+<script src="{{config('global.THEME_URL_FRONT_JS').'/bootstrap.min.js'}}"></script>
+<script src="{{config('global.THEME_URL_FRONT_JS').'/custome.js'}}"></script>
 <!-- begin page level js -->
 @yield('footer_scripts')
 <!-- end page level js -->
-    </body>
+</main>
+</div>
+</div>
+</body>
 </html>

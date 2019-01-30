@@ -49,7 +49,7 @@
 		content: '';
 		position: absolute;
 		left: -30px;
-		background: url('../header-sprite.png');
+		background: url(../../img/front/header-sprite.png);
 		background-position: -178px -31px;
 		background-repeat: no-repeat;
 		width: 20px;
@@ -278,7 +278,7 @@
 }
 
 #header #ishiheadercontactblock .call-img {
-	background: url(header-sprite.png) no-repeat;
+	background: url(../../img/front/header-sprite.png) no-repeat;
 	background-position: -16px -21px;
 	width: 40px;
 	height: 40px;
@@ -343,7 +343,7 @@
 
 #header #_desktop_user_info .userinfo-title .userinfo-toggle,
 #header #_mobile_user_info .userinfo-title .userinfo-toggle {
-	background: url(header-sprite.png);
+	background: url(../../img/front/header-sprite.png);
 	width: 40px;
 	height: 40px;
 	background-position: -67px -21px;
@@ -546,7 +546,7 @@
 
 #header #_desktop_cart .cart-display .cart-title .cart-img .cart-logo,
 #header #_mobile_cart .cart-display .cart-title .cart-img .cart-logo {
-	background: url(header-sprite.png) no-repeat;
+	background: url(../../img/front/header-sprite.png) no-repeat;
 	background-position: -119px -24px;
 	width: 40px;
 	height: 40px;
@@ -797,7 +797,7 @@
 
 #header #_desktop_search .search-toggle,
 #header #_mobile_search .search-toggle {
-	background: url(header-sprite.png);
+	background: url(../../img/front/header-sprite.png);
 	background-position: -255px -21px;
 	background-repeat: no-repeat;
 	width: 40px;
@@ -2529,7 +2529,7 @@
 .products-display .list__item .quick-view a:after,
 .products-display .list__item .add-to-wishlist button:after,
 .products-display .list__item .add-to-wishlist a:after {
-	background: url(header-sprite.png) no-repeat;
+	background: url(../../img/front/header-sprite.png) no-repeat;
 	background-position: -8px -8px;
 	content: "";
 	position: absolute;
@@ -3600,7 +3600,7 @@
 }
 
 .smartblog-container .available-comment #comments li .comment-img {
-	background: url(header-sprite.png);
+	background: url(../../img/front/header-sprite.png);
 	background-position: 0 0;
 	background-repeat: no-repeat;
 	height: 60px;
@@ -3895,7 +3895,7 @@
 	opacity: 1;
 	width: 16px;
 	height: 16px;
-	background: url(header-sprite.png);
+	background: url(../../img/front/header-sprite.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	border-radius: 0;
@@ -4229,7 +4229,7 @@
 }
 
 #ishispecialdeals-icon:after {
-	background: url(header-sprite.png);
+	background: url(../../img/front/header-sprite.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 40px;
@@ -5229,7 +5229,7 @@
 .product-single .product-single-right .product-single__meta .product-form .selector-wrapper select {
 	height: 45px;
 	width: 100%;
-	background-image: url(header-sprite.png);
+	background-image: url(../../img/front/header-sprite.png);
 	background-repeat: no-repeat;
 	background-position: right 18px center;
 	background-color: #fff;
@@ -5962,7 +5962,7 @@
 
 #quickviewModal .modal-body #qv-text-container #qv-quantity .add-to-cart .product-selector .selector-wrapper select {
 	width: 100%;
-	background-image: url(dropdown-sprite.png);
+	background-image: url(../../img/front/dropdown-sprite.png);
 	background-repeat: no-repeat;
 	background-position: right 18px center;
 	background-color: #fff;

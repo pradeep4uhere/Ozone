@@ -44,12 +44,14 @@
     <meta property="og:site_name" content="{{env('APP_NAME')}}"/>
     <meta name="atdlayout" content="article">
 
-
     <!-- Page Title -->
-    
-
     <!-- Bootstrap CSS -->
     <link href="{{config('global.THEME_URL_FRONT_CSS').'/bootstrap.min.css'}}" rel="stylesheet">
+    <link href="{{config('global.THEME_URL_FRONT_CSS').'/material-icons.css'}}" rel="stylesheet">
+    <link href="{{config('global.THEME_URL_FRONT_CSS').'/bootstrap/3.3.7/bootstrap.min.css'}}" rel="stylesheet">
+    <link href="{{config('global.THEME_URL_FRONT_CSS').'/material-icons.css'}}" rel="stylesheet">
+    <script src="{{config('global.THEME_URL_FRONT_JS').'/bootstrap/3.3.7/bootstrap.min.js'}}"></script>
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
     <link href="{{config('global.THEME_URL_FRONT_CSS').'/font-awesome-4.7.0/css/font-awesome.min.css'}}" rel="stylesheet">
@@ -65,70 +67,106 @@
     <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/set1.css'}}">
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/style.css'}}">
-		<script src="{{config('global.THEME_URL_FRONT_JS').'/jquery-3.2.1.min.js'}}"></script>
+	<script src="{{config('global.THEME_URL_FRONT_JS').'/jquery-3.2.1.min.js'}}"></script>
 	<script src="{{config('global.THEME_URL_FRONT_JS').'/sweetalert.min.js'}}"></script>
-
+    <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/theme.css'}}">
+    <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/custom.scss.css'}}">
+    <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/theme.custom.css'}}">
+    <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/footer.css'}}">
 </head>
-<body>
-    <!--============================= HEADER =============================-->
-    <div class="dark-bg sticky-top">
-        <div class="container-fluid">
-                @include('prssystem.partials.frontend_header')
-            </div>
-        </div>
-<!-- BEGIN MAIN CONTENT -->
-   @yield('content')
-<!-- END MAIN CONTENT -->
-<!--============================= FOOTER =============================-->
+<body class="template-index" style="">
+<div class="whole-content">
+<!--============================= HEADER =============================-->
+@include('prssystem.partials.frontend_header')
+<div class="page-container drawer-page-content" id="PageContainer">
+<main class="main-content" id="MainContent" role="main">
 
-    @include('prssystem.partials.theme_footer')
-    <!--//END FOOTER -->
-    <!-- jQuery, Bootstrap JS. -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{{config('global.THEME_URL_FRONT_JS').'/popper.min.js'}}"></script>
-    <script src="{{config('global.THEME_URL_FRONT_JS').'/bootstrap.min.js'}}"></script>
-    <!-- Magnific popup JS -->
-    <script src="{{config('global.THEME_URL_FRONT_JS').'/jquery.magnific-popup.js'}}"></script>
-    <!-- Swipper Slider JS -->
-    <script src="{{config('global.THEME_URL_FRONT_JS').'/swiper.min.js'}}"></script>
-    <script src="{{config('global.THEME_URL_FRONT_JS').'/front-common.js'}}"></script>
-    <script>
-        var swiper = new Swiper('.swiper-container', {
-            slidesPerView: 3,
-            slidesPerGroup: 3,
-            loop: true,
-            loopFillGroupWithBlank: true,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
+<!--============================= MAIN CONTENT =============================-->
+@yield('content')
+
+
+
+<!--============================= FOOTER =============================-->
+@include('prssystem.partials.theme_footer')
+
+
+
+
+
+
+<!-- jQuery, Bootstrap JS. -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{{config('global.THEME_URL_FRONT_JS').'/popper.min.js'}}"></script>
+<script src="{{config('global.THEME_URL_FRONT_JS').'/bootstrap/3.3.7/bootstrap.min.js'}}"></script>
+<!-- Magnific popup JS -->
+<script src="{{config('global.THEME_URL_FRONT_JS').'/jquery.magnific-popup.js'}}"></script>
+<!-- Swipper Slider JS -->
+<script src="{{config('global.THEME_URL_FRONT_JS').'/swiper.min.js'}}"></script>
+<script src="{{config('global.THEME_URL_FRONT_JS').'/front-common.js'}}"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 3,
+        slidesPerGroup: 3,
+        loop: true,
+        loopFillGroupWithBlank: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+<script>
+    if ($('.image-link').length) {
+        $('.image-link').magnificPopup({
+            type: 'image',
+            gallery: {
+                enabled: true
+            }
         });
-    </script>
-    <script>
-        if ($('.image-link').length) {
-            $('.image-link').magnificPopup({
-                type: 'image',
-                gallery: {
-                    enabled: true
-                }
-            });
-        }
-        if ($('.image-link2').length) {
-            $('.image-link2').magnificPopup({
-                type: 'image',
-                gallery: {
-                    enabled: true
-                }
-            });
-        }
-    </script>
-    
+    }
+    if ($('.image-link2').length) {
+        $('.image-link2').magnificPopup({
+            type: 'image',
+            gallery: {
+                enabled: true
+            }
+        });
+    }
+
+
+
+</script>
+<script type="text/javascript">
+    if($(window).width() < 992) {
+    //convertToMobile();
+  }
+  $(document).ready(function(){
+
+      $('#menu-icon').on('click', function() {
+    $("#mobile_top_menu_wrapper").animate({
+      width: "toggle"
+    });
+  });
+
+  $('#top_menu_closer i').on('click', function() {
+    $("#mobile_top_menu_wrapper").animate({
+      width: "toggle"
+    });
+  });
+
+
+  });
+
+</script>
 <!-- begin page level js -->
 @yield('footer_scripts')
 <!-- end page level js -->
-    </body>
+</main>
+</div>
+</div>
+</body>
 </html>

@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/theme.css'}}">
-<link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/footer.css'}}">
 <div class="whole-content template-index">
          <div class="page-container drawer-page-content" id="PageContainer">
             <div id="shopify-section-footer" class="shopify-section">

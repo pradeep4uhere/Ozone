@@ -1254,12 +1254,16 @@ html {
 	.page-width {
 		max-width: 1200px
 	}
+	.slider-content_wrap h3{
+		font-size: 40px;
+	}
 }
 
 @media screen and (min-width: 991px) and (max-width: 1199px) {
 	.page-width {
 		max-width: 1000px
 	}
+	
 }
 
 @media (max-width: 991px) {
@@ -1277,6 +1281,29 @@ html {
 @media (max-width: 543px) {
 	.page-width {
 		max-width: auto
+	}
+}
+
+@media (max-width: 375px) {
+	.rowInner {
+		display:none;
+	}
+	.tophead{
+		font-size:10px;
+		color: #FFF;
+	}
+	.ishiheaderblockTop{
+		padding-top:2px !important;
+	}
+	.rowOuter{
+		display:block;	
+		background-color: #78a206;
+	}
+	.slider{
+		min-height: 350px;
+	}
+	.slider h3{
+		font-size: 23px;
 	}
 }
 

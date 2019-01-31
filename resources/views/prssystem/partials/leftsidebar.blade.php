@@ -6,7 +6,7 @@
                 <h1><a href="#" style="font-size:14px">Welcome back, {{Auth::user()->first_name}}</span></a></h1>
             </div>
             <div class="logo-icon text-center">
-                <a href="index.html"><i class="fa fa-home"></i> </a>
+                <a href="{{route('dashboard')}}"><i class="fa fa-home"></i> </a>
             </div>
 
             <!--logo and iconic logo end-->

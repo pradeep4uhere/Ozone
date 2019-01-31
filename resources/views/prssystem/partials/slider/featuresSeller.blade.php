@@ -10,7 +10,7 @@
             margin-bottom: 60px;
         }
         .content-slider li{
-            background-color: #CCC;
+            background-color: #FFF;
             color: #FFF;
             text-align: left;
         }
@@ -60,7 +60,7 @@
                                 <img height="200" src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/featured1.jpg" alt="image">
                                 @endif
                                 <div class="featured-title-box">
-                                    <h6>{{$seller['business_name']}}</h6>
+                                    <h2>{{ucwords($seller['business_name'])}}</h2>
                                     <p>{{$seller['StoreType']['name']}} </p><span>• </span>
                                     <p>3 Reviews</p> <span> • </span>
                                     <p><span>Open Now</span></p>

@@ -127,7 +127,6 @@
     margin-top: 20px
 }
 </style>
-	<section class="main-block" style="width:100%; padding:5px;">	
 <div class="col-md-12">
     <div class="widget-container">
         <div class="widget row image-tile">
@@ -158,9 +157,6 @@
 			<div class="tile col-md-3" style="background: url('{{ Config('global.THEME_URL_FRONT_IMAGE') }}/cat/99.jpg') no-repeat center top; background-size: cover;">
                 <p>view  </p>
             </div>
-			
-          
-
             <div class="tile col-md-2" style="background: url('{{ Config('global.THEME_URL_FRONT_IMAGE') }}/cat/10.jpg') no-repeat center top; background-size: cover;">
                 <p>view  </p>
             </div>
@@ -172,4 +168,3 @@
     </div>
 </div>
     
-</section>

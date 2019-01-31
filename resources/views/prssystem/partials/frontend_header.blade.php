@@ -1,28 +1,4 @@
-<div style="background-color: #FFF; width: 100%; margin-bottom: 5px;">
-         <div id="SearchDrawer" class="search-bar drawer drawer--top">
-            <div class="search-bar__table">
-               <div class="search-bar__table-cell search-bar__form-wrapper">
-                  <form class="search search-bar__form" action="" method="get" role="search" style="position: relative;">
-                     <button class="search-bar__submit search__submit btn--link" type="submit">
-                        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-search" viewBox="0 0 37 40">
-                           <path d="M35.6 36l-9.8-9.8c4.1-5.4 3.6-13.2-1.3-18.1-5.4-5.4-14.2-5.4-19.7 0-5.4 5.4-5.4 14.2 0 19.7 2.6 2.6 6.1 4.1 9.8 4.1 3 0 5.9-1 8.3-2.8l9.8 9.8c.4.4.9.6 1.4.6s1-.2 1.4-.6c.9-.9.9-2.1.1-2.9zm-20.9-8.2c-2.6 0-5.1-1-7-2.9-3.9-3.9-3.9-10.1 0-14C9.6 9 12.2 8 14.7 8s5.1 1 7 2.9c3.9 3.9 3.9 10.1 0 14-1.9 1.9-4.4 2.9-7 2.9z"></path>
-                        </svg>
-                        <span class="icon__fallback-text">Submit</span>
-                     </button>
-                     <input class="search__input search-bar__input" type="search" name="q" value="" placeholder="Search Our Catalog" aria-label="Search Our Catalog" autocomplete="off">
-                     <ul class="search-results" style="position: absolute; left: 0px; top: -2px; display: none;"></ul>
-                  </form>
-               </div>
-               <div class="search-bar__table-cell text-right">
-                  <button type="button" class="btn--link search-bar__close js-drawer-close">
-                     <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 37 40">
-                        <path d="M21.3 23l11-11c.8-.8.8-2 0-2.8-.8-.8-2-.8-2.8 0l-11 11-11-11c-.8-.8-2-.8-2.8 0-.8.8-.8 2 0 2.8l11 11-11 11c-.8.8-.8 2 0 2.8.4.4.9.6 1.4.6s1-.2 1.4-.6l11-11 11 11c.4.4.9.6 1.4.6s1-.2 1.4-.6c.8-.8.8-2 0-2.8l-11-11z"></path>
-                     </svg>
-                     <span class="icon__fallback-text">Close search</span>
-                  </button>
-               </div>
-            </div>
-         </div>
+<div style="background-color: #FFF; width: 100%;">
          <div id="shopify-section-header-top" class="shopify-section">
             <div id="header" data-section-id="header-top" data-section-type="header-section">
                <header class="site-header" role="banner">
@@ -30,11 +6,11 @@
                      <div class="page-width">
                         <div class="row">
                            <div class="col-xs-12 col-sm-12 col-md-10 left-nav">
-                              <div id="ishiheaderblock">
+                              <div id="ishiheaderblock" class="ishiheaderblockTop">
                                  <span>BECOME SELLER CALL US +(91) 9015446567</span>
                               </div>
                            </div>
-                           <div class="col-xs-12 col-sm-12 col-md-2 right-nav">
+                           <div class="col-xs-12 col-sm-12 col-md-2 right-nav rowInner" >
                               <div class="follow-us">
                                  <div id="social-icon-container" class="social-icon-inner">
                                     <div class="social-media-blocks">
@@ -81,7 +57,7 @@
                         </div>
                      </div>
                   </div>
-                  <div class="header-top site-header-inner">
+                  <div class="header-top site-header-inner rowInner">
                      <div class="page-width">
                         <div class="row">
                            <div class="header-logo-section header-top-left col-md-1">
@@ -96,6 +72,7 @@
                                  <span class="search-toggle"></span>
                               </div>
                            </div>
+
                            <div class="header-top-right-corner col-md-6">
                               <div id="_desktop_cart" class="hidden-lg-down">
                                  <div class="cart-display">
@@ -145,6 +122,7 @@
                                     </div> -->
                                  </div>
                               </div>
+                              
                               <div id="_desktop_user_info" class="user_info full-width hidden-lg-down">
                                  <div class="userinfo-title clearfix collapsed" data-target="#userinfo-container" data-toggle="collapse">
                                     <span class="userinfo-toggle"></span>
@@ -178,25 +156,30 @@
                                     
                                  </div>
                               </div>
+
+
                               <div id="ishiheadercontactblock">
                                  <div class="call-img"></div>
                                  <div class="call-num">+91-9015446567</div>
                               </div>
                            </div>
-                              <!--Mobile Menu Start Here-->
-                              @include('prssystem.partials.mobilemenu')
-                              <!--Mobile Menu Ends Here-->
+                              
                         </div>
                      </div>
                   </div>
                   <div class="mobile-width hidden-lg-up">
                      <div class="page-width">
+                        <!--Mobile Menu Start Here-->
+                              @include('prssystem.partials.mobilemenu')
+                              <!--Mobile Menu Ends Here-->
                         <div class="row">
                            <div class="mobile-width-left col-xs-12">
                               <div style="width: 100px; float: left;">
                                  <div id="menu-icon" class="menu-icon hidden-lg-up">
-                                    <i class="fa fa-bars" aria-hidden="true"></i>
-                                 </div>
+                                   <i class="fa fa-bars" aria-hidden="true"></i>
+                                   <a href="{{env('APP_URL')}}" itemprop="url" class="header__logo-image">
+                                   <span style="color: #FFF;font-size: 18px;font-weight: bold; font-family:cursive;display: block;position: relative;top:-13px;left: 40%">Go4Shop</span></a>
+                                </div>
                               </div>
                               <div style="width:200px;float: right; text-align: right;">
                                  <div id="menu-icon" class="menu-icon hidden-lg-up collapsed" data-target="#userinfo-container-m" data-toggle="collapse">

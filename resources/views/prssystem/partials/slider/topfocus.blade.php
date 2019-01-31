@@ -253,7 +253,7 @@
   opacity: 1
 }
       </style>
-      <div id="shopify-section-1540019638773" class="shopify-section index-section">
+      <div id="shopify-section" class="shopify-section index-section" style="margin-bottom: 1px;">
       <div id="ishitopbanners">
       <div class="clearfix col-xm-12">
       <div class="row no-gutter">
@@ -264,10 +264,10 @@
                   <div class="banner-desc">
                      <div class="banner-data">
                         <div class="banner-title">
-                           Orange
+                           Grocery
                         </div>
                         <div class="banner-subtitle">
-                           Daily Fruits
+                           Daily Needs
                         </div>
                      </div>
                      <div class="banner-btn">
@@ -280,39 +280,18 @@
             </div>
         </div>
 
-        <div class="col-xm-4">
-          <div id="ishitopbanners_2" class="ishitopbanners-container col-sm-12">
-             <div class="image-container">
-                <img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/banner/furniture.jpg" data-src="" data-widths="[640]" data-sizes="auto" alt="">
-                <div class="banner-desc">
-                   <div class="banner-data">
-                      <div class="banner-title">
-                         Furniture
-                      </div>
-                      <div class="banner-subtitle">
-                         Furniture Shops
-                      </div>
-                   </div>
-                   <div class="banner-btn">
-                      <a href="{{env('APP_URL')}}">
-                      SHOP NOW
-                      </a>
-                   </div>
-                </div>
-             </div>
-          </div>
-        </div>
+        
         <div class="col-xm-4">
             <div id="ishitopbanners_3" class="ishitopbanners-container col-sm-12">
                <div class="image-container">
-                  <img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/banner/7_640x350.jpg" data-src="" data-widths="[640]" data-sizes="auto" alt="">
+                  <img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/rsz_stationery-1170x658-1.jpg" data-src="" data-widths="[640]" data-sizes="auto" alt="">
                   <div class="banner-desc">
                      <div class="banner-data">
                         <div class="banner-title">
-                           A Fresh
+                           Stationery
                         </div>
                         <div class="banner-subtitle">
-                           Daily Fruits
+                           Student's Need
                         </div>
                      </div>
                      <div class="banner-btn">
@@ -323,6 +302,29 @@
                   </div>
                </div>
             </div>
+        </div>
+
+        <div class="col-xm-4">
+          <div id="ishitopbanners_2" class="ishitopbanners-container col-sm-12">
+             <div class="image-container">
+                <img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/rsz_interior-design-sofa.jpg" data-src="" data-widths="[640]" data-sizes="auto" alt="">
+                <div class="banner-desc">
+                   <div class="banner-data">
+                      <div class="banner-title">
+                         Furniture
+                      </div>
+                      <div class="banner-subtitle">
+                         Home Shops
+                      </div>
+                   </div>
+                   <div class="banner-btn">
+                      <a href="{{env('APP_URL')}}">
+                      SHOP NOW
+                      </a>
+                   </div>
+                </div>
+             </div>
+          </div>
         </div>
       </div>
       </div>

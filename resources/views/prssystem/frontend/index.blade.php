@@ -76,18 +76,22 @@ input[type=submit] {
                             </div>
                         </div>
                         <div class="row d-flex justify-content-center">
-                            <div class="col-md-10">
-							
+                            <div class="col-md-12">
                                 <form class="form-wrap mt-4" action="{{route('listing')}}" autocomplete="off" >
-								{{ csrf_field() }}
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-									<div class="autocomplete">
-                                        <input type="text" placeholder="e.g Bisrakh Gautam Buddha nagar 201301 Uttar Pradesh" class="btn-group1" id="myInput" name="place">
-										<div id="display" style="z-index:9999; position: absolute;border-top: none;z-index: 99;top: 100%;left: 0;right: 0;height: 250px; overflow: auto; font-size: 12px; "></div>
+                                  <div class="col-md-12">
+                    								{{ csrf_field() }}
+                                    <div class="btn-group col-md-12" role="group" aria-label="Basic example">
+									                   <div class="autocomplete" style="margin-bottom:1px;">
+                                     <input type="text" placeholder="e.g Bisrakh Gautam Buddha nagar 201301 Uttar Pradesh" class="btn-group1" id="myInput" name="place">
+                                     
+										                 <div id="display" style="z-index:9999; position: absolute;border-top: none;z-index: 99;top: 100%;left: 0;right: 0;height: 250px; overflow: auto; font-size: 12px; ">
+                                     </div>
+                                     </div>
+                                     <button type="submit" class="btn-form"><span class="icon-magnifier search-icon"></span>SEARCH<i class="pe-7s-angle-right"></i></button>
+                                    <input type="hidden" name="locationId" id="locationIdStr">
                                     </div>
-                                        <input type="hidden" name="locationId" id="locationIdStr">
-                                        <button type="submit" class="btn-form"><span class="icon-magnifier search-icon"></span>SEARCH<i class="pe-7s-angle-right"></i></button>
                                     </div>
+
                                 </form>
                             </div>
                         </div>
@@ -101,7 +105,7 @@ input[type=submit] {
     <!--============================= FIND PLACES =============================-->
 
 	 <!--Start Caegory SliderList-->
-   <section class="main-block light-bg">
+   <section class="main-block light-bg" style="margin-bottom:1px; padding-bottom:1px;margin-top:1px;padding-top:30px;">
         <div class="row justify-content-center">
             <div class="styled-heading">
               <h3>Featured Seller</h3>
@@ -111,18 +115,10 @@ input[type=submit] {
    </section>
     <!--End Caegory Slider List-->
     
-<section class="main-block">
-  <div class="row justify-content-center">
-            <div class="styled-heading">
-              <h3>Top Category</h3>
-            </div>
-        </div>
-    <!--Start Caegory List-->
-        @include('prssystem.partials.slider.category')
-    <!--End Caegory List-->
-  </section>
-        
-	<hr/>
+
+<section class="main-block" style="margin:0px;padding: 0px">
+  @include('prssystem.partials.slider.topfocus')
+</section>
 <section class="main-block">
         <div class="container">
             <div class="row justify-content-center">
@@ -232,34 +228,28 @@ input[type=submit] {
                         <a href="{{route('sellerview',['seller'=>str_slug($seller['business_name']),'id'=>encrypt($seller['id'])])}}">
                             @if(count($seller['SellerImage']))
 							@foreach($seller['SellerImage'] as $SellerImage)
-						<?php //sprint_r($SellerImage);?>
 							@if($SellerImage->is_default==1)
                             <img height="250px" src="{{config('global.SELLER_IMG_GALLERY').DIRECTORY_SEPARATOR.'seller_'.$SellerImage->seller_id.DIRECTORY_SEPARATOR.$SellerImage->image_name}}" />
 							@endif
 							@endforeach
 							@else
-							<img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/featured1.jpg" class="img-fluid" alt="#">
+							<img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg" class="img-fluid" alt="image" style="height: 245px;">
 							@endif
-                            <div class="featured-title-box">
-                                <h2>{{$seller['business_name']}}</h2>
-                                <p>{{$seller['StoreType']['name']}} </p> <span>• </span>
-                                <p>3 Reviews</p> <span> • </span>
-                                <p><span>Open Now</span></p>
-                                <ul>
-                                    <li><span class="icon-location-pin"></span>
-                                        <p>{{$seller['address_1']}}</p>
-                                    </li>
-                                    
-
-                                </ul>
-                                
-                            </div>
-                        </a>
-                    </div>
-                </div>
-				<?php } ?>
-                
-                
+              <div class="featured-title-box">
+              <h2>{{$seller['business_name']}}</h2>
+              <p>{{$seller['StoreType']['name']}} </p> <span>• </span>
+              <p>3 Reviews</p> <span> • </span>
+              <p><span>Open Now</span></p>
+              <ul>
+              <li><span class="icon-location-pin"></span>
+                  <p>{{$seller['address_1']}}</p>
+              </li>
+              </ul>
+              </div>
+              </a>
+              </div>
+              </div>
+				    <?php } ?>
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-4">
@@ -276,9 +266,7 @@ input[type=submit] {
     <!--============================= ADD LISTING =============================-->
 
     <section>
-      <div>
       @include('prssystem.partials.slider.testimonials',array('itemList'=>$Testimonials))
-    </div>
     </section>
     <section class="main-block light-bg">
         <div class="container">

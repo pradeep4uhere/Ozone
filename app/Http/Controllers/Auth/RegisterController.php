@@ -95,7 +95,7 @@ class RegisterController extends Controller
         $user = $this->create($request->all())->toArray();
 
         //Send Whatsapp Message To User
-        Log::channel('newuser')->info('Request', array('Name'=>$user['first_names'],'Date'=>$user['created_at']); 
+        Log::channel('newuser')->info('Request', array('Name'=>$user['first_name'],'Date'=>$user['created_at'])); 
         $notify = new NotificationController();
         $notify::sendWelcomeMessage($user);
         // Sending email, sms or doing anything you want

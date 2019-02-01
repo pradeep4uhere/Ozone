@@ -2,6 +2,14 @@
 use Illuminate\Http\Request;
 Route::group(['prefix' => 'en/v1/'], function (){
 	
+	//Twilio API Integration
+	//http://go4shop.online/api/en/v1/sms/twilio
+	Route::any('sms/twilio', 'Api\ApiController@twiliowhatsapp')->name('twilio');
+
+
+
+	Route::any('gettoken', 'Api\ApiController@gettoken')->name('gettoken');
+	
 	Route::any('gettoken', 'Api\ApiController@gettoken')->name('gettoken');
 	Route::any('getstoretype', 'Api\ApiController@getStoreType')->name('getstoretype');
 	

@@ -1,6 +1,6 @@
 @extends('prssystem/layouts/frontDetails')
 @section('title')
-    Home Page
+    Cart
 @stop
 @section('content')
 

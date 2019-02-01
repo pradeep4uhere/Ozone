@@ -18,6 +18,7 @@ use App\OrderDetail;
 use App\Order;
 use App\Location;
 use App\User;
+use Log;
 
 
 
@@ -247,11 +248,11 @@ class SellerController extends Master
 	
 	public function sellerregister(){
 		//Get All State List
-        $stateObj = new State();
-        $state= $stateObj->getAllState();
-        $cityObj = new City();
-        $city =$cityObj->getAllCity();
-        $seller=Seller::where('user_id','=',Auth::user()->id)->first();
+    $stateObj = new State();
+    $state= $stateObj->getAllState();
+    $cityObj = new City();
+    $city =$cityObj->getAllCity();
+    $seller=Seller::where('user_id','=',Auth::user()->id)->first();
 		//Get Business Type List
 		$businessType = StoreType::where('status','=',1)->all();
 		if(!empty($seller)){
@@ -641,6 +642,7 @@ class SellerController extends Master
             }else{
                 $username = str_replace(" ", "", $data['businessusername']);
             }
+
             $seller=Seller::create([
                 'store_type_id' => $data['store_type_id'],
                 'business_name' => $data['business_name'],
@@ -658,6 +660,16 @@ class SellerController extends Master
                 'image_thumb'=>$this->imageName,
             ]);
             Session::flash('message', 'Seller Profile Updated Successfully!'); 
+            //Send Welcome Message to Seller
+            $this->sendWhatsappMessage('newSeller',$seller);
+
+            //Log For New Seller 
+            Log::channel('newuser')->info('New Seller', array(
+              'Name'=>$seller['business_name'],
+              'BusinessURl'=>env('APP_URL').'/seller/'.$seller['businessusername'],
+              'Date'=>$seller['created_at']
+            )); 
+
         }catch(QueryException  $exception){
             $errormsg = 'Database error! ' . $exception->getCode();
             dd($errormsg);

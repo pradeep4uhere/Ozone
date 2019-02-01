@@ -76,6 +76,19 @@ return [
             'driver' => 'errorlog',
             'level' => 'debug',
         ],
+        'twilio' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/twiliowhatsapp.log'),
+            'level' => 'debug',
+            'days' => 7,
+        ],
+        'newuser' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/newuser.log'),
+            'level' => 'debug',
+            'days' => 7,
+        ],
+
     ],
 
 ];

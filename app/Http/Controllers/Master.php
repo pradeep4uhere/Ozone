@@ -16,6 +16,7 @@ use File;
 use Session;
 use Config;
 use App\Location;
+use Log;
 
 
 class Master extends Controller {
@@ -246,6 +247,28 @@ class Master extends Controller {
         }
     } 
 
+
+
+
+
+
+
+    /*Send All Notification*/
+    public function sendWhatsappMessage($type,$data){
+        $notify = new NotificationController();
+        switch($type){
+            
+            case 'newUser':
+                    $notify::sendWelcomeMessage($data);
+                    break;
+
+            case 'newSeller':
+                    $notify::sendWelcomeMessageAsSeller($data);
+                    break;
+
+            default: break;
+        }
+    }
 
 
 

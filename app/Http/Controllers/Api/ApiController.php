@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers\Api;
-
+#require '../../'.__DIR__ . '/vendor/autoload.php';
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -12,6 +12,9 @@ use App\State;
 use App\City;
 use App\DeliveryAddress;
 use App\StoreType;
+use Log;
+// Use the REST API Client to make requests to the Twilio REST API
+use Twilio\Rest\Client;
 
 
 class ApiController extends Master
@@ -69,7 +72,7 @@ class ApiController extends Master
     }
 
 
-    public function getCitylist(Request $request){
+    /*public function getCitylist(Request $request){
         //Get Business Type List
         if(self::isValidToekn($request)){
             try{
@@ -94,8 +97,43 @@ class ApiController extends Master
             $responseArray['message'] ="Invalid Token provided.";
         }
         return response()->json($responseArray);
-    }
+    }*/
 
+
+
+
+    public function twilioWhatsapp(Request $request){
+        /*
+        // Your Account SID and Auth Token from twilio.com/console
+        $sid = 'ACc9f590aae6dde163c7e1e4465de9c011';
+        $token = '48267db39ffd36e39cb18d047e9d8ab7';
+        $twilio = new Client($sid, $token);
+
+        // Use the client to do fun stuff like send text messages!
+        /*$client->messages->create(
+                    // the number you'd like to send the message to
+                    '+919015446567',
+                array(
+                        // A Twilio phone number you purchased at twilio.com/console
+                    'from' => '+18036755424',
+                    // the body of the text message you'd like to send
+                    'body' => 'Hello! Welcome to www.go4shop.online. How My I help you.'
+                )
+        );*/
+        /*$message = $twilio->messages
+                    ->create("whatsapp:+919015446567",
+                        array(
+                            "body" => "Hello! Welcome to www.go4shop.online. Thanks For Registered with us. Regards, Go4Shop Team",
+                            "from" => "whatsapp:+14155238886"
+                        )
+                    );
+        //print($message->sid);
+        //$data = $request->all();
+        //Log::channel('twilio')->info('Request', $data); 
+        //return response()->json($message->sid);
+        */
+
+    }
 
 
 

@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use App\Http\Controllers\Master;
+use App\Http\Controllers\NotificationController;
+use Log;
 
 class RegisterController extends Controller
 {
@@ -54,6 +56,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+            'mobile' => 'required|string|max:10',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -66,11 +69,17 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
+    {   $len =  strlen($data['mobile']);
+        if($len>10){
+            $data['mobile']= '+91'.substr($data['mobile'],-10);
+        }else{
+            $data['mobile'] = '+91'.$data['mobile'];
+        }
         return User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
+            'first_name' => ucwords(strtolower($data['first_name'])),
+            'last_name' => ucwords(strtolower($data['last_name'])),
+            'email' => ucwords(strtolower($data['email'])),
+            'mobile' => $data['mobile'],
             'password' => Hash::make($data['password']),
         ]);
     }
@@ -80,20 +89,21 @@ class RegisterController extends Controller
 	 // override default register method
     public function register(Request $request) {
         $validator = $this->validator($request->all());
-
         if ($validator->fails()) {
-           //dd($request->all());
+           
         }
+        $user = $this->create($request->all())->toArray();
 
-        $user = $this->create($request->all());
-
+        //Send Whatsapp Message To User
+        Log::channel('newuser')->info('Request', array('Name'=>$user['first_names'],'Date'=>$user['created_at']); 
+        $notify = new NotificationController();
+        $notify::sendWelcomeMessage($user);
         // Sending email, sms or doing anything you want
         //$this->activationService->sendActivationMail($user);
-
         return redirect('user/thankyou')->with('message', 'We sent a comfirmation email to your email, please click on link inside before login');
     }
-	 // override default register method
-    
+    // override default register method
+   
     
     
     public function thankyou(Request $request) {

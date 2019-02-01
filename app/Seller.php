@@ -16,6 +16,7 @@ class Seller extends Model
     protected $fillable = [
         'store_type_id',
         'business_name',
+        'businessusername',
         'address_1', 
         'address_2', 
         'email_address', 

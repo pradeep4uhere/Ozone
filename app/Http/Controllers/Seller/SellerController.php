@@ -235,13 +235,19 @@ class SellerController extends Master
 
         //Get All the Category For Filter Respective Store Type
         $categoryList = Category::where('store_type','=',$seller['store_type_id'])->paginate(self::getPageItem());
+        if($seller['store_type_id']==34){
+          $featureImage = 'furnitures.jpg';
+        }else{
+          $featureImage = 'banner4.jpg';
+        }
 
 		return view(Master::loadFrontTheme('seller.details'),array(
 				'seller'=>$seller,
 				'productDetails'=>$productList,
         'productList'=>$lsitArr,
         'metaTags'=>$metaTags,
-        'categoryList'=>$categoryList
+        'categoryList'=>$categoryList,
+        'store_type'=>$featureImage
 				)
 			);
 		

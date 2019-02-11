@@ -7,9 +7,8 @@
          <div id="shopify-section-collection-template" class="shopify-section">
             <div data-section-id="collection-template" data-section-type="collection-template" class="collection__main">
                <header class="collection-header">
-                  <input type="hidden" id="ajaxURL" value="https://smartshop-ishi.myshopify.com/collections/hot-coffee/">
                   <div class="collection-hero">
-                     <img class="collection-hero__image ratio-container js lazyloaded" src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/furnitures.jpg" data-widths="[1170]" alt="Furniture Shop" >
+                     <img class="collection-hero__image ratio-container js lazyloaded" src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/{{$store_type}}" data-widths="[1170]" alt="Furniture Shop"  style="width: 100%">
                      <div class="collection-hero__title-wrapper">
                         <h1 class="collection-hero__title page-width">Furniture Shop</h1>
                      </div>
@@ -62,12 +61,12 @@
                            <div class="grid-view-item ">
                               <div class="grid-view-item__link grid-view-item__image-container">
                                  <div class="grid-view-item__image-wrapper js">
-                                    <a href="/collections/hot-coffee/products/grinders-cafe">
+                                    <a href="{{route('details',['slug'=>str_slug($prodObj['Product']['title']),'id'=>encrypt($prodObj['UserProduct']['id'])])}}">
                                        <div class="image-inner">
                                           <div class="reveal">
                                              <img class="grid-view-item__image  main-img lazyloaded" src="{{ config('global.PRODUCT_IMG_URL').DIRECTORY_SEPARATOR.$prodObj['UserProduct']['default_images'] }}" class="img-fluid" alt="#" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';">
-                                             <img class="extra-img" src="//cdn.shopify.com/s/files/1/0016/4891/8628/products/19_67906275-18da-4faf-9dfb-f2030cab4f1a_370x480.jpg?v=1546939045" alt="Grinders Cafe">
-                                             
+                                             <img class="extra-img" src="{{ config('global.PRODUCT_IMG_URL').DIRECTORY_SEPARATOR.$prodObj['UserProduct']['default_images'] }}" alt="Grinders Cafe">
+
                                              <span class="spr-badge" id="spr_badge_1639015841892" data-rating="0.0"><span class="spr-starrating spr-badge-starrating"><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i></span><span class="spr-badge-caption">No reviews</span>
                                              </span>
                                           </div>

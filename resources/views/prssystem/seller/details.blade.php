@@ -12,7 +12,7 @@
 				foreach($seller->SellerImage as $imgObj){ ?>
                 <div class="swiper-slide">
                     <a href="{{config('global.SELLER_IMG_GALLERY').DIRECTORY_SEPARATOR.'seller_'.$imgObj->seller_id.DIRECTORY_SEPARATOR.$imgObj->image_name}}" class="grid image-link">
-                        <img style="height:340;width:100%" src="{{config('global.SELLER_IMG_GALLERY').DIRECTORY_SEPARATOR.'seller_'.$imgObj->seller_id.DIRECTORY_SEPARATOR.$imgObj->image_name}}" class="img-fluid" alt="#">
+                        <img src="{{config('global.SELLER_IMG_GALLERY').DIRECTORY_SEPARATOR.'seller_'.$imgObj->seller_id.DIRECTORY_SEPARATOR.$imgObj->image_name}}" alt="#" style="height: 250px;width: 100%">
                     </a>
                 </div>
 				<?php }}else{ ?>

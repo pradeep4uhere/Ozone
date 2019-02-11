@@ -19,7 +19,7 @@ use App\Order;
 use App\Location;
 use App\User;
 use Log;
-
+use Storage;
 
 
 
@@ -405,62 +405,74 @@ class SellerController extends Master
      */
     public function sellerProfile(Request $request)
     {
+
+        // $user = User::with('Seller')->find(Auth::user()->id)->get();
+          $seller = array();
+          $district = "";
+          $location_id  = "";
+          $districtName = ""; 
+          $stateName    = "";
+          $locationName = "";
+          $location  = "";
+          $pincode  = "";
         if ($request->isMethod('post')) {
-            
             $data=$request->all();
-			      //dd($data);
+            $stateName    = $request->get('state');
+            $districtName = $request->get('district');
+            $locArr = explode('-',$request->get('location'));
+            $locationName = end($locArr);
+            $pincode = $request->get('pincode');
+            $location  = $request->get('location');
+			      
             $data['user_id']=Auth::user()->id;
             $validator = $this->validator($request->all());
             if($validator->fails()) {
                 $error=$validator->errors()->all();
                 Session::flash('error', $error);
+
             }else{
-                $image = $request->file('logo');
-                IF(!empty($image)){
-                    $this->imageName=$this->saveImage($image);
-                }
-                if(array_key_exists('id',$data) && ($data['id']>0)){
-                    $this->updateSeller($data);
-                }else{
-                    $this->createSeller($data);
-                }
+                  $image = $request->file('logo');
+                  IF(!empty($image)){
+                      $this->imageName=$this->saveLogo($request);
+                      //$this->imageName=$this->saveImage($image);
+                  }
+                  if(array_key_exists('id',$data) && ($data['id']>0)){
+                      $this->updateSeller($data);
+                  }else{
+                    dd($data);
+                      $this->createSeller($data);
+                  }
             }
         }
-
-       // $user = User::with('Seller')->find(Auth::user()->id)->get();
-        $seller = array();
-        $district = "";
-        $location_id  = "";
-        $districtName = ""; 
-        $stateName    = "";
-        $locationName = "";
-        $location     = "";
+        //Get all the District From State
+        $district = Location::getAllDistrictByState($request->get('state'));
+        //Get All the Location Of the Disti
+        $location = Location::getAllLocationByDistrict(ucwords(str_replace('-',' ',$request->get('district'))));
+          
         try{
-        $sellerArr=Seller::where('user_id','=',Auth::user()->id)->get();
-        //dd($sellerArr);
-        if(count($sellerArr)){
-          foreach($sellerArr as $obj){
-            $seller = $obj;
-          } 
-          //dd($seller);
-          $location_id  = $seller['location_id'];
-          $districtName = strtolower($seller['district']);
-          $locationName = strtolower($seller['location']);
+            $sellerArr=Seller::where('user_id','=',Auth::user()->id)->get();
+            if(count($sellerArr)){
+              foreach($sellerArr as $obj){
+                $seller = $obj;
+              } 
+              //dd($seller);
+              $location_id  = $seller['location_id'];
+              $stateName = strtolower($seller['state']);
+              $districtName = strtolower(str_replace(' ','_',$seller['district']));
+              $locationName = strtolower(str_replace(' ','_',$seller['location']));
 
-          //Get all the District From State
-          //dd($seller['state']);
-          $district = Location::getAllDistrictByState($seller['state']);
+              //Get all the District From State
+              //dd($seller['state']);
+              $district = Location::getAllDistrictByState($seller['state']);
 
-          //Get All the Location Of the Disti
-          $location = Location::getAllLocationByDistrict($seller['district']);
-        }
-        
-        
+              //Get All the Location Of the Disti
+              $location = Location::getAllLocationByDistrict($seller['district']);
+            }
        }catch(exception $e){
 
        }
 
-        $businessType = StoreType::all();
+        $businessType = StoreType::where('status','=',1)->get();
 
         //Get All State List
         $state = Location::getAllState();
@@ -468,7 +480,9 @@ class SellerController extends Master
         $cityObj = new City();
         $city =$cityObj->getAllCity();
         
-//dd($district);
+        // dd($seller);
+        //echo $stateName;die;
+        //echo $districtName;die;
         return view(Master::loadFrontTheme('seller.profile'),array(
             'user'=>$seller,
             'stateList'=>$state,
@@ -476,14 +490,34 @@ class SellerController extends Master
             'location_id'=>$location_id,
             'districtName'=>$districtName,
             'stateName'=>$stateName,
-            'location'=>$location,
+            'locations'=>$location,
             'locationName'=>$locationName,
+            'pincode'=>$pincode,
             'cityList'=>$city,
       			'businessType'=>$businessType)
         );
     }
     
     
+    function saveLogo($request){
+      if ($request->hasFile('logo')) {
+            $image      = $request->file('logo');
+            $fileName   = time() . '.' . $image->getClientOriginalExtension();
+            $img = Image::make($image->getRealPath());
+            $directoryName = 'seller';
+            //120X120
+            $thubmName = '250X250';
+            $img->resize(250, 250, function ($constraint) {
+                $constraint->aspectRatio();                 
+            });
+            $img->stream(); // <-- Key point
+            $res = Storage::disk('public')->put('uploads/'.$directoryName.'/'.$thubmName.'/'.$fileName, $img, 'public');
+            return $fileName;
+      }
+
+    }
+
+
     /**
      *@Author: Pradeep Kumar
      *@Description: to Save the image if image is uploaded from the form 
@@ -495,6 +529,9 @@ class SellerController extends Master
         if(in_array(strtolower($ext),config('global.IMG_EXT'))){
             $destinationPath = $this->uploadThumbDir;
             $img = Image::make($image->getRealPath());
+            $destinationPath . '/' . $this->imageName;
+            echo Storage::disk('public')->put($cover->getFilename().'.'.$extension,  $this->imageName);
+            die;
             $img->resize($this->thumbWidth, $this->thumbHeight, function ($constraint) {
                 $constraint->aspectRatio();
             })->save($destinationPath . '/' . $this->imageName);
@@ -597,8 +634,8 @@ class SellerController extends Master
             $seller->address_1 =$data['address_1'];
             $seller->address_2 =$data['address_2'];
             $seller->state =$data['state'];
-            $seller->district =ucwords($data['district']);
-            $locationArr = explode("-",$data['location']);
+            $seller->district =ucwords(str_replace("_"," ",$data['district']));
+            $locationArr = explode("|",$data['location']);
             $seller->location =end($locationArr);
             $seller->pincode =$data['pincode'];
             if(array_key_exists('location_id', $data)){
@@ -649,7 +686,7 @@ class SellerController extends Master
                 'businessusername' => $username,
                 'address_1' => $data['address_1'],
                 'state' => $data['state'],
-                'district' => $data['district'],
+                'district' => ucwords(str_replace('_',' ',$data['district'])),
                 'location' => end($locationArr),
                 'pincode' => $data['pincode'],
                 'location_id' => $data['location_id'],

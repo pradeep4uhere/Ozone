@@ -322,7 +322,49 @@
                                        </div>
                                     </div>
                                  </li>
-                                 
+                                 <li class="category">
+                                    <span class="float-xs-right hidden-lg-up">
+                                    <span data-target="#_n_child-one2" data-toggle="collapse" class="navbar-toggler collapse-icons clearfix collapsed">
+                                    <i class="material-icons add"></i>
+                                    <i class="material-icons remove"></i>
+                                    </span>
+                                    </span>
+                                    <a href="#" class="dropdown-item">
+                                       <h3 class="title">SHOP</h3>
+                                    </a>
+                                    <div class="popover sub-menu js-sub-menu collapse" id="_n_child-one2" style="width: 430px;">
+                                       <ul class="top-menu mainmenu-dropdown">
+                                          <li class="sub-category">
+                                             <span class="float-xs-right hidden-lg-up">
+                                             <span data-target="#_n_grand-child-one2" data-toggle="collapse" class="navbar-toggler collapse-icons clearfix collapsed">
+                                             <i class="material-icons add"></i>
+                                             <i class="material-icons remove"></i>
+                                             </span>
+                                             </span>
+                                             <a href="#" class="dropdown-item dropdown-submenu">
+                                                <h3 class="inner-title">Daily Used</h3>
+                                             </a>
+                                             <div class="top-menu collapse" id="_n_grand-child-one2">
+                                                <ul class="top-menu">
+                                                   <li class="category">
+                                                      <a href="#" class="dropdown-item">Fruits</a>
+                                                   </li>
+                                                   <li class="category">
+                                                      <a href="#" class="dropdown-item">Vegetables</a>
+                                                   </li>
+                                                   <li class="category">
+                                                      <a href="#" class="dropdown-item">Chocolate</a>
+                                                   </li>
+                                                   <li class="category">
+                                                      <a href="#" class="dropdown-item">Personal Care</a>
+                                                   </li>
+                                                </ul>
+                                             </div>
+                                          </li>
+                                         
+                                       </ul>
+                                    </div>
+                                 </li>
                                 <!--  <li class="category">
                                     <span class="float-xs-right hidden-lg-up">
                                     </span>

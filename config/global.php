@@ -98,6 +98,8 @@ return [
     'SELLER_IMG_URL'=>$public_url.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.$sellerDirPath,
     'SELLER_THUMB_IMG'=>$public_url.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.$sellerThumbDirPath,
     'SELLER_IMG_GALLERY'=>$public_url.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.$uploadDir.DIRECTORY_SEPARATOR.$sellerDir,
+
+    'SELLER_STORAGE_DIR'=>asset("storage/app/public/uploads/seller/")
     
     
 ];

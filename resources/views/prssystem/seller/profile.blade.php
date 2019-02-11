@@ -77,7 +77,7 @@ Home Page
                                 <option value="" ="">Choose State</option>
                                 @if(!empty($stateList))
                                 @foreach($stateList as $name)
-                                <option value="{{$name->state}}" <?php if(strtolower($stateName)==strtolower($name->state)){ ?> "selected"="selected" <?php } ?>>{{$name->state}}</option>
+                                <option value="{{$name->state}}" <?php if(strtolower($stateName)==strtolower($name->state)){ ?> selected="selected" <?php } ?>>{{$name->state}}</option>
                                 @endforeach
                                 @endif
                               </select>
@@ -91,8 +91,8 @@ Home Page
                                 <option data-tokens="">Choose City/District</option>
                                 @if(!empty($district))
                                 @foreach($district as $dist)
-                                <option value="{{str_replace(' ','-',$dist['district'])}}" 
-                                @if($districtName==strtolower($dist['district'])) "selected"="selected" @endif>{{$dist['district']}}</option>
+                                <option value="{{str_replace(' ','_',$dist['district'])}}" 
+                                @if($districtName==strtolower(str_replace(' ','_',$dist['district']))) selected="selected" @endif>{{$dist['district']}}</option>
                                 @endforeach
                                 @endif
                                
@@ -106,8 +106,8 @@ Home Page
                                 <option data-tokens="">Choose Locations</option>
                                 @if(!empty($locations))
                                 @foreach($locations as $dist)
-                                <option value="{{$dist['id'].'-'.str_replace(' ','-',$dist['district']).'-'.$dist['location']}}" 
-                                @if($location==strtolower($dist['location'])) "selected"="selected" @endif>{{$dist['district']}}</option>
+                                <option value="{{$dist['id'].'|'.$dist['pincode'].'|'.str_replace(' ','-',$dist['district']).'|'.$dist['location']}}" 
+                                @if($locationName==strtolower(str_replace(' ','_',$dist['location']))) selected="selected" @endif>{{$dist['location']}}</option>
                                 @endforeach
                                 @endif
                                 
@@ -117,7 +117,7 @@ Home Page
                      <div class="form-group">
                         <label for="inputPassword" class="col-sm-2 control-label">@lang('seller.profile.pincode')</label>
                         <div class="col-sm-8">
-                            <input  type="text" class="form-control1" id="pincode_id" placeholder="Enter Pincode" name="pincode" value="{{(!empty($user))?$user->pincode_id:''}}" readonly="readonly">
+                            <input  type="text" class="form-control1" id="pincode_id" placeholder="Enter Pincode" name="pincode" value="{{(!empty($user))?$user->pincode:''}}" readonly="readonly">
                         </div>
                     </div>
                      <div class="form-group">
@@ -140,7 +140,7 @@ Home Page
                      <div class="form-group">
                         <label for="inputPassword" class="col-sm-2 control-label">@lang('seller.profile.preview')</label>
                         <div class="col-sm-2">
-                            <img src="{{config('global.BUSINESS_THUMB_IMG')}}/{{ $user->image_thumb }}" />
+                            <img src="{{config('global.SELLER_STORAGE_DIR')}}/250X250/{{ $user->image_thumb }}" />
                         </div>
                         <div class="col-sm-6 jlkdfj1">
                             <p id="msg" class="help-block" style="color: red"></p>
@@ -202,7 +202,7 @@ function getlocationlist(district){
 
 function getPincode(value){
     if(value.length>0){
-        var pinArr = value.split("-");
+        var pinArr = value.split("|");
         var pincode = pinArr[1]; 
         $('#pincode_id').val(pincode);
         $('#location_id').val(pinArr[0]);

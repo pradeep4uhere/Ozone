@@ -239,7 +239,7 @@ class Master extends Controller {
                 $location = "<option value='-1'>--Choose Location--</option>";
                 foreach($districList as $data){
                     $city[$data->location]=$data->pincode;
-                    $location.="<option value='".$data->id.'-'.$data->pincode.'-'.$data->location."'>".$data->location."</option>";
+                    $location.="<option value='".$data->id.'|'.$data->pincode.'|'.$data->location."'>".$data->location."</option>";
                 }
                 
                 return $location; 

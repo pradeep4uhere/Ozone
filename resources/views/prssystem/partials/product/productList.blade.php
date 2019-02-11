@@ -9,15 +9,9 @@
                <header class="collection-header">
                   <input type="hidden" id="ajaxURL" value="https://smartshop-ishi.myshopify.com/collections/hot-coffee/">
                   <div class="collection-hero">
-                     <img class="collection-hero__image ratio-container js lazyloaded" src="//cdn.shopify.com/s/files/1/0016/4891/8628/collections/banner_bf4313bf-d031-475b-b850-d68b28a63332_1170x250.jpg?v=1544005006" data-widths="[1170]" alt="">
-                     <noscript>
-                        <img class="collection-hero__image"
-                           src="//cdn.shopify.com/s/files/1/0016/4891/8628/collections/banner_bf4313bf-d031-475b-b850-d68b28a63332_1218x250_crop_top.jpg?v=1544005006"
-                           data-widths="[1170]"
-                           alt="">
-                     </noscript>
+                     <img class="collection-hero__image ratio-container js lazyloaded" src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/furnitures.jpg" data-widths="[1170]" alt="Furniture Shop" >
                      <div class="collection-hero__title-wrapper">
-                        <h1 class="collection-hero__title page-width">Hot coffee</h1>
+                        <h1 class="collection-hero__title page-width">Furniture Shop</h1>
                      </div>
                   </div>
                   <div class="category-info">
@@ -39,7 +33,7 @@
                            </div>
                         </div>
                         <div class="filters-toolbar__item filters-toolbar__item--count">
-                           <span class="filters-toolbar__product-count">There are 9 products</span>
+                           <span class="filters-toolbar__product-count">There are {{count($productList)}} products</span>
                         </div>
                         <div class="filters-toolbar__item">
                            <label for="SortBy" class="sort-label">Sort by:</label>
@@ -73,6 +67,7 @@
                                           <div class="reveal">
                                              <img class="grid-view-item__image  main-img lazyloaded" src="{{ config('global.PRODUCT_IMG_URL').DIRECTORY_SEPARATOR.$prodObj['UserProduct']['default_images'] }}" class="img-fluid" alt="#" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';">
                                              <img class="extra-img" src="//cdn.shopify.com/s/files/1/0016/4891/8628/products/19_67906275-18da-4faf-9dfb-f2030cab4f1a_370x480.jpg?v=1546939045" alt="Grinders Cafe">
+                                             
                                              <span class="spr-badge" id="spr_badge_1639015841892" data-rating="0.0"><span class="spr-starrating spr-badge-starrating"><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i></span><span class="spr-badge-caption">No reviews</span>
                                              </span>
                                           </div>
@@ -117,9 +112,6 @@
                                        </div>
                                     </div>
                                  </div>
-                                 <noscript>
-                                    <img class="grid-view-item__image" src="//cdn.shopify.com/s/files/1/0016/4891/8628/products/13_6d8a5f0b-cca0-4113-8074-573ea99952cc.jpg?v=1546939045" alt="Grinders Cafe" style="max-width: 0.0px;">
-                                 </noscript>
                               </div>
                            </div>
                         </div>

@@ -20,6 +20,7 @@ use App\Location;
 use App\User;
 use Log;
 use Storage;
+use App\Category;
 
 
 
@@ -232,12 +233,15 @@ class SellerController extends Master
         $metaTags['url']          =$pageUrl;
         $metaTags['sitename']     =self::getAppName();
 
+        //Get All the Category For Filter Respective Store Type
+        $categoryList = Category::where('store_type','=',$seller['store_type_id'])->paginate(self::getPageItem());
 
 		return view(Master::loadFrontTheme('seller.details'),array(
 				'seller'=>$seller,
 				'productDetails'=>$productList,
         'productList'=>$lsitArr,
-        'metaTags'=>$metaTags
+        'metaTags'=>$metaTags,
+        'categoryList'=>$categoryList
 				)
 			);
 		

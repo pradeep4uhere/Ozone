@@ -79,6 +79,11 @@ class Master extends Controller {
     }
 
 
+    public static function getPageItem(){
+        return env('PER_PAGE_ITEM');
+    }
+
+
     public function setMetaTags($meta,$value){
 
     }

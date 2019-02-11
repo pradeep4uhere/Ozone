@@ -53,11 +53,11 @@
                                 @foreach($seller['SellerImage'] as $SellerImage)
                             <?php //sprint_r($SellerImage);?>
                                 @if($SellerImage->is_default==1)
-                                <img height="200" src="{{config('global.SELLER_IMG_GALLERY').DIRECTORY_SEPARATOR.'seller_'.$SellerImage->seller_id.DIRECTORY_SEPARATOR.$SellerImage->image_name}}" />
+                                <img height="200" src="{{config('global.SELLER_STORAGE_DIR').'/250X250/'.$SellerImage->image_name}}" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';"/>
                                 @endif
                                 @endforeach
                                 @else
-                                <img height="200" src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/featured1.jpg" alt="image">
+                                <img height="200" src="{{config('global.SELLER_STORAGE_DIR').'/250X250/'.$seller->image_thumb}}" alt="image" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';">
                                 @endif
                                 <div class="featured-title-box">
                                     <h2>{{ucwords($seller['business_name'])}}</h2>

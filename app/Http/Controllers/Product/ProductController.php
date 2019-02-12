@@ -18,6 +18,7 @@ use App\UserProduct;
 use App\ProductImage;
 use Auth;
 use App\User;
+use Storage;
 
 
 class ProductController extends Master
@@ -49,6 +50,11 @@ class ProductController extends Master
        $this->uploadDir=config('global.PRODUCT_DIR');
        $this->uploadLogoDir=config('global.PRODUCT_IMG_DIR');
        $this->uploadThumbDir=config('global.PRODUCT_THUMB_DIR');
+       
+
+       $this->Width=config('global.PRODUCT_IMG_WIDTH');
+       $this->Height=config('global.PRODUCT_IMG_HEIGHT');
+
        $this->thumbHeight=config('global.PRODUCT_THUMB_IMG_HEIGHT');
        $this->thumbWidth=config('global.PRODUCT_THUMB_IMG_WIDTH');
        $this->imageName=NULL;
@@ -62,12 +68,14 @@ class ProductController extends Master
      * @Desc: To Add New Product
      */
     public function addProduct(Request $request){
-        $catObj=  new Category();
-        $catArr=$catObj->getAllCategory();
         
         //Get All the Unit List
         $userId = Auth::user()->id;
-        $sellerArr = Seller::where('user_id','=',$userId)->get();
+        $sellerArr = Seller::where('user_id','=',$userId)->first()->toArray();
+        $catObj=  new Category();
+        $catArr=$catObj->getAllCategory($sellerArr['store_type_id']);
+       
+
         $unitObj = new Unit();
         $unitList=$unitObj->getAllUnit();
         if(count($sellerArr)>0){
@@ -85,12 +93,13 @@ class ProductController extends Master
      * @Description: To Get the product in edit mode
      */
     public function addProductImg(Request $request,$id){
-		
+		$seller = self::getSeller();
+        $sellerId = $seller['id'];
         if ($request->isMethod('post')) {
             $image = $request->file('file');
-            $this->uploadLogoDir=config('global.PRODUCT_UPLOAD_DIR').DIRECTORY_SEPARATOR.$this->getProductImageDirName($id);
-            $this->uploadThumbDir=config('global.PRODUCT_UPLOAD_DIR').DIRECTORY_SEPARATOR.$this->getProductImageDirName($id);
-            $this->imageName=$this->saveImage($image);
+            //$this->uploadLogoDir=config('global.PRODUCT_UPLOAD_DIR').DIRECTORY_SEPARATOR.$this->getProductImageDirName($id);
+            //$this->uploadThumbDir=config('global.PRODUCT_UPLOAD_DIR').DIRECTORY_SEPARATOR.$this->getProductImageDirName($id);
+            $this->imageName=$this->saveMoreProductImage($request,$sellerId);
             $prodImgObj= new \App\ProductImage();
             $prodImgObj->user_product_id=$id;
             $prodImgObj->image_name=$this->imageName;
@@ -101,7 +110,7 @@ class ProductController extends Master
         $product = new \App\UserProduct();
         $userProduct=$product->getUserProductById($id);
         return view(Master::loadFrontTheme('product.addproductimg'),array(
-		'userProduct'=>$userProduct));
+		'userProduct'=>$userProduct,'sellerId'=>$sellerId));
     }
     
     
@@ -117,7 +126,16 @@ class ProductController extends Master
      * @Description: To Get the product in edit mode
      */
     public function editProduct(Request $request,$id){
+        $seller = self::getSeller();
+        $sellerId = $seller['id'];
+        $store_type_id = $seller['store_type_id'];
         if ($request->isMethod('post')) {
+            $validator = $this->validator($request->all());
+            if($validator->fails()) {
+                $error=$validator->errors()->all();
+                Session::flash('error', $error);
+                return Redirect::back()->withInput()->with('msg', 'Invalid File Extension!');
+            }
             $data=$request->all();
             //Validate Product Data 
             $lastNewId=$this->saveValidProduct($data);
@@ -142,7 +160,7 @@ class ProductController extends Master
                 $image = $request->file('logo');
 //                DD($image);
                 IF(!empty($image)){
-                    $this->imageName=$this->saveImage($image);
+                    $this->imageName=$this->saveProductImage($request,$sellerId);
                     $userProduct->default_images =$this->imageName;
                     $userProduct->default_thumbnail =$this->imageName;
                 }
@@ -164,7 +182,7 @@ class ProductController extends Master
 //            $userProduct=$userProduct->UserProduct;
 //            dd($userProduct['quantity_in_unit']);
             $catObj=  new Category();
-            $catArr=$catObj->getAllCategory();
+            $catArr=$catObj->getAllCategory($store_type_id);
             
             //Get All SubCategory List
             $subCatArr=$catObj->getSubCategoryList($product['category_id']);
@@ -183,7 +201,8 @@ class ProductController extends Master
                             'unitList'=>$unitList,
                             'product'=>$product,
                             'brandList'=>$brandList,
-                            'userProduct'=>$userProduct
+                            'userProduct'=>$userProduct,
+                            'sellerId'=>$sellerId
                         )
                     );
         }else{
@@ -227,6 +246,82 @@ class ProductController extends Master
             return Redirect::back()->with('msg', 'Invalid File Extension!');
         }
     }
+
+
+
+
+     
+    /**
+     *@Author: Pradeep Kumar
+     *@Description: to Save the product image if image is uploaded from the form 
+     */
+    function saveMoreProductImage($request, $sellerId){
+          $image      = $request->file('file');
+          $fileName   = md5(time()) . '.' . $image->getClientOriginalExtension();
+          $imgArr=explode(".",$fileName);
+          $ext=end($imgArr);
+          if(in_array($ext,config('global.IMG_EXT'))){
+          $img = Image::make($image->getRealPath());
+          $directoryName = 'products/'.$sellerId;
+          
+          $thubmName = $this->Height.'X'.$this->Width;
+          $img->resize($this->Width, $this->Height, function ($constraint) {
+              $constraint->aspectRatio();                 
+          });
+          $img->stream(); // <-- Key point
+          $res = Storage::disk('public')->put('uploads/'.$directoryName.'/'.$thubmName.'/'.$fileName, $img, 'public');
+
+
+
+          $thubmName = $this->thumbHeight.'X'.$this->thumbWidth;
+          $img->resize($this->thumbHeight, $this->thumbWidth, function ($constraint) {
+              $constraint->aspectRatio();                 
+          });
+          $img->stream(); // <-- Key point
+          $res = Storage::disk('public')->put('uploads/'.$directoryName.'/'.$thubmName.'/'.$fileName, $img, 'public');
+
+
+          
+          return $fileName;
+          }else{
+            Session::flash('message', 'Invalid File Extension!');
+            return Redirect::back()->with('msg', 'Invalid File Extension!');
+          }
+    }
+
+
+
+
+
+    /**
+     *@Author: Pradeep Kumar
+     *@Description: to Save the product image if image is uploaded from the form 
+     */
+    function saveProductImage($request, $sellerId){
+          $image      = $request->file('logo');
+          $fileName   = md5(time()) . '.' . $image->getClientOriginalExtension();
+          $imgArr=explode(".",$fileName);
+          $ext=end($imgArr);
+          if(in_array($ext,config('global.IMG_EXT'))){
+          $img = Image::make($image->getRealPath());
+          $directoryName = 'products/'.$sellerId;
+          $thubmName = $this->thumbHeight.'X'.$this->thumbWidth;
+          $img->resize($this->thumbHeight, $this->thumbWidth, function ($constraint) {
+              $constraint->aspectRatio();                 
+          });
+          $img->stream(); // <-- Key point
+          $res = Storage::disk('public')->put('uploads/'.$directoryName.'/'.$thubmName.'/'.$fileName, $img, 'public');
+          return $fileName;
+          }else{
+            Session::flash('message', 'Invalid File Extension!');
+            return Redirect::back()->with('msg', 'Invalid File Extension!');
+          }
+    }
+
+
+
+
+
     
     
     
@@ -296,6 +391,8 @@ class ProductController extends Master
     public function saveProduct(Request $request){
 		$data=array();
         if ($request->isMethod('post')) {
+            $seller = self::getSeller();
+            $sellerId = $seller['id'];
             $data=$request->all();
             $request->flash();
             $data['user_id']=Auth::user()->id;
@@ -322,6 +419,7 @@ class ProductController extends Master
                     $data['productQuantity']=100;
                     $userProduct =  new \App\UserProduct();
                     $userProduct->product_id=$lastId;
+                    $userProduct->seller_id=$sellerId;
                     $userProduct->user_id=$data['user_id'];
                     $userProduct->quantity_in_unit=$data['quantity'];
                     $userProduct->product_in_stock=$data['product_in_stock'];
@@ -329,6 +427,13 @@ class ProductController extends Master
                     $userProduct->quantity=$data['productQuantity'];
                     $userProduct->default_price=$data['price'];
                     $userProduct->price=$data['price'];
+                    if($data['discount']>0){
+                        $userProduct->isDiscounted=1;
+                    }else{
+                        $userProduct->isDiscounted=0;
+                    }
+                    $userProduct->discount_value=$data['discount'];
+                    $userProduct->selling_price=$data['selling_price'];
                     $userProduct->created_at=date('Y-m-d H:i:s');
                     $userProduct->status=$data['status'];
                     $userProduct->is_deleted=0;
@@ -336,7 +441,7 @@ class ProductController extends Master
                     //Working for Image if Image is updated
                     $image = $request->file('logo');
                     IF(!empty($image)){
-                        $this->imageName=$this->saveImage($image);
+                        $this->imageName=$this->saveProductImage($request,$image,$sellerId);
                         $userProduct->default_images =$this->imageName;
                         $userProduct->default_thumbnail =$this->imageName;
                     }
@@ -378,6 +483,9 @@ class ProductController extends Master
             'quantity' => 'required|string|max:10',
             'product_in_stock' => 'required|string|min:1',
             'product_unlimited' => 'required|string|min:1',
+            'discount' => 'required|string|min:1',
+            'discount' => 'required|string|min:1',
+            'selling_price' => 'required|string|min:1',
         ]);
     }
     
@@ -388,10 +496,18 @@ class ProductController extends Master
     public function allProductList(Request $request){
         $product = new \App\UserProduct();
         $userId= Auth::user()->id;
-        $userProductList=$product->getUserProductList($userId); 
-//        dd($userProductList);
+
+        $seller = self::getSeller();
+        $sellerId = $seller['id'];
+            
+
+        $userProductList=$product->getSellerProductList($userId)->orderBy('id','DESC')->paginate(self::getPageItem()); 
         return view(Master::loadFrontTheme('product.allproduct'),
-            array('userProduct'=>$userProductList)
+            array(
+                'userProduct'=>$userProductList,
+                'sellerId'=>$sellerId,
+                'links'=>$userProductList->links()
+            )
         );
         
     }
@@ -422,6 +538,7 @@ class ProductController extends Master
             $userProduct =  UserProduct::with('product','ProductImage')->find($userProductId);
             $seller=Seller::where('user_id','=',$userProduct['user_id'])->with('SellerImage')->first();
 			//Get Seller Product List
+
             $uPObj = new UserProduct();
             $lsit=$uPObj->getAllProductListOfSeller($userProduct['user_id'],$id);
             foreach($lsit as $key=>$obj){
@@ -435,8 +552,11 @@ class ProductController extends Master
         }else{
             abort(404);
         }
-        
-        $productImage = config('global.PRODUCT_IMG_GALLERY').'/prod_00'.$userProductId.'/'.$userProduct['ProductImage'][0]['image_name'];
+        if(count($userProduct['ProductImage'])>0){
+            $productImage = config('global.PRODUCT_IMG_GALLERY').'/prod_00'.$userProductId.'/'.$userProduct['ProductImage'][0]['image_name'];
+        }else{
+            $productImage = self::getLogo();
+        }
         $metaTitle = $userProduct['product']['title'];
         $metaDesc = 'Buy '.$userProduct['product']['title'].' at ₹'.$userProduct['price'].' only.';
         $metaKeywords = $userProduct['product']['title'];

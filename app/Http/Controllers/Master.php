@@ -17,6 +17,7 @@ use Session;
 use Config;
 use App\Location;
 use Log;
+use App\Seller;
 
 
 class Master extends Controller {
@@ -275,6 +276,13 @@ class Master extends Controller {
         }
     }
 
+
+
+
+    public static function getSeller(){
+        $sellerArr = Seller::where('user_id','=',Auth::user()->id)->first();
+        return $sellerArr;
+    }
 
 
 

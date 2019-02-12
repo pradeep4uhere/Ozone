@@ -133,11 +133,55 @@ Home Page
                     
                     
                     <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 control-label">@lang('product.actual_price')</label>
+                        <div class="col-sm-8">
+                            <input  type="text" class="form-control1" id="actprice" placeholder="Enter Original Price" name="actprice" value="{{ old('original_price') }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="inputPassword" class="col-sm-2 control-label">@lang('product.price')</label>
                         <div class="col-sm-8">
                             <input  type="text" class="form-control1" id="price" placeholder="Enter Price" name="price" value="{{ old('price') }}">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 control-label">@lang('product.discount')</label>
+                        <div class="col-sm-2">
+                            <select class="form-control1" data-live-search="true" id="discount" name="discount" onChange="getDiscountedPrice(this.value)">
+                                <option value='0' selected="selected">0%</option>
+                                <option value='5' >5%</option>
+                                <option value='10' >10%</option>
+                                <option value='15' >15%</option>
+                                <option value='20' >20%</option>
+                                <option value='25' >25%</option>
+                                <option value='30' >30%</option>
+                                <option value='35' >35%</option>
+                                <option value='40' >40%</option>
+                                <option value='45' >45%</option>
+                                <option value='50' >50%</option>
+                                <option value='55' >55%</option>
+                                <option value='60' >60%</option>
+                                <option value='65' >65%</option>
+                                <option value='70' >70%</option>
+                                <option value='75' >75%</option>
+                                <option value='80' >80%</option>
+                                <option value='85' >85%</option>
+                                <option value='90' >90%</option>
+                                <option value='95' >95%</option>
+                            </select>
+                        </div>
+                         <div class="col-sm-6">
+                             <p id="qntyId" style="margin-top: 5px;padding-left: 15px;">Price On Store:&nbsp;<span id="orgPrice" style="
+                             font-size: 12px;color:#888;padding-left: 15px;padding-right:10px;"></span>&nbsp;<span id="discountPrice"></span></p>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 control-label">@lang('product.selling_price')&nbsp;(₹)</label>
+                        <div class="col-sm-2">
+                            <input  type="text" class="form-control1" id="selling_price" name="selling_price" value="{{ old('selling_price') }}" readonly="readonly">
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="inputPassword" class="col-sm-2 control-label">@lang('product.image')</label>
                         <div class="col-sm-8">
@@ -187,7 +231,21 @@ POST_BRAND_URL="{{ route('getBrandList') }}";
 var catId=$(this).val();
 var postJson={_token:CSRF_TOKEN,id:catId};
 //getAjaxCall(POST_URL,postJson);
-alert(5454);
+function getDiscountedPrice(discount){
+    var price = $('#price').val();
+    if(price>0){
+        var price = $('#price').val();
+        var discount = discount;
+        var newPrice = Math.round(price) - Math.round(price) * Math.round(discount)/100;
+        $('#discountPrice').html("₹"+Math.round(newPrice));
+        $('#selling_price').val(Math.round(newPrice));
+        $('#orgPrice').html("<strike>₹"+Math.round(price)+"</strike>");
+    }else{
+        document.getElementById("price").style.borderColor = "red";
+    }
+}
+
+
 function getAjaxCall(url,postJson){
 	alert(url);
     //console.log(url);

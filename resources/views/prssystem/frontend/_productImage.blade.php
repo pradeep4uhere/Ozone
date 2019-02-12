@@ -114,17 +114,18 @@ padding: 15px;
         @if(!empty($productDetails->ProductImage))
         @foreach($productDetails->ProductImage as $img)
         <div class="tab-pane @if($img['is_default']==1) active @endif" id="pic-{{$img['id']}}">
-		<img src="{{config('global.PRODUCT_IMG_GALLERY')}}/{{'prod_00'.$productDetails['id']}}/{{$img['image_name']}}" />
-		</div>
+		      <img src="{{config('global.PRODUCTS_STORAGE_DIR')}}/{{$productDetails['id']}}/{{$img['image_name']}}" />
+    		</div>
         @endforeach
         <ul class="preview-thumbnail nav nav-tabs">
             <?php $count=1; ?>
             @foreach($productDetails->ProductImage as $img)
             @if($count<=6)
-            <li class="@if($img['is_default']==1) active @endif">
-                    <a data-target="#pic-{{$img['id']}}" data-toggle="tab">
-                    <img src="{{config('global.PRODUCT_IMG_GALLERY')}}/{{'prod_00'.$productDetails['id']}}/{{$img['image_name']}}" />
-                                </a></li>
+           <li class="@if($img['is_default']==1) active @endif">
+                <a data-target="#pic-{{$img['id']}}" data-toggle="tab">
+                <img src="{{config('global.PRODUCTS_STORAGE_DIR')}}/{{$productDetails['id']}}/{{$img['image_name']}}" />
+                </a>
+          </li>
             <?php $count++ ?>
             @endif
             @endforeach

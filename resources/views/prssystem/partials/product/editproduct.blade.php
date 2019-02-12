@@ -123,6 +123,12 @@
                             <input <?php if($userProduct['unlimited_product']==1){ ?> style="display: none" <?php }?> size="100"  type="text" class="form-control1 input-sm" id="productQuantity" placeholder="Enter Product Quantity" name="productQuantity" value="{{$userProduct['quantity']}}">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 control-label">@lang('product.actual_price')</label>
+                        <div class="col-sm-8">
+                            <input  type="text" class="form-control1" id="actprice" placeholder="Enter Original Price" name="actprice" value=" {{$userProduct['default_price']}}">
+                        </div>
+                    </div>
 
                     
                     
@@ -132,6 +138,29 @@
                             <input  type="text" class="form-control1" id="price" placeholder="Enter Price" name="price" value="{{$userProduct['price']}}">
                         </div>
                     </div>
+
+                     <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 control-label">@lang('product.discount')</label>
+                        <div class="col-sm-2">
+                            <select class="form-control1" data-live-search="true" id="discount" name="discount" onChange="getDiscountedPrice(this.value)">
+                                <option value='0'>0%</option>
+                                <?php for($i=5;$i<100;$i=$i+5){ ?>
+                                <option value='{{$i}}' <?php if($userProduct['discount_value']==$i){ echo "selected";} ?>>{{$i}}%</option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                         <div class="col-sm-6">
+                             <p id="qntyId" style="margin-top: 5px;padding-left: 15px;">Price On Store:&nbsp;<span id="orgPrice" style="
+                             font-size: 12px;color:#888;padding-left: 15px;padding-right:10px;"></span>&nbsp;<span id="discountPrice"></span></p>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 control-label">@lang('product.selling_price')&nbsp;(₹)</label>
+                        <div class="col-sm-2">
+                            <input  type="text" class="form-control1" id="selling_price" name="selling_price" value="{{$userProduct['selling_price'] }}" readonly="readonly">
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="inputPassword" class="col-sm-2 control-label">@lang('product.sku')</label>
                         <div class="col-sm-8">
@@ -148,7 +177,7 @@
                      <div class="form-group">
                         <label for="inputPassword" class="col-sm-2 control-label">@lang('product.image')</label>
                         <div class="col-sm-2">
-                            <img src="{{config('global.PRODUCT_THUMB_IMG')}}/{{ $userProduct['default_thumbnail'] }}" />
+                            <img src="{{config('global.PRODUCTS_STORAGE_DIR').DIRECTORY_SEPARATOR.$sellerId.DIRECTORY_SEPARATOR.config('global.PRODUCT_THUMB_IMG_WIDTH').'X'.config('global.PRODUCT_THUMB_IMG_HEIGHT').DIRECTORY_SEPARATOR.$userProduct['default_thumbnail']}}" />
                         </div>
                         <div class="col-sm-6 jlkdfj1">
                             <p id="msg" class="help-block" style="color: red"></p>
@@ -180,3 +209,19 @@
                 </form>
             </div>
         </div>
+<script type="text/javascript">
+    getDiscountedPrice($('#discount').val());
+    function getDiscountedPrice(discount){
+        var price = $('#price').val();
+            if(price>0){
+                var price = $('#price').val();
+                var discount = discount;
+                var newPrice = Math.round(price) - Math.round(price) * Math.round(discount)/100;
+                $('#discountPrice').html("₹"+Math.round(newPrice));
+                $('#selling_price').val(Math.round(newPrice));
+                $('#orgPrice').html("<strike>₹"+Math.round(price)+"</strike>");
+            }else{
+                document.getElementById("price").style.borderColor = "red";
+            }
+    }
+</script>

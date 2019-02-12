@@ -25,7 +25,7 @@ class Brand extends Model
      * @Description: To Get the all Subcategory List
      */
     public function getBrandList($category_id){
-        $subCateArr=array();
+        $subCateArr=array('9999'=>'Not Available');
         if($category_id>0){
             $subCatObj = Brand::where('category_id','=',$category_id)
                     ->where('status','=','1')

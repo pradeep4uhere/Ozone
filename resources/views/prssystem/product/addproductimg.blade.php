@@ -51,13 +51,23 @@ padding: 10px 20px;
 @if($imgObj->status==1)
 <div class="col-md-3" style="backgroud-color:green">
   <div class="thumbnail">
-    <a href="{{config('global.PRODUCT_IMG_GALLERY').DIRECTORY_SEPARATOR.'prod_00'.$imgObj->user_product_id.DIRECTORY_SEPARATOR.$imgObj->image_name}}" target="_blank">
-      <img src="{{config('global.PRODUCT_IMG_GALLERY').DIRECTORY_SEPARATOR.'prod_00'.$imgObj->user_product_id.DIRECTORY_SEPARATOR.$imgObj->image_name}}" alt="Image" style="width:100%">
+    <a href="{{config('global.PRODUCTS_STORAGE_DIR')
+    .DIRECTORY_SEPARATOR.$imgObj->user_product_id
+    .DIRECTORY_SEPARATOR
+    .config('global.PRODUCT_THUMB_IMG_WIDTH').'X'.config('global.PRODUCT_THUMB_IMG_HEIGHT')
+    .DIRECTORY_SEPARATOR
+    .$imgObj->image_name}}" target="_blank">
+      <img src="{{config('global.PRODUCTS_STORAGE_DIR')
+    .DIRECTORY_SEPARATOR.$sellerId
+    .DIRECTORY_SEPARATOR
+    .config('global.PRODUCT_THUMB_IMG_WIDTH').'X'.config('global.PRODUCT_THUMB_IMG_HEIGHT')
+    .DIRECTORY_SEPARATOR
+    .$imgObj->image_name}}" alt="Image" style="width:100%">
   
       <div class="caption">
           <div class="btn-group btn-group-justified">
             @if($imgObj->is_default==0)
-            <a href="{{route('setProductImageAsDefault',['prod_id'=>$imgObj->user_product_id,'id'=>$imgObj->id])}}" class="btn btn-warning" title="Set Default Image on Page">Set As Default</a>
+            <a href="{{route('setProductImageAsDefault',['prod_id'=>$sellerId,'id'=>$imgObj->id])}}" class="btn btn-warning" title="Set Default Image on Page">Set As Default</a>
             @endif
             <a href="{{route('hideProductImage',['id'=>$imgObj->id])}}" class="btn btn-info" title="Hide Image From Product Page">Hide</a>
             <a href="{{route('deleteProductImage',['id'=>$imgObj->id])}}" class="btn btn-danger" title="Delete Image">Remove</a>
@@ -81,8 +91,8 @@ padding: 10px 20px;
 @if($imgObj->status==0)
 <div class="col-md-3" style="backgroud-color:green">
   <div class="thumbnail">
-    <a href="{{config('global.PRODUCT_IMG_GALLERY').DIRECTORY_SEPARATOR.'prod_00'.$imgObj->user_product_id.DIRECTORY_SEPARATOR.$imgObj->image_name}}" target="_blank">
-      <img src="{{config('global.PRODUCT_IMG_GALLERY').DIRECTORY_SEPARATOR.'prod_00'.$imgObj->user_product_id.DIRECTORY_SEPARATOR.$imgObj->image_name}}" alt="Image" style="width:100%">
+    <a href="{{config('global.PRODUCTS_STORAGE_DIR').DIRECTORY_SEPARATOR.$imgObj->user_product_id.DIRECTORY_SEPARATOR.$imgObj->image_name}}" target="_blank">
+      <img src="{{config('global.PRODUCTS_STORAGE_DIR').DIRECTORY_SEPARATOR.$imgObj->user_product_id.DIRECTORY_SEPARATOR.$imgObj->image_name}}" alt="Image" style="width:100%">
   
       <div class="caption">
           <div class="btn-group btn-group-justified">

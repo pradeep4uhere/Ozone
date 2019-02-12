@@ -52,6 +52,12 @@ class UserProduct extends Model
     public function getUserProductList($userId){
         return $userProduct=UserProduct::with('product')->where('user_id','=',$userId)->where('status','=',1);
     }
+
+
+    //For Seller Admin Section
+    public function getSellerProductList($userId){
+        return $userProduct=UserProduct::with('product')->where('user_id','=',$userId);
+    }
     
     public function getSKU($userProductId){
         
@@ -72,7 +78,7 @@ class UserProduct extends Model
         $unitName=SUBSTR($unitNameObj['code'],0,3);
         
         $str=$catName.$category_id.$brandName.$brand_id.$unitName.$unit_id.'000'.$userProductId;
-        return $str;
+        return strtoupper($str);
         
     }
     

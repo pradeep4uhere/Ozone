@@ -36,11 +36,14 @@ class Category extends Model
 	}
 	
 	
-    public function getAllCategory(){
+    public function getAllCategory($storeType=NULL){
         $cateArr=array();
-        $catObj = Category::where('parent_id','=','0')
-                ->orwhere('status','=','1')
-			    ->get();
+        $catObj = Category::where('parent_id','=','0');
+        if($storeType!=''){
+            $catObj = $catObj->where('store_type','=',$storeType);    
+        }
+        $catObj =  $catObj->where('status','=','1');
+	    $catObj =  $catObj->get();
         foreach ($catObj as $obj) {
             $cateArr[$obj->id]=$obj->name;
         }
@@ -53,7 +56,7 @@ class Category extends Model
      * @Description: To Get the all Subcategory List
      */
     public function getSubCategoryList($category_id){
-        $subCateArr=array();
+        $subCateArr=array('9999'=>'Not Available');
         if($category_id>0){
             $subCatObj = Category::where('parent_id','=',$category_id)
                     ->where('status','=','1')
@@ -71,7 +74,7 @@ class Category extends Model
 	
 	
 	 public function getAllCategoryWithChild(){
-        $cateArr=array();
+        $cateArr=array('9999'=>'Not Available');
         $catObj = Category::where('parent_id','=','0')
                 ->orwhere('status','=','1')
 				->with('nodes')

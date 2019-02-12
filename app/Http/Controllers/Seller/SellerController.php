@@ -53,8 +53,11 @@ class SellerController extends Master
        $this->uploadDir=config('global.UPLOAD_DIR');
        $this->uploadLogoDir=config('global.SELLER_IMG_DIR');
        $this->uploadThumbDir=config('global.SELLER_THUMB_DIR');
-       $this->thumbHeight=config('global.SELLER_IMG_HEIGHT');
-       $this->thumbWidth=config('global.SELLER_IMG_WIDTH');
+       $this->thumbHeight=config('global.SELLER_THUMB_IMG_HEIGHT');
+       $this->thumbWidth=config('global.SELLER_THUMB_IMG_WIDTH');
+       $this->Height=config('global.SELLER_IMG_HEIGHT');
+       $this->Width=config('global.SELLER_IMG_WIDTH');
+
        $this->imageName=NULL;
     }
 	
@@ -182,19 +185,41 @@ class SellerController extends Master
 	*@Author: Pradeep Kumar
 	*@Description: View Seller Prifole
 	*/
-	public function sellerview($seller,$id){
-    $metaTags = self::getMetaTags();
-		if($id!=''){
-			$id=decrypt($id);
-			$seller = Seller::where('id','=',$id)->with('User')->first();
-		} 
+	public function sellerview(Request $request, $seller,$id){
+      if($request->ajax()) {
+        if($id!=''){
+          $id=decrypt($id);
+          $seller = Seller::where('id','=',$id)->with('User')->first();
+        }
+        $productList=array();
+        $userProd = new \App\UserProduct();
+        $productList = $userProd->getUserProductList($seller['user_id'])->paginate(self::getPageItem());
+        if(!empty($productList)){
+        foreach($productList as $key=>$obj){
+              $lsitArr[]=array(
+                 'UserProduct'=>$obj,
+                 'Product'=>$obj->product
+                );    
+              }
+          }
+        return view(Master::loadFrontTheme('partials.loadmore'),array(
+           'productDetails'=>$productList,
+           'productList'=>$lsitArr,
+        ));
+      }
 
-		//dd($seller['user_id']);
+      $metaTags = self::getMetaTags();
+  		if($id!=''){
+  			$id=decrypt($id);
+  			$seller = Seller::where('id','=',$id)->with('User')->first();
+  		} 
+
+		  //dd($seller['user_id']);
         $lsitArr=array();
         $productList=array();
     		$userProd = new \App\UserProduct();
-    		$productList = $userProd->getUserProductList($seller['user_id']);
-            if(!empty($productList)){
+    		$productList = $userProd->getUserProductList($seller['user_id'])->paginate(self::getPageItem());
+        if(!empty($productList)){
     		foreach($productList as $key=>$obj){
                    
                 $lsitArr[]=array(
@@ -540,8 +565,6 @@ class SellerController extends Master
             $destinationPath = $this->uploadThumbDir;
             $img = Image::make($image->getRealPath());
             $destinationPath . '/' . $this->imageName;
-            echo Storage::disk('public')->put($cover->getFilename().'.'.$extension,  $this->imageName);
-            die;
             $img->resize($this->thumbWidth, $this->thumbHeight, function ($constraint) {
                 $constraint->aspectRatio();
             })->save($destinationPath . '/' . $this->imageName);
@@ -561,6 +584,35 @@ class SellerController extends Master
 		return view(Master::loadFrontTheme('seller.profileimage'),array('userProduct'=>$sellerImage));
 	}
     
+
+    /*
+     *@Author: Pradeep Kumar
+     *
+     *
+     *
+     */
+    public function saveBusinessCoverImages($request,$sellerId){
+      $image      = $request->file('file');
+      $fileName   = md5(time()) . '.' . $image->getClientOriginalExtension();
+      $img = Image::make($image->getRealPath());
+      $directoryName = 'seller/'.$sellerId;
+      $thubmName = $this->thumbHeight.'X'.$this->thumbWidth;
+      $img->resize($this->thumbWidth, $this->thumbHeight, function ($constraint) {
+          $constraint->aspectRatio();                 
+      });
+      $img->stream(); // <-- Key point
+      $res = Storage::disk('public')->put('uploads/'.$directoryName.'/'.$thubmName.'/'.$fileName, $img, 'public');
+
+
+      $imgName = $this->Width.'X'.$this->Height;
+      $img->resize($this->Width, $this->Height, function ($constraint) {
+          $constraint->aspectRatio();                 
+      });
+      $img->stream(); // <-- Key point
+      $res = Storage::disk('public')->put('uploads/'.$directoryName.'/'.$imgName.'/'.$fileName, $img, 'public');
+
+      return $fileName;
+    }
 	
 	
 	
@@ -570,7 +622,7 @@ class SellerController extends Master
      */
     public function addSellerImg(Request $request){
 		
-        if ($request->isMethod('post')) {
+      if ($request->isMethod('post')) {
             $image = $request->file('file');
 			//Get Seller Id
 			$seller = Seller::where('user_id','=',Auth::user()->id)->first();
@@ -579,7 +631,8 @@ class SellerController extends Master
 				SellerImage::where('user_id','=',Auth::user()->id)->where('seller_id','=',$seller['id'])->update(array('is_default' => '0'));
 				$this->uploadLogoDir=config('global.SELLER_UPLOAD_DIR').DIRECTORY_SEPARATOR.$this->getSellerImageDirName($seller['id']);
 				$this->uploadThumbDir=config('global.SELLER_UPLOAD_DIR').DIRECTORY_SEPARATOR.$this->getSellerImageDirName($seller['id']);
-				$this->imageName=$this->saveImage($image);
+        //$this->imageName=$this->saveImage($image);
+				$this->imageName=$this->saveBusinessCoverImages($request,$seller['id']);
 				$sellerImgObj= new \App\SellerImage();
 				$sellerImgObj->image_name=$this->imageName;
 				$sellerImgObj->user_id=Auth::user()->id;

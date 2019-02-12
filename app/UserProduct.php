@@ -50,7 +50,7 @@ class UserProduct extends Model
     
     
     public function getUserProductList($userId){
-        return $userProduct=UserProduct::with('product')->where('user_id','=',$userId)->get();
+        return $userProduct=UserProduct::with('product')->where('user_id','=',$userId)->where('status','=',1);
     }
     
     public function getSKU($userProductId){

@@ -54,9 +54,10 @@
                   </div>
                </header>
                <div class="row" id="Collection">
-                  <div class="products-display products-display-collection grid grid--uniform grid--view-items ">
+                  <div class="products-display products-display-collection grid grid--uniform grid--view-items" id="results">
                     @if(!empty($productList))
                       @foreach($productList as $prodObj)
+                        <!-- <div class="grid__item grid__item--collection-template col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3"> -->
                         <div class="grid__item grid__item--collection-template col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
                            <div class="grid-view-item ">
                               <div class="grid-view-item__link grid-view-item__image-container">
@@ -65,7 +66,7 @@
                                        <div class="image-inner">
                                           <div class="reveal">
                                              <img class="grid-view-item__image  main-img lazyloaded" src="{{ config('global.PRODUCT_IMG_URL').DIRECTORY_SEPARATOR.$prodObj['UserProduct']['default_images'] }}" class="img-fluid" alt="#" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';">
-                                             <img class="extra-img" src="{{ config('global.PRODUCT_IMG_URL').DIRECTORY_SEPARATOR.$prodObj['UserProduct']['default_images'] }}" alt="Grinders Cafe">
+                                             <img class="extra-img" src="{{ config('global.PRODUCT_IMG_URL').DIRECTORY_SEPARATOR.$prodObj['UserProduct']['default_images'] }}" alt="image" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';">
 
                                              <span class="spr-badge" id="spr_badge_1639015841892" data-rating="0.0"><span class="spr-starrating spr-badge-starrating"><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i></span><span class="spr-badge-caption">No reviews</span>
                                              </span>
@@ -120,11 +121,59 @@
                           <div class="alert alert-danger">No product added by this seller</div>
                       </center>
                     @endif
+
                   </div>
+
                </div>
+               <center><div class="ajax-loading" style="display: none"></div></center>
             </div>
          </div>
       </div>
       <div class="responsive-sidebar sidebar_content"></div>
    </div>
 </div>
+<script type="text/javascript">
+var page = 1; //track user scroll as page number, right now page number is 1
+load_more(page); //initial content load
+$(window).scroll(function() { 
+   //detect page scroll
+    if($(window).scrollTop() + $(window).height() >= $(document).height()) { //if user scrolled from top to bottom of the page
+        page++; //page number increment
+        load_more(page); //load content   
+    }
+});     
+function load_more(page){
+  $.ajax(
+        {
+         url: '?page=' + page,
+         type: "get",
+         datatype: "html",
+         beforeSend: function()
+         {
+             $('.ajax-loading').show();
+             $('.ajax-loading').addClass('alert alert-danger');
+             $('.ajax-loading').html('Loading...');
+         }
+        })
+        .done(function(data)
+        {
+            if(data.length == 0){
+            console.log(data.length);
+                //notify user if nothing to load
+                $('.ajax-loading').addClass('alert alert-danger');
+                $('.ajax-loading').html('No More Product.');
+                return;
+            }
+            $('.ajax-loading').hide(); //hide loading animation once data is received
+            $("#results").append(data); //append data into #results element          
+        })
+        .fail(function(jqXHR, ajaxOptions, thrownError)
+        {
+              //alert('No response from server');
+              $('.ajax-loading').show();
+              $('.ajax-loading').addClass('alert alert-danger');
+              $('.ajax-loading').html('No More Product.');
+
+        });
+ }
+</script>

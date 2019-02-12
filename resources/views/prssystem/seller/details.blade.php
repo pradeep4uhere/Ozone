@@ -10,9 +10,9 @@
             <div class="swiper-wrapper">
 				<?php if(!empty($seller->SellerImage)){ 
 				foreach($seller->SellerImage as $imgObj){ ?>
-                <div class="swiper-slide">
-                    <a href="{{config('global.SELLER_IMG_GALLERY').DIRECTORY_SEPARATOR.'seller_'.$imgObj->seller_id.DIRECTORY_SEPARATOR.$imgObj->image_name}}" class="grid image-link">
-                        <img src="{{config('global.SELLER_IMG_GALLERY').DIRECTORY_SEPARATOR.'seller_'.$imgObj->seller_id.DIRECTORY_SEPARATOR.$imgObj->image_name}}" alt="#" style="height: 250px;width: 100%">
+                <div class="swiper-slide" style="height:350px;width: 250px;">
+                    <a href="{{config('global.SELLER_STORAGE_DIR').DIRECTORY_SEPARATOR.$imgObj->seller_id.DIRECTORY_SEPARATOR.config('global.SELLER_IMG_WIDTH').'X'.config('global.SELLER_IMG_HEIGHT').DIRECTORY_SEPARATOR.$imgObj->image_name}}" class="grid image-link">
+                        <img src="{{config('global.SELLER_STORAGE_DIR').DIRECTORY_SEPARATOR.$imgObj->seller_id.DIRECTORY_SEPARATOR.config('global.SELLER_THUMB_IMG_WIDTH').'X'.config('global.SELLER_THUMB_IMG_HEIGHT').DIRECTORY_SEPARATOR.$imgObj->image_name}}" alt="Image" style="width:100%">
                     </a>
                 </div>
 				<?php }}else{ ?>

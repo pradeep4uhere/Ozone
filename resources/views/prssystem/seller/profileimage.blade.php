@@ -47,8 +47,7 @@ padding: 10px 20px;
 <div class="col-md-3" style="backgroud-color:green">
   <div class="thumbnail">
     <a href="{{config('global.SELLER_IMG_GALLERY').DIRECTORY_SEPARATOR.'seller_'.$imgObj->seller_id.DIRECTORY_SEPARATOR.$imgObj->image_name}}" target="_blank">
-      <img src="{{config('global.SELLER_IMG_GALLERY').DIRECTORY_SEPARATOR.'seller_'.$imgObj->seller_id.DIRECTORY_SEPARATOR.$imgObj->image_name}}" alt="Image" style="width:100%">
-  
+      <img src="{{config('global.SELLER_STORAGE_DIR').DIRECTORY_SEPARATOR.$imgObj->seller_id.DIRECTORY_SEPARATOR.config('global.SELLER_IMG_WIDTH').'X'.config('global.SELLER_IMG_HEIGHT').DIRECTORY_SEPARATOR.$imgObj->image_name}}" alt="Image" style="width:100%">
       <div class="caption">
           <div class="btn-group btn-group-justified">
             @if($imgObj->is_default==0)
@@ -57,8 +56,6 @@ padding: 10px 20px;
             <a href="{{route('hideSellerImage',['id'=>$imgObj->id])}}" class="btn btn-info" title="Hide Image From Product Page">Hide</a>
             <a href="{{route('deleteSellerImage',['id'=>$imgObj->id])}}" class="btn btn-danger" title="Delete Image">Remove</a>
           </div>
-
-        
       </div>
     </a>
   </div>

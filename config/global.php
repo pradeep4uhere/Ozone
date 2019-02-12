@@ -47,8 +47,8 @@ $sellerDirPath=$uploadDir.DIRECTORY_SEPARATOR.$sellerDir.DIRECTORY_SEPARATOR.$se
 $sellerThumbDirPath=$uploadDir.DIRECTORY_SEPARATOR.$sellerDir.DIRECTORY_SEPARATOR.$sellerThumbDir;
 $sellerWidth='500';
 $sellerHeight='500';
-$sellerThumbWidth='200';
-$sellerThumbHeight='200';
+$sellerThumbWidth='250';
+$sellerThumbHeight='250';
 
 return [
     'LOGO'=>$public_url.'/public/theme/prssystem/img/front/logo1.png',

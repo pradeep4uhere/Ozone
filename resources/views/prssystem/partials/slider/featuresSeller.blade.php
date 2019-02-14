@@ -46,7 +46,7 @@
                 <li style="width:180px; text-align: left;">
                    <div class="container-fluid">
                       <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-md-10">
                           <div class="featured-place-wrap"><?php //print_r($seller['SellerImage']);?>
                             <a href="{{route('sellerview',['seller'=>str_slug($seller['business_name']),'id'=>encrypt($seller['id'])])}}">
                                 @if(count($seller['SellerImage']))
@@ -57,7 +57,7 @@
                                 @endif
                                 @endforeach
                                 @else
-                                <img height="200" src="{{config('global.SELLER_STORAGE_DIR').'/250X250/'.$seller->image_thumb}}" alt="image" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';">
+                                <img class="extra-img" height="200" src="{{config('global.SELLER_STORAGE_DIR').'/250X250/'.$seller->image_thumb}}" alt="image" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';">
                                 @endif
                                 <div class="featured-title-box">
                                     <h2>{{ucwords($seller['business_name'])}}</h2>

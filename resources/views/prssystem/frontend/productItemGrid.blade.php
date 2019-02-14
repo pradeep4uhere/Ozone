@@ -1,6 +1,4 @@
-<div class="container">
-     <div class="row bg-light" id="Collection">
-                  <div class="products-display products-display-collection grid grid--uniform grid--view-items">
+<div class="products-display products-display-collection grid grid--uniform grid--view-items" id="results">
                     @if(!empty($productList))
                       @foreach($productList as $prodObj)
                       <?php //dd($prodObj);?>
@@ -67,6 +65,5 @@
                           <div class="alert alert-danger">No product added by this seller</div>
                       </center>
                     @endif
+
                   </div>
-               </div>
-        </div>

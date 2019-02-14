@@ -113,8 +113,8 @@ padding: 15px;
     <div class="preview-pic tab-content">
         @if(!empty($productDetails->ProductImage))
         @foreach($productDetails->ProductImage as $img)
-        <div class="tab-pane @if($img['is_default']==1) active @endif" id="pic-{{$img['id']}}">
-		      <img src="{{config('global.PRODUCTS_STORAGE_DIR')}}/{{$productDetails['id']}}/{{$img['image_name']}}" />
+        <div class="tab-pane @if($img['is_default']==1) active @endif" id="pic-{{$img['id']}}" style="min-height: 358px;">
+		      <img src="{{config('global.PRODUCTS_STORAGE_DIR')}}/{{$productDetails['seller_id']}}/{{config('global.PRODUCT_IMG_WIDTH')}}X{{config('global.PRODUCT_IMG_HEIGHT')}}/{{$img['image_name']}}"onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';" />
     		</div>
         @endforeach
         <ul class="preview-thumbnail nav nav-tabs">
@@ -123,7 +123,7 @@ padding: 15px;
             @if($count<=6)
            <li class="@if($img['is_default']==1) active @endif">
                 <a data-target="#pic-{{$img['id']}}" data-toggle="tab">
-                <img src="{{config('global.PRODUCTS_STORAGE_DIR')}}/{{$productDetails['id']}}/{{$img['image_name']}}" />
+                <img src="{{config('global.PRODUCTS_STORAGE_DIR')}}/{{$productDetails['seller_id']}}/{{config('global.PRODUCT_THUMB_IMG_WIDTH')}}X{{config('global.PRODUCT_THUMB_IMG_HEIGHT')}}/{{$img['image_name']}}" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';"/>
                 </a>
           </li>
             <?php $count++ ?>

@@ -67,7 +67,7 @@
                 </div>
                 <div class="col-md-6">
                 <div class="reserve-seat-block">
-                    <a href="#" class="btn btn-danger">&nbsp;Send Message&nbsp;</a>&nbsp;&nbsp;<a href="#" class="btn btn-info">+91{{$seller['contact_number']}}</a>
+                    <a href="#" class="btn" >&nbsp;Send Message&nbsp;</a>&nbsp;&nbsp;<a href="#" class="btn btn-info">+91{{$seller['contact_number']}}</a>
                 </div>
                 </div>
             </div>

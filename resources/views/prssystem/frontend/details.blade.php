@@ -9,13 +9,16 @@
     <!--main section-->
     <!--============================= DETAIL =============================-->
         <!-- Swiper -->
+    <section class="reserve-block" style="margin: 0px;padding: 1px;">
+     <div class="container">
+        <div class="row">
         <div class="swiper-container">
             <div class="swiper-wrapper">
 				<?php if(!empty($seller->SellerImage)){ 
 				foreach($seller->SellerImage as $imgObj){ ?>
                 <div class="swiper-slide">
-                    <a href="{{config('global.SELLER_IMG_GALLERY').DIRECTORY_SEPARATOR.'seller_'.$imgObj->seller_id.DIRECTORY_SEPARATOR.$imgObj->image_name}}" class="grid image-link">
-                        <img height="400px" src="{{config('global.SELLER_IMG_GALLERY').DIRECTORY_SEPARATOR.'seller_'.$imgObj->seller_id.DIRECTORY_SEPARATOR.$imgObj->image_name}}" class="img-fluid" alt="#">
+                    <a href="{{config('global.SELLER_STORAGE_DIR').DIRECTORY_SEPARATOR.$imgObj->seller_id.DIRECTORY_SEPARATOR.config('global.SELLER_IMG_WIDTH').'X'.config('global.SELLER_IMG_HEIGHT').DIRECTORY_SEPARATOR.$imgObj->image_name}}" class="grid image-link">
+                    <img src="{{config('global.SELLER_STORAGE_DIR').DIRECTORY_SEPARATOR.$imgObj->seller_id.DIRECTORY_SEPARATOR.config('global.SELLER_THUMB_IMG_WIDTH').'X'.config('global.SELLER_THUMB_IMG_HEIGHT').DIRECTORY_SEPARATOR.$imgObj->image_name}}" alt="Image" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';">
                     </a>
                 </div>
 				<?php }}else{ ?>
@@ -53,23 +56,25 @@
             <div class="swiper-button-prev swiper-button-white"></div>
         </div>
     </div>
+</div>
+</section>
+
     <!--//END BOOKING -->
     <!--============================= RESERVE A SEAT =============================-->
-    <section class="reserve-block">
+    <section class="reserve-block bg-info">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h5>{{$seller['business_name']}}&nbsp;<img src="{{config('global.THEME_URL_FRONT_IMAGE')}}/tick-1.jpg"></h5>
-                    <p><span></span></p>
-                    <p class="reserve-description">{{$seller['address_1']}}, {{$seller['address_2']}}, 
-                                {{$seller['state_id']}}</p>
+                    <h1 style="padding:0px;margin:0px; font-weight:400">{{$seller['business_name']}}&nbsp;<img src="{{config('global.THEME_URL_FRONT_IMAGE')}}/tick_circle.png"></h1>
+                    <h5 style="padding:0px;margin:0px;">{{$seller['address_1']}}, {{$seller['address_2']}}, 
+                                {{$seller['state_id']}}</h5>
                 </div>
                 <div class="col-md-6">
                     <div class="reserve-seat-block">
                         <div class="reserve-btn">
                             <div class="featured-btn-wrap">
                                 <a href="{{route('sellerview',['seller'=>str_slug($seller['business_name']),'id'=>encrypt($seller['id'])])}}" class="btn btn-success">Go To Seller Page</a>
-                                <a href="#" class="btn btn-info">Call +91-{{$seller['contact_number']}}</a>
+                                <a href="#" class="btn" style="background-color:#ff3a6d;color:#FFF;"><i class="fa fa-phone"></i> +91-{{$seller['contact_number']}}</a>
                             </div>
                         </div>
                     </div>
@@ -89,7 +94,11 @@
     </section>
     <hr style="padding:0px;margin:0px;">
     <section class="reserve-block">
-        @include('prssystem.frontend._productDetailsRightSide')
+        <div class="container">
+         <div class="row bg-light" id="Collection">
+             @include('prssystem.frontend.productItemGrid',array('productList'=>$productList))
+         </div>
+        </div>
     </section>
     <!--//END BOOKING DETAILS -->
     <script>

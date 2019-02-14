@@ -174,7 +174,8 @@ textarea {
 	*zoom: 1;
 	list-style: none;
 	margin: 0;
-	padding: 0
+	padding: 0;
+	width: 100%;
 }
 
 .grid::after {
@@ -2079,7 +2080,7 @@ symbol.icon:not(.icon--full-color) rect {
 }
 
 .grid-img {
-	background-image: url(//cdn.shopify.com/s/files/1/0016/4891/8628/t/4/assets/grid-list-sprite.png?9155736420727599666);
+	background-image: url(../../img/front/grid-list-sprite.png);
 	height: 22px;
 	width: 22px;
 	content: "";
@@ -2102,7 +2103,7 @@ symbol.icon:not(.icon--full-color) rect {
 }
 
 .list-img {
-	background-image: url(//cdn.shopify.com/s/files/1/0016/4891/8628/t/4/assets/grid-list-sprite.png?9155736420727599666);
+	background-image: url(../../img/front/grid-list-sprite.png);
 	height: 22px;
 	width: 22px;
 	content: "";

@@ -315,7 +315,7 @@ class SellerController extends Master
         ->where('parent_id','=',0)
         ->where('store_type','=',$seller['store_type_id'])
         ->paginate(self::getPageItem(100));
-        if($seller['store_type_id']==34){
+        if($seller['store_type_id']==8){
           $featureImage = 'furnitures.jpg';
         }else{
           $featureImage = 'banner4.jpg';

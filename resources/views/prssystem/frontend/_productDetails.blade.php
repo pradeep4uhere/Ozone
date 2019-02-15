@@ -99,7 +99,7 @@
 							<a href="javascript:void(0)" onClick="buyNow('{{encrypt($productDetails->id)}}','{{str_slug($productDetails->product['title'])}}')" class="btn btn-danger">Buy Now in <span>₹{{$productDetails['price']}}</span></a>
 						</div>
 						<p>
-							<img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/map.jpg" class="img-fluid" alt="#">
+							<img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/map.jpg" class="img-fluid" alt="map" style="width: 100%">
 						</p>
 						
 						<hr style="margin-top:5px;padding-bottom: 15px;">

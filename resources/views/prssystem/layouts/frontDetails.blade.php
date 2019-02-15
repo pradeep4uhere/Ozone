@@ -49,6 +49,7 @@
     <link href="{{config('global.THEME_URL_FRONT_CSS').'/bootstrap.min.css'}}" rel="stylesheet">
     <link href="{{config('global.THEME_URL_FRONT_CSS').'/material-icons.css'}}" rel="stylesheet">
     <link href="{{config('global.THEME_URL_FRONT_CSS').'/material-icons.css'}}" rel="stylesheet">
+    <link href="{{config('global.THEME_URL_FRONT_CSS').'/bootstrap/3.3.7/bootstrap.min.css'}}" rel="stylesheet">
     <script src="{{config('global.THEME_URL_FRONT_JS').'/bootstrap/3.3.7/bootstrap.min.js'}}"></script>
 
     <!-- Google Fonts -->

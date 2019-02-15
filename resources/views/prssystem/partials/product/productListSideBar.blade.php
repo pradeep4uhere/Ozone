@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <div id="shopify-section-Ishi_sidebar" class="shopify-section">
             <div data-section-id="Ishi_sidebar" data-section-type="sidebar-section">
                <div class="left-column sidebar-categories">
@@ -19,7 +18,7 @@
                         <?php if(!empty($categoryList)){ ?>
                         <?php foreach($categoryList as $cat){ ?>
                         <div class="panel panel-custom categories-items">
-                           <div class="panel-heading" role="tab" id="headingOne-{{$cat['id']}}">
+                           <div class="panel-heading" role="tab" id="headingOne-{{$cat['id']}}" style="padding-top:5px;padding-bottom:10px; border-bottom: solid 1px #EEE; ">
                               <h4 class="panel-title link-title">
                                  <a href="javascript:void(0)" style="text-decoration:none" id="cat_{{$cat['id']}}" class="catSearch">{{$cat['name']}}</a>
                                  <a class="collapse-icon collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-{{$cat['id']}}" aria-expanded="false" aria-controls="collapse-{{$cat['id']}}">
@@ -34,7 +33,7 @@
                               <div id="collapse-{{$cat['id']}}" class="panel-collapse dropdown-submenu collapse" role="tabpanel" aria-labelledby="headingOne-{{$cat['id']}}" aria-expanded="false" style="height: 0px;">
                                   <?php foreach($cat['children'] as $child){ ?>
                               <div class="panel-body category_submenu">
-                                 <a href="/collections/cold-coffee" class="dropdown-item">
+                                 <a href="javascript:void(0)" style="text-decoration:none" id="catsub_{{$cat['id']}}" class="dropdown-item catSubSearch">
                                  {{$child['name']}}
                                  </a>
                               </div>
@@ -52,6 +51,12 @@
 <script type="text/javascript">
    $(document).ready(function(){
       $('.catSearch').on('click',function(e){
+         var id =e.target.id;
+         var idArr =id.split('_');
+         load_more_category_items(idArr[1]);
+      });
+
+      $('.catSubSearch').on('click',function(e){
          var id =e.target.id;
          var idArr =id.split('_');
          load_more_category_items(idArr[1]);

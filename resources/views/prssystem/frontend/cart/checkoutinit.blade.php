@@ -1,6 +1,6 @@
 @extends('prssystem/layouts/frontDetails')
 @section('title')
-    Select a delivery address
+    My Delivery Address
 @stop
 @section('content')
 
@@ -9,24 +9,16 @@
             <div class="row">
 				<div class="col-md-12">
 				<div class="row">
-				<div class="col-md-3">
-				 <div style="font-size: 16px;">
+				<div class="col-md-4">
 				<label class="btn btn-info"><input type="radio" name="shippingType" value="1" class="addressType" id="delivery" checked>&nbsp;&nbsp;I want Item Deliver To My Address</label>
 				</div>
-				</div>
-				<div class="col-md-2" style="margin-left: 5px;margin-right: 5px;">
-				 <div style="font-size: 16px;">
+				<div class="col-md-4">
 				<label  class="btn btn-info"><input type="radio" id="pickup" name="shippingType" value="2" class="addressType">&nbsp;&nbsp;I Will Pick From Shop</label>
 				</div>
 				</div>
-				<hr/>
-				</div>
-				<hr/>
-                <div class="col-md-12">
-
+                <div class="col-md-12" style="padding-left: 0px; margin-left: 0px;">
                 <div class="">
-               
-                <div class="card-body" style="font-size: 13px !important" >
+                <div class="card-body">
 					<div class="row" id="delAddress">
 						<?php //dd($address);?>
                     @if(count($address)>0)
@@ -50,25 +42,22 @@
 						<button class="btn btn-danger remove" style="padding:8px; font-size:12px;margin-top:5px;" id="remove_{{encrypt($item->id)}}">Remove</button>
 						</div>
 						</div>
-						
-						
 						</div>
-						<br/>
 					</div>
 					
 					
 				    @endforeach
 
-				    <div class="col-md-4">
+				    <div class="col-md-3">
 						<div class="card">
-						<div class="card-header" style="font-size: 16px; background-color: #ff3a6d">Add New Address</b></div>
-						<div class="card-body" style="font-size: 13px !important;min-height: 186px;">
+						<div class="card-header" style="background-color: #ff3a6d; color: #FFF; font-weight: bold;">Add New Address</div>
+						<a href="javascript:void(0)" data-toggle="modal" data-target="#myModal">
+						<div class="card-body" style="min-height: 150px;">
 						<center>
-							<a href="javascript:void(0)" data-toggle="modal" data-target="#myModal">
-						 <img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/assaddress.jpg" class="img-fluid" alt="#">	
-						</a>
+						 	<img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/more.png" class="img-fluid" alt="image" style="width:100px;">	
 						</center>
 						</div>
+						</a>
 						</div>
 					</div>
                     @else
@@ -131,7 +120,7 @@
             
            
         </div>
-        <hr/>
+         <div style="border-bottom: solid 1px #eee; margin-top:10px;margin-bottom:10px; "></div>
     <a href="javascript:void(0))" class="btn top-btn" style="background-color:#ff3a6d;color:#FFF" id="payment"> Procced To Payment</a>
     </section>
 

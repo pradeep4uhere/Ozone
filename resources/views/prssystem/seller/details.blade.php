@@ -6,6 +6,9 @@
     <!--main section-->
     <!--============================= DETAIL =============================-->
         <!-- Swiper -->
+            <section class="reserve-block" style="margin: 0px;padding: 1px;">
+     <div class="container">
+        <div class="row">
         <div class="swiper-container">
             <div class="swiper-wrapper">
 				<?php if(!empty($seller->SellerImage)){ 
@@ -51,33 +54,33 @@
             <div class="swiper-button-next swiper-button-white"></div>
             <div class="swiper-button-prev swiper-button-white"></div>
         </div>
-    <!--//END BOOKING -->
-    <!--============================= RESERVE A SEAT =============================-->
-<div class="page-width collection_templete">
-   <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12 normal-sidebar sidebar_content">
-        <section class="reserve-block">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h1 class="category_name" style="color:#333">{{ucwords($seller['business_name'])}}&nbsp;<img src="{{config('global.THEME_URL_FRONT_IMAGE')}}/tick-1.jpg"></h1>
-                    <p><span></span></p>
-                    <p class="reserve-description"><i class="fa fa-map-marker"></i>&nbsp;{{$seller['address_1']}}, {{$seller['address_2']}}, 
-                                {{$seller['state_id']}}</p>
-                </div>
-                <div class="col-md-6">
+        </div>
+</div>
+</section>
+<!--//END BOOKING -->
+<!--============================= RESERVE A SEAT =============================-->
+<section class="reserve-block bg-info" style="margin-bottom: 1px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 style="padding:0px;margin:0px; font-weight:400">{{$seller['business_name']}}&nbsp;<img src="{{config('global.THEME_URL_FRONT_IMAGE')}}/tick_circle.png"></h1>
+                <h5 style="padding:0px;margin:0px;">{{$seller['address_1']}}, {{$seller['address_2']}}, 
+                            {{$seller['state_id']}}</h5>
+            </div>
+            <div class="col-md-6">
                 <div class="reserve-seat-block">
-                    <a href="#" class="btn" >&nbsp;Send Message&nbsp;</a>&nbsp;&nbsp;<a href="#" class="btn btn-info">+91{{$seller['contact_number']}}</a>
-                </div>
+                    <div class="reserve-btn">
+                        <div class="featured-btn-wrap">
+                            <a href="{{route('sellerview',['seller'=>str_slug($seller['business_name']),'id'=>encrypt($seller['id'])])}}" class="btn btn-success">Go To Seller Page</a>
+                            <a href="#" class="btn" style="background-color:#ff3a6d;color:#FFF;"><i class="fa fa-phone"></i> +91-{{$seller['contact_number']}}</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-      </div>
     </div>
-</div>
-
-    <!--============================= PRODUCT LIST START =============================-->
+</section>
+<!--============================= PRODUCT LIST START =============================-->
 
     @include('prssystem.partials.product.productList',array('productList'=>$productList))
 

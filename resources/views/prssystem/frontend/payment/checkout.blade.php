@@ -10,33 +10,15 @@
 				<p>Order Details</p>
 				<p>Total Amount: {{$totalAmount}}</p>
 				</div>
-				
-				
-				</div>
-		<hr/>
-            <div class="row">
-				<div class="col-md-12">
-				<button class="btn btn-info">Cash On Delivery</button>
-				</div>
-				
-				
-				</div>
-				<hr/>
-               
-                
-            </div>
-            
-           
+		</div>
+        <div class="row">
+		<div class="col-md-12">
+		<button class="btn btn-info">Cash On Delivery</button>
+		</div>
+		</div>
+        </div>
         </div>
     </section>
-    
-    
-    
-    </section>
-    <!--//END RESERVE A SEAT -->
-    <!--============================= BOOKING DETAILS =============================-->
-    <!--//END BOOKING DETAILS -->
-    
 <script>
 $(document).ready(function(){
 	function getAlert(a,b,c){

@@ -56,8 +56,9 @@ class CartController extends Master
         	$qty = 1;
         	$name = str_replace("-",' ',request('name'));
         	//Get Product Details
-        	$imgUrlDefaultImages = config('global.PRODUCT_IMG_URL').DIRECTORY_SEPARATOR.$productDetails['default_images'];
-            $imgUrlDefaultThumbnail = config('global.PRODUCT_IMG_URL').DIRECTORY_SEPARATOR.$productDetails['default_thumbnail'];
+        	$imgUrlDefaultImages = config('global.PRODUCTS_STORAGE_DIR').DIRECTORY_SEPARATOR.$productDetails['seller_id'].DIRECTORY_SEPARATOR.config('global.PRODUCT_IMG_WIDTH').'X'.config('global.PRODUCT_IMG_HEIGHT').DIRECTORY_SEPARATOR.$productDetails['default_images'];
+
+            $imgUrlDefaultThumbnail = config('global.PRODUCTS_STORAGE_DIR').DIRECTORY_SEPARATOR.$productDetails['seller_id'].DIRECTORY_SEPARATOR.config('global.PRODUCT_THUMB_IMG_WIDTH').'X'.config('global.PRODUCT_THUMB_IMG_HEIGHT').DIRECTORY_SEPARATOR.$productDetails['default_thumbnail'];
         	$productDetails = array(
         		'seller_id'=>$sellerDetails['id'],
         		'seller'=>$sellerDetails['business_name'],

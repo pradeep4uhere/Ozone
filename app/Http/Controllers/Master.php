@@ -80,8 +80,12 @@ class Master extends Controller {
     }
 
 
-    public static function getPageItem(){
-        return env('PER_PAGE_ITEM');
+    public static function getPageItem($pageItem=NULL){
+        if($pageItem>0){
+            return 250;
+        }else{
+            return env('PER_PAGE_ITEM');
+        }
     }
 
 

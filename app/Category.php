@@ -87,4 +87,14 @@ class Category extends Model
         }
         return $catObj;
     }
+
+
+
+    public function children() { 
+        return $this->hasMany('App\Category', 'parent_id', 'id'); 
+    }
+
+
+
+
 }

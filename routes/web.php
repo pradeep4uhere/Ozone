@@ -71,6 +71,7 @@
     
     //All Cart Routing
     Route::any('/seller/{seller}/{id}', 'Seller\SellerController@sellerview')->name('sellerview');
+    Route::any('/seller/{seller}/{id}/{category_id}', 'Seller\SellerController@getProductFilterList')->name('getProductFilterList');
     Route::get('loadmore', 'Seller\SellerController@loadMoreProduct')->name('sellerProductList');
 	
     

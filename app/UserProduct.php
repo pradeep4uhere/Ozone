@@ -28,6 +28,11 @@ class UserProduct extends Model
     public function product() {
         return $this->belongsTo(Product::class)->with('Category','Brand','Unit','SubCategory');
     }
+
+
+    public function products() {
+        return $this->belongsTo(Product::class)->with('Category','Brand','Unit','SubCategory');
+    }
     
     
     public function ProductImage() {
@@ -50,6 +55,11 @@ class UserProduct extends Model
     
     
     public function getUserProductList($userId){
+        //$this->params = $params;
+        // return $userProduct=UserProduct::with(['products'=>function($query){
+        //     $query->join('categories', 'category.id', '=', 'products.category_id');
+        //     $query->where('products.category_id', '=', $this->params['category_id']);
+        // },'ProductImage'])->where('user_id','=',$userId)->where('status','=',1);
         return $userProduct=UserProduct::with('product','ProductImage')->where('user_id','=',$userId)->where('status','=',1);
     }
 
@@ -115,5 +125,27 @@ class UserProduct extends Model
 //                ->where('id','!=',$id)
                 ->get();
         return $list;
+    }
+
+
+
+
+     public function getSellerProductFilterList($seller_id, $userId, $params){
+        $this->params = $params;
+        // return $userProduct=UserProduct::where(['products'=>function($query){
+        //     $query->join('categories', 'categories.id', '=', 'products.category_id');
+        //     $query->where('products.category_id', '=', $this->params['category_id']);
+        // }],'ProductImage')->where('user_id','=',$userId)->where('status','=',1)->where('seller_id','=',$seller_id);
+
+        $userProduct=UserProduct::with('product','ProductImage');
+        $userProduct = $userProduct->where('user_id','=',$userId);
+        $userProduct = $userProduct->where('status','=',1);
+        if(!empty($params)){
+            $userProduct = $userProduct->whereIn('product_id',$this->params['product_id']);
+        }
+        $userProduct = $userProduct->where('seller_id','=',$seller_id);
+        return $userProduct;
+
+        
     }
 }

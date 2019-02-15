@@ -48,6 +48,7 @@
                                  <option value="created-ascending">Date, old to new</option>
                               </select>
                            </div>
+                           <label for="SortBy" class="sort-label" onclick="load_more_category_items(0)">Clear All:</label>
                            <input class="collection-header__default-sort" type="hidden" value="manual">
                         </div>
                      </div>

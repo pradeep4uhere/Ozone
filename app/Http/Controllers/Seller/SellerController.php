@@ -63,6 +63,52 @@ class SellerController extends Master
 	
 
 
+    /*
+     *@Author: Pradeep Kumar
+     */
+    public function getProductFilterList(Request $request, $seller,$id, $category_id){
+       if($request->ajax()) {
+        if($id!=''){
+          $seller_id=decrypt($id);
+          $seller = Seller::where('id','=',$seller_id)->with('User')->first();
+        }
+        $productList=array();
+        //Get All the Products with Category Id
+        $params  = array();
+        $idList  = array();
+        $lsitArr = array();
+
+        if($category_id>0){
+          $params['category_id'] = $category_id;
+          //Get All the Product List Of Seller
+          $query = DB::table('products')->select('id')->where('category_id','=',$params['category_id'])->get();
+          if(count($query)>0){
+            foreach($query as $val){
+              $idList[] = $val->id;
+            }
+          }
+          $params['product_id'] = $idList;
+        }else{
+          $params = array();
+        }
+        $userProd = new \App\UserProduct();
+        //echo $productList = $userProd->getSellerProductFilterList($seller_id,$seller['user_id'],$params)->toQueryString();die;
+        $productList = $userProd->getSellerProductFilterList($seller_id,$seller['user_id'],$params)->paginate(self::getPageItem());
+        if(!empty($productList)){
+        foreach($productList as $key=>$obj){
+              $lsitArr[]=array(
+                 'UserProduct'=>$obj,
+                 'Product'=>$obj->product
+                );    
+              }
+          }
+        return view(Master::loadFrontTheme('partials.loadmore'),array(
+           'productDetails'=>$productList,
+           'productList'=>$lsitArr,
+        ));
+      }
+    }
+
 
 
     /*
@@ -185,7 +231,7 @@ class SellerController extends Master
 	*@Author: Pradeep Kumar
 	*@Description: View Seller Prifole
 	*/
-	public function sellerview(Request $request, $seller,$id){
+	public function sellerview(Request $request, $seller,$id,$catId=null){
       if($request->ajax()) {
         if($id!=''){
           $id=decrypt($id);
@@ -218,6 +264,12 @@ class SellerController extends Master
         $lsitArr=array();
         $productList=array();
     		$userProd = new \App\UserProduct();
+        
+        //Search Parameters
+        $params=array();
+        if($catId!=''){
+          $params['category_id']=$catId;
+        }
     		$productList = $userProd->getUserProductList($seller['user_id'])->paginate(self::getPageItem());
         if(!empty($productList)){
     		foreach($productList as $key=>$obj){
@@ -259,7 +311,10 @@ class SellerController extends Master
         $metaTags['sitename']     =self::getAppName();
 
         //Get All the Category For Filter Respective Store Type
-        $categoryList = Category::where('store_type','=',$seller['store_type_id'])->paginate(self::getPageItem());
+        $categoryList = Category::with('children')
+        ->where('parent_id','=',0)
+        ->where('store_type','=',$seller['store_type_id'])
+        ->paginate(self::getPageItem(100));
         if($seller['store_type_id']==34){
           $featureImage = 'furnitures.jpg';
         }else{

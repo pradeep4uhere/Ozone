@@ -87,7 +87,7 @@ input[type=submit] {
 										                 <div id="display" style="z-index:9999; position: absolute;border-top: none;z-index: 99;top: 100%;left: 0;right: 0;height: 250px; overflow: auto; font-size: 12px; ">
                                      </div>
                                      </div>
-                                     <button type="submit" class="btn-form"><span class="icon-magnifier search-icon"></span>SEARCH<i class="pe-7s-angle-right"></i></button>
+                                     <button type="submit" class="btn-form"><i class="fa fa-search search-icon"></i>SEARCH<i class="pe-7s-angle-right"></i></button>
                                     <input type="hidden" name="locationId" id="locationIdStr">
                                     </div>
                                     </div>
@@ -222,34 +222,26 @@ input[type=submit] {
                 </div>
             </div>
             <div class="row">
-				<?php foreach($sellerArr as $seller){?>
-                <div class="col-md-4 featured-responsive">
-                    <div class="featured-place-wrap"><?php //print_r($seller['SellerImage']);?>
-                        <a href="{{route('sellerview',['seller'=>str_slug($seller['business_name']),'id'=>encrypt($seller['id'])])}}">
-                            @if(count($seller['SellerImage']))
-							@foreach($seller['SellerImage'] as $SellerImage)
-							@if($SellerImage->is_default==1)
-                            <img height="250px" src="{{config('global.SELLER_IMG_GALLERY').DIRECTORY_SEPARATOR.'seller_'.$SellerImage->seller_id.DIRECTORY_SEPARATOR.$SellerImage->image_name}}" />
-							@endif
-							@endforeach
-							@else
-							<img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg" class="img-fluid" alt="image" style="height: 245px;">
-							@endif
-              <div class="featured-title-box">
-              <h2>{{$seller['business_name']}}</h2>
-              <p>{{$seller['StoreType']['name']}} </p> <span>• </span>
-              <p>3 Reviews</p> <span> • </span>
-              <p><span>Open Now</span></p>
-              <ul>
-              <li><span class="icon-location-pin"></span>
-                  <p>{{$seller['address_1']}}</p>
-              </li>
-              </ul>
-              </div>
-              </a>
-              </div>
-              </div>
-				    <?php } ?>
+        				<?php foreach($sellerArr as $seller){  ?>
+                        <div class="col-md-4 featured-responsive">
+                            <div class="featured-place-wrap">
+                            <a href="{{route('sellerview',['seller'=>str_slug($seller['business_name']),'id'=>encrypt($seller['id'])])}}">
+                                <img height="200" src="{{config('global.SELLER_STORAGE_DIR').'/250X250/'.$seller['image_thumb']}}" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';"/>
+                                <div class="featured-title-box">
+                                    <h2>{{ucwords($seller['business_name'])}}</h2>
+                                    <p>{{$seller['StoreType']['name']}} </p><span>• </span>
+                                    <p>3 Reviews</p> <span> • </span>
+                                    <p><span>Open Now</span></p>
+                                    <ul>
+                                    <li style="text-align: left;">
+                                        <p> <i class="fa fa-map-marker"></i> {{$seller['location']}},{{$seller['district']}},{{$seller['state']}},{{$seller['pincode']}}</p>
+                                    </li>
+                                    </ul>
+                                </div>
+                            </a>
+                        </div>
+                      </div>
+        				    <?php } ?>
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-4">

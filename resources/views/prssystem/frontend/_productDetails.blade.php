@@ -96,7 +96,7 @@
 						<div class="reserve-btn">
 						<center>
 						<div class="featured-btn-wrap" style="margin-bottom: 10px;">
-							<a href="javascript:void(0)" onClick="buyNow('{{encrypt($productDetails->id)}}','{{str_slug($productDetails->product['title'])}}')" class="btn btn-danger">Buy Now in <span>₹{{$productDetails['price']}}</span></a>
+							<a href="javascript:void(0)" onClick="buyNow('{{encrypt($productDetails->id)}}','{{str_slug($productDetails->product['title'])}}')" class="btn btn-danger">Buy Now in <span>₹{{$productDetails['selling_price']}}</span></a>
 						</div>
 						<p>
 							<img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/map.jpg" class="img-fluid" alt="map" style="width: 100%">

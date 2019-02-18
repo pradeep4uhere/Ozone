@@ -42,7 +42,7 @@
                                        <span class="visually-hidden">Regular price</span>
                                        <span class="regular" style="text-decoration: line-through;">₹{{$prodObj['UserProduct']['price']}}</span>
                                        <span class="product-price__price product-price__sale">
-                                       <s class="product-price__price is-bold"> ₹{{$prodObj['UserProduct']['price']}} </s>
+                                       <s class="product-price__price is-bold"> ₹{{$prodObj['UserProduct']['selling_price']}} </s>
                                        </span>&nbsp;<span class="discount-percentage">{{($prodObj['UserProduct']['discount']!='')?$prodObj['UserProduct']['discount']:'0'}}%</span><br/>
                                        <span class="h5 grid-view-item__title">Unit: {{$prodObj['UserProduct']['quantity_in_unit']}}&nbsp;{{$prodObj['Product']['Unit']['name']}}</span>
                                     </div>

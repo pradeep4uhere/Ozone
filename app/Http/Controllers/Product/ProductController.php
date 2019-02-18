@@ -553,12 +553,12 @@ class ProductController extends Master
             abort(404);
         }
         if(count($userProduct['ProductImage'])>0){
-            $productImage = config('global.PRODUCT_IMG_GALLERY').'/prod_00'.$userProductId.'/'.$userProduct['ProductImage'][0]['image_name'];
+            $productImage = config('global.PRODUCTS_STORAGE_DIR').DIRECTORY_SEPARATOR.$seller['id'].DIRECTORY_SEPARATOR.config('global.PRODUCT_THUMB_IMG_WIDTH').'X'.config('global.PRODUCT_THUMB_IMG_HEIGHT').DIRECTORY_SEPARATOR.$userProduct['default_images'];
         }else{
             $productImage = self::getLogo();
         }
         $metaTitle = $userProduct['product']['title'];
-        $metaDesc = 'Buy '.$userProduct['product']['title'].' at ₹'.$userProduct['price'].' only.';
+        $metaDesc = 'Seller '.$seller['business_name'].', Buy '.$userProduct['product']['title'].' at ₹'.$userProduct['selling_price'].' only.';
         $metaKeywords = $userProduct['product']['title'];
         $pageImage = $productImage;
         $pageUrl = self::getURL().'/detail/'.str_slug($userProduct['product']['title']).'/'.$id;

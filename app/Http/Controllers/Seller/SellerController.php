@@ -285,7 +285,11 @@ class SellerController extends Master
         $metaTitle = $seller['business_name'];
         $metaDesc = $seller['business_name'].', Near '.$seller['address_1'].', '.$seller['address_2'];
         $metaKeywords = 'Seller, Near Store';
-        $pageImage = self::getLogo();
+        if($seller['image_logo']!=''){
+          $pageImage = config('global.SELLER_STORAGE_DIR').'/250X250/'. $seller['image_thumb'];
+        }else{
+          $pageImage = self::getLogo();
+        }
         $pageUrl = self::getURL().'/seller/'.str_slug($seller['business_name']).'/'.encrypt($seller['id']);
         $createdAtStr = $seller['created_at'];
         $updatedAtStr = $seller['updated_at'];
@@ -306,7 +310,7 @@ class SellerController extends Master
         $metaTags['tag']          =$tag;
         $metaTags['article']      =$article;
         $metaTags['twittersite']  ='';
-        $metaTags['urlimage']     =self::getLogo();
+        $metaTags['urlimage']     =$pageImage;
         $metaTags['url']          =$pageUrl;
         $metaTags['sitename']     =self::getAppName();
 
@@ -317,6 +321,8 @@ class SellerController extends Master
         ->paginate(self::getPageItem(100));
         if($seller['store_type_id']==8){
           $featureImage = 'furnitures.jpg';
+        }else if($seller['store_type_id']==2){
+          $featureImage = '675787457fcbbc5.jpg';
         }else{
           $featureImage = 'banner4.jpg';
         }
@@ -529,7 +535,6 @@ class SellerController extends Master
                   if(array_key_exists('id',$data) && ($data['id']>0)){
                       $this->updateSeller($data);
                   }else{
-                    dd($data);
                       $this->createSeller($data);
                   }
             }
@@ -749,10 +754,10 @@ class SellerController extends Master
             $seller->store_type_id =$data['store_type_id'];
             $seller->business_name =$data['business_name'];
             $seller->businessusername =$username;
-            $seller->address_1 =$data['address_1'];
-            $seller->address_2 =$data['address_2'];
-            $seller->state =$data['state'];
-            $seller->district =ucwords(str_replace("_"," ",$data['district']));
+            $seller->address_1 =ucwords(strtolower($data['address_1']));
+            $seller->address_2 =ucwords(strtolower($data['address_2']));
+            $seller->state =ucwords(strtolower($data['state']));
+            $seller->district =ucwords(str_replace("_"," ",strtolower($data['district'])));
             $locationArr = explode("|",$data['location']);
             $seller->location =end($locationArr);
             $seller->pincode =$data['pincode'];

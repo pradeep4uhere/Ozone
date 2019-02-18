@@ -47,26 +47,17 @@
                    <div class="container-fluid">
                       <div class="row">
                         <div class="col-md-10">
-                          <div class="featured-place-wrap"><?php //print_r($seller['SellerImage']);?>
-                            <a href="{{route('sellerview',['seller'=>str_slug($seller['business_name']),'id'=>encrypt($seller['id'])])}}">
-                                @if(count($seller['SellerImage']))
-                                @foreach($seller['SellerImage'] as $SellerImage)
-                            <?php //sprint_r($SellerImage);?>
-                                @if($SellerImage->is_default==1)
-                                <img height="200" src="{{config('global.SELLER_STORAGE_DIR').'/250X250/'.$SellerImage->image_name}}" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';"/>
-                                @endif
-                                @endforeach
-                                @else
-                                <img class="extra-img" height="200" src="{{config('global.SELLER_STORAGE_DIR').'/250X250/'.$seller->image_thumb}}" alt="image" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';">
-                                @endif
+                          <div class="featured-place-wrap">{{config('global.SELLER_STORAGE_DIR') }}
+                              <a href="{{route('sellerview',['seller'=>str_slug($seller['business_name']),'id'=>encrypt($seller['id'])])}}">
+                                <img height="200" src="{{config('global.SELLER_STORAGE_DIR').'/250X250/'.$seller['image_thumb']}}" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';"/>
                                 <div class="featured-title-box">
                                     <h2>{{ucwords($seller['business_name'])}}</h2>
                                     <p>{{$seller['StoreType']['name']}} </p><span>• </span>
                                     <p>3 Reviews</p> <span> • </span>
                                     <p><span>Open Now</span></p>
                                     <ul>
-                                    <li style="text-align: left;"><span class="icon-location-pin"></span>
-                                        <p>{{$seller['address_1']}}</p>
+                                    <li style="text-align: left;">
+                                        <p> <i class="fa fa-map-marker"></i> {{$seller['address_1']}}, {{$seller['location']}},{{$seller['district']}},{{$seller['state']}},{{$seller['pincode']}}</p>
                                     </li>
                                     </ul>
                                 </div>

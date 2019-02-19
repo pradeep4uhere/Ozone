@@ -317,6 +317,7 @@ $(document).ready(function() {
    });
 });
 </script>
+
 @stop
 @section('footer_scripts')
 @stop

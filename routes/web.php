@@ -185,8 +185,10 @@
 
     // Admin routes
     Route::group(['middleware' => 'auth','prefix' =>'admin'], function () {
-            Route::get('/page/{slug}', 'Page\PageController@updatePage')->name('editContent');
+            Route::post('/contactus', 'Page\PageController@contactus')->name('contactus');
+            Route::get('/contactus', 'Page\PageController@contactus')->name('contactus');
             Route::get('/page/allpagelist', 'Page\PageController@allPageList')->name('allPageList');
+            Route::get('/page/{slug}', 'Page\PageController@updatePage')->name('editContent');
             Route::post('/page/{slug}', 'Page\PageController@updatePage')->name('updatePage');
             Route::get('/page/faq/{id}', 'Page\PageController@updateFaq')->name('updatePageFaq');
             Route::post('/page/faq/{id}', 'Page\PageController@updateFaq')->name('updatePageFaq');

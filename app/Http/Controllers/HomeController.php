@@ -127,7 +127,6 @@ class HomeController extends Master
         $metaTags['url']          =$pageUrl.'/user/register';
         $metaTags['sitename']     =self::getAppName();
 
-
         return view(Master::loadFrontTheme('frontend.index'),array(
 		'catJson'=>json_encode($catJson),
 		'cityArr'=>json_encode($cityArr),
@@ -166,6 +165,7 @@ class HomeController extends Master
 		->where('district', 'LIKE', "%$district%")
 		->where('state', 'LIKE', "%$state%")
 		->orderBy('business_name')
+		->groupBy('id')
 		->get();
 
 		$catObj = new \App\Category();

@@ -82,11 +82,14 @@
                                        <a href="{{env('APP_URL')}}/page/aboutus">About us</a>
                                     </li>
                                     <li class="site-footer__linklist-item">
-                                       <a href="{{env('APP_URL')}}/page/contactus">Contact Us</a>
+                                       <a href="{{env('APP_URL')}}/contactus">Contact Us</a>
 
                                     </li>
                                      <li class="site-footer__linklist-item">
                                        <a href="{{env('APP_URL')}}/page/termsandconditions">Terms and conditions of use</a>
+                                    </li>
+                                    <li class="site-footer__linklist-item">
+                                       <a href="{{env('APP_URL')}}/page/seller">Seller Agreement</a>
                                     </li>
                                  </ul>
                               </div>
@@ -141,7 +144,7 @@
                                        <a href="{{env('APP_URL')}}/page/termsandconditions">Cancellation & Returns</a>
                                     </li>
                                     <li class="site-footer__linklist-item">
-                                       <a href="{{env('APP_URL')}}/page/termsandconditions">Quality Assurance</a>
+                                       <a href="{{env('APP_URL')}}/page/faq">FAQs</a>
                                     </li>
                                     <li class="site-footer__linklist-item">
                                        <a href="{{env('APP_URL')}}/page/termsandconditions">Sitemap</a>
@@ -222,3 +225,14 @@
          </div>
          <a id="slidetop" href="#top" title="top" style="display: block;">top</a>
       </div>
+      <script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5c6bd5e677e0730ce043a919/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>

@@ -8,14 +8,14 @@
     font-size: 14px;
   }
 </style>
-<section>
+<section style="margin-top: 30px;">
 <div class="container">
   <div class="row">
       <div class="col-md-12 responsive-wrap">
       <div class="row detail-filter-wrap">
           <div class="col-md-4 featured-responsive">
               <div class="detail-filter-text">
-                  <p class="title"><h4>FAQs-General questions</h4></p>
+                  <h3>FAQs-General questions</h3>
               </div>
           </div>
           </div>

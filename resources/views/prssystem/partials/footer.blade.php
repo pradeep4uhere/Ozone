@@ -69,5 +69,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
         <script src="js/scripts.js"></script>
+        <!--Start of Tawk.to Script-->
+
+<!--End of Tawk.to Script-->
     </body>
 </html>

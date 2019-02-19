@@ -10,6 +10,7 @@ use App\Location;
 use App\Pin;
 use App\Cart;
 use App\Testimonial;
+use App\StoreType;
 
 
 class HomeController extends Master
@@ -140,39 +141,49 @@ class HomeController extends Master
     
     
     public function listing(Request $request) {
-		$cat=$request->get('place');
-		//Get Location
-		if($cat!=""){
-			try{
-				$locationArr = explode(" ", $cat);
-				if(!empty(end($locationArr))){
-					$pincode=str_replace('(', '',end($locationArr));
-					$pincode=str_replace(')', '',$pincode);
-				}else{
-					$pincode="";
-				}
-			}catch (Exception $e) {
-            	$pincode='';
-        	}
-		}else{
-			$pincode='';
+    	//dd($request->all());
+    	/*
+    	array:3 [▼
+		  "_token" => "WaSq1cowbym96kDnHE80qmNdmWGjCOybAnMMbmrf"
+		  "place" => "Bisrakh Gautam Buddha Nagar 201301 Uttar Pradesh"
+		  "locationId" => "18"
+		]
+		*/
+
+		$locationId = $request->get('locationId');
+		$cat = $request->get('place');
+		$locationObj = Location::find($locationId)->toArray();
+		if(!empty($locationObj)){
+			$locationStr = $locationObj['location'];
+			$pincode = $locationObj['pincode'];
+			$state = $locationObj['state'];
+			$district = $locationObj['district'];
 		}
-		//Get All the Seller List From this Pincode
-		$allSeller = Seller::where('pincode','=',$pincode)->get();
-		//dd($allSeller);
+
+		//Get all the Seller in Nearrest Pincode
+		$allSeller = Seller::where('pincode', 'LIKE', "%$pincode%")
+		->where('location', 'LIKE', "%$locationStr%")
+		->where('district', 'LIKE', "%$district%")
+		->where('state', 'LIKE', "%$state%")
+		->orderBy('business_name')
+		->get();
 
 		$catObj = new \App\Category();
 		$catArr=$catObj->getAllCategory();
 		foreach($catArr as $obj){
 			$catJson[]=$obj;
 		}
+
+		//Get All Store Type
+		$storeList = StoreType::where('status','=',1)->orderBy('name')->get();
 		
         //dd($lsitArr);	
 		//URL of the get the location of the user
 		return view(Master::loadFrontTheme('seller.sellerListing'),array(
 			'sellerArr'=>$allSeller,
-			'Category'=>$catJson,
-			'searchCat'=>$cat)
+			'Category'=>$storeList,
+			'searchCat'=>$cat
+			)
 		);
     }
     

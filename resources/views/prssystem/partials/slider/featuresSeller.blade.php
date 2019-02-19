@@ -41,7 +41,7 @@
     </script>
     <div class="demo">
         <div class="item container-fluid">
-            <ul id="content-slider_seller" class="content-slider">
+            <ul id="content-slider_seller" class="content-slider ">
                 <?php $count=0;foreach($sellerArr as $seller){ if($count<=10){ ?>
                 <li style="width:180px; text-align: left;">
                    <div class="container-fluid">

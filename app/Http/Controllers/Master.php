@@ -280,9 +280,12 @@ class Master extends Controller {
                     $notify::sendPaymentConfirmationToUser($data);
                     break;
 
-
             case 'orderConfirmation':
                     $notify::sendOrderConfirmationToUser($data);
+                    break;
+
+            case 'orderRecivedSeller':
+                    $notify::sendOrderConfirmationToSeller($data);
                     break;
 
             default: break;

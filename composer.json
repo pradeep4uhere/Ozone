@@ -16,6 +16,7 @@
         "maatwebsite/excel": "^2.1",
         "pusher/pusher-php-server": "^3.3",
         "rap2hpoutre/laravel-log-viewer": "^1.0",
+        "simplesoftwareio/simple-qrcode": "^2.0",
         "twilio/sdk": "^5.28",
         "unisharp/laravel-filemanager": "v2.0.0-alpha7"
     },

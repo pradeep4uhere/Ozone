@@ -77,3 +77,6 @@ https://github.com/UniSharp/laravel-filemanager
 
 ##Fontawesome Icons
 http://corporate.joostrap.com/features/fontawesome-icons
+
+##QRCodes
+https://www.kerneldev.com/2018/09/07/qr-codes-in-laravel-complete-guide/

@@ -24,6 +24,9 @@
 
 
     /**************Import Product****************************/
+    Route::get('qrcode', function () {
+            return QrCode::size(250)->generate('http://www.go4shop.online');
+    });
     Route::get('/importproduct', 'Import\ImportController@getImport')->name('import');
     Route::post('/import_parse', 'Import\ImportController@parseImport')->name('import_parse');
     Route::post('/import_process', 'Import\ImportController@processImport')->name('import_process');

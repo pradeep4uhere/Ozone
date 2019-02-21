@@ -127,12 +127,17 @@ class HomeController extends Master
         $metaTags['url']          =$pageUrl.'/user/register';
         $metaTags['sitename']     =self::getAppName();
 
+        //Get All Features Products From Different Vendor
+        $productsList = UserProduct::where('status','=',1)->orderBy('id')->paginate(self::getPageItem());
+
+
         return view(Master::loadFrontTheme('frontend.index'),array(
 		'catJson'=>json_encode($catJson),
 		'cityArr'=>json_encode($cityArr),
 		'sellerArr'=>$seller,
 		'Testimonials'=>$testimonials,
-		'metaTags'=>$metaTags
+		'metaTags'=>$metaTags,
+		'productList'=>$productsList
 		));
     }
     

@@ -1,11 +1,10 @@
-<link href="http://localhost/laravel/public/css/app.css" rel="stylesheet">
     <div class="container">
-        <div class="row ">
-            <div class="col-md-12">
+          <div class="row ">
+            <div class="col-md-8">
                 <form class="form-horizontal" method="POST" action="{{ route('addaddress') }}">
                             {{ csrf_field() }}
                 <div class="row ">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-row">
                             <div class="form-group col-md-12">
                             <label>Full Name</label>
@@ -14,7 +13,7 @@
                             
                           </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-row">
                             <div class="form-group col-md-12">
                             <label>Flat No/Office Address</label>
@@ -23,7 +22,7 @@
                             
                           </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-row">
                             <div class="form-group col-md-12">
                             <label>Full Address</label>
@@ -32,7 +31,7 @@
                             
                           </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-row">
                             <div class="form-group col-md-12">
                             <label>Landmark</label>
@@ -41,7 +40,7 @@
                             
                           </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-row">
                             <div class="form-group col-md-12">
                             <label>Mobile No</label>
@@ -50,7 +49,7 @@
                             
                           </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-row">
                             <div class="form-group col-md-12">
                             <label>State</label>
@@ -64,7 +63,7 @@
                             
                           </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-row">
                             <div class="form-group col-md-12">
                             <label>City</label>
@@ -76,7 +75,7 @@
                             
                           </div>
                     </div>
-                     <div class="col-md-6">
+                     <div class="col-md-4">
                         <div class="form-row">
                             <div class="form-group col-md-12">
                             <label>Pincode</label>
@@ -86,10 +85,7 @@
                           </div>
                     </div>
                     
-                </div>      
-                
-                   
-                    
+                </div>
                     <div class="form-row">
                         <input type="hidden" id="id" name="id">
                         <button type="submit" name="login" class="btn waves-effect waves-light blue right btn-danger">Save</button>

@@ -14,7 +14,7 @@
             <div class="row">
 				<div class="col-md-12">
 				<div style="font-size:14px;" class="alert alert-success">
-					<span style="font-size:16px; font-weight: bold ">Shipping Address</span><br/>
+					<span style="font-size:16px; font-weight: bold ">{{$title}} Address</span><br/>
 					{{$address['full_name']}},<br/>
 					{{$address['address_1']}},{{$address['address_2']}},<br/>
 					{{$address['landmarks']}},{{$address['pincode']}},{{$address['country']}}

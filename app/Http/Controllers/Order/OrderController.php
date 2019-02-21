@@ -24,6 +24,7 @@ use App\OrderDetail;
 use Darryldecode\Cart\CartCondition;
 use App\Services\PayUService\Exception;
 use App\Payment;
+use App\Controllers\PusherController;
 
 class OrderController extends Master
 {
@@ -266,6 +267,7 @@ class OrderController extends Master
     	$orderId = $request->get('txnid');
 		//Save All the Details Of Payment Table
 		$paymentArr = Payment::where('order_id','=',$orderId)->get();
+		$lastId = 0;
 		if(count($paymentArr)==0){
 
 			$payment = new Payment();
@@ -308,9 +310,10 @@ class OrderController extends Master
 
 			$payment->save();
 			$result = true;
+			$lastId= $payment->id;
 
 		}
-		return $result;
+		return $lastId;
 
     }
 
@@ -324,6 +327,7 @@ class OrderController extends Master
      */
     public function paymentSuccess(Request $request){
     	if ($request->isMethod('post')) {
+    		Log::info(json_encode($request->all()));
     		$orderId = $request->get('txnid');
     		if(!empty($orderId)){
     			$orderDeails = Order::where('orderID','=',$orderId)->get();
@@ -332,9 +336,13 @@ class OrderController extends Master
     				$res = Order::where('orderID','=',$orderId)->update(['payment_status' => 'Success','order_status'=>'Confirm']);
     				if($res==1){
     					//Update Payment Details VIA PayU Payment Gateway
-    					$res = $this->updatePaymentDetailsViaPayU($request);
+    					$lastPaymentId = $this->updatePaymentDetailsViaPayU($request);
 
-    					if($res){
+    					//Send Order Confirmation To User By Payment Id
+    					$this->sendWhatsappMessage('paymentConfirmation',$lastPaymentId);
+    					$this->sendWhatsappMessage('orderConfirmation',$lastPaymentId);
+    	
+    					if($lastPaymentId){
 
    							return redirect()->route('thanks', ['token'=>Session::get('_token'),'id'=>encrypt($orderDeails[0]['id'])]);
 

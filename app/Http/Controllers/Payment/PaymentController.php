@@ -59,8 +59,16 @@ class PaymentController extends Master
 
 
 			//Delevry Addredd
+			$title ='Pickup';
 			if($shipping_id!=''){
 				$address = DeliveryAddress::where('id','=',decrypt($shipping_id))->where('user_id','=',Auth::user()->id)->first();
+				$title = 'Shipping';
+			}
+
+			if($pickup_id!=''){
+				$sellerIDArr = decrypt($request->get('sellerIDArr'));
+				$address = DeliveryAddress::where('id','=',decrypt($pickup_id))->where('user_id','=',$sellerIDArr)->first();
+				$title = 'Pickup';
 			}
 
 			$cartCollection = \Cart::session(Auth::user()->id);
@@ -85,7 +93,8 @@ class PaymentController extends Master
 			'cartItem'=>$cartItem,
 			'address'=>$address,
 			'shipping_id'=>$shipping_id,
-			'pickup_id'=>$pickup_id
+			'pickup_id'=>$pickup_id,
+			'title'=>$title
 		)); 
 		
 	}

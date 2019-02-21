@@ -213,15 +213,15 @@ input[type=submit] {
     <!--//END FIND PLACES -->
     <!--============================= FEATURED PLACES =============================-->
     <section class="main-block light-bg" style="width:100%; padding:5px;">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-md-5">
                     <div class="styled-heading">
-                        <h3>Featured Stores Near You</h3>
+                        <h3>Featured Products</h3>
                     </div>
                 </div>
             </div>
-            @include('prssystem.partials.slider.featuresSellerNew',array('sellerArr'=>$sellerArr))
+            @include('prssystem.partials.slider.featuresProducts',array('sellerArr'=>$sellerArr))
             <div class="row justify-content-center">
                 <div class="col-md-4">
                     <div class="featured-btn-wrap">

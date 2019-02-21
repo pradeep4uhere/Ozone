@@ -13,7 +13,7 @@
                     <div class="">
                     <label id="cod" style="background-color: #f7f7f7; width: 100%; padding: 15px; border-bottom: dashed thin #ccc; margin-top: 5px; font-weight: bold; font-size: 14px;" onclick="setType('{{encrypt(1)}}')">  
                         <input type="radio" name="paymentType" class="paymentType" value="{{encrypt(1)}}">&nbsp;&nbsp;
-                        Cash On Delivery
+                        Credit / Debit Card / ATM Card
 
                     </label>
 
@@ -29,16 +29,16 @@
                     </label>
                    
                     <label id="ccdebatm" style="background-color: #f7f7f7; width: 100%; padding: 15px; border-bottom: dashed thin #ccc;font-size: 14px; cursor: not-allowed;" onclick="setType('{{encrypt(3)}}')">    
-                        <input type="radio" name="paymentType" class="paymentType" value="{{encrypt(4)}}" disabled="disabled">&nbsp;&nbsp;
+                        <input type="radio" name="paymentType" class="paymentType" value="{{encrypt(1)}}">&nbsp;&nbsp;
                         Credit / Debit Card / ATM Card
                     </label>
                    
                     <label id="ccdebatm" style="background-color: #f7f7f7; width: 100%; padding: 15px; border-bottom: dashed thin #ccc;font-size: 14px; cursor: not-allowed;" onclick="setType('{{encrypt(5)}}')">    
-                        <input type="radio" name="paymentType" value="{{encrypt(4)}}" disabled="disabled">&nbsp;&nbsp;
+                        <input type="radio" name="paymentType" value="{{encrypt(1)}}">&nbsp;&nbsp;
                         Phone Pay / UPI / BHIM UPI
                     </label>
                     <label id="ccdebatm" style="background-color: #f7f7f7; width: 100%; padding: 15px; border-bottom: dashed thin #ccc;font-size: 14px; cursor: not-allowed;" onclick="setType('{{encrypt(5)}}')">     
-                        <input type="radio" name="paymentType" class="paymentType" value="{{encrypt(6)}}" disabled="disabled">&nbsp;&nbsp;
+                        <input type="radio" name="paymentType" class="paymentType" value="{{encrypt(1)}}">&nbsp;&nbsp;
                         Net Banking
                     </label>
                     </div>

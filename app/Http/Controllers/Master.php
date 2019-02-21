@@ -276,6 +276,15 @@ class Master extends Controller {
                     $notify::sendWelcomeMessageAsSeller($data);
                     break;
 
+            case 'paymentConfirmation':
+                    $notify::sendPaymentConfirmationToUser($data);
+                    break;
+
+
+            case 'orderConfirmation':
+                    $notify::sendOrderConfirmationToUser($data);
+                    break;
+
             default: break;
         }
     }

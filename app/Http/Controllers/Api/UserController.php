@@ -176,14 +176,14 @@ class UserController extends Master
     public function sendEmailReminder(Request $request)
     {   
         
-        $user = User::findOrFail(1);
+        $user = User::findOrFail(302);
         $name = $user->first_name;
         $url  = "http;//www.google.com";
 
         $body1 = "You have successfully registered as seller account.";
         $storeDetails = "Store Name: "." Raj General Store ";
         $body2= "Thank you for joining with us. We're excited to helping here to you for your business.";
-        Mail::send('Email.seller.register', [
+        Mail::send('Email.test', [
             'name' => $name,
             'body1' => $body1,
             'body2' => $storeDetails,

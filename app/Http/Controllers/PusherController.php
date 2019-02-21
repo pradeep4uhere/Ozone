@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
  
 use Illuminate\Http\Request;
-use Pusher\Pusher;
+//use Pusher\Pusher;
  
 class PusherController extends Controller
 {
@@ -29,4 +29,15 @@ class PusherController extends Controller
         //Send a message to notify channel with an event name of notify-event
         $pusher->trigger('notifyview', 'notify-event', $message);  
     }
+
+
+
+
+    /*
+     *@Author: Pradeep Kumar
+     *@Desc  : Send whatsapp Message To User After Done the payment
+     */
+    public static function sendMessage($lastPaymentId){
+
+    } 
 }

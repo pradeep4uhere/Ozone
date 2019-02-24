@@ -49,7 +49,7 @@
                         <div class="col-md-10">
                           <div class="featured-place-wrap">{{config('global.SELLER_STORAGE_DIR') }}
                               <a href="{{route('sellerview',['seller'=>str_slug($seller['business_name']),'id'=>encrypt($seller['id'])])}}">
-                                <img height="200" src="{{config('global.SELLER_STORAGE_DIR').'/250X250/'.$seller['image_thumb']}}" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';"/>
+                                <img height="300" src="{{config('global.SELLER_STORAGE_DIR').'/250X250/'.$seller['image_thumb']}}" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';"/>
                                 <div class="featured-title-box">
                                     <h2>{{ucwords($seller['business_name'])}}</h2>
                                     <p>{{$seller['StoreType']['name']}} </p><span>• </span>

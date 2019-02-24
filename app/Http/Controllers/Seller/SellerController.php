@@ -368,6 +368,18 @@ class SellerController extends Master
 	
 	
 	public function dashboard(){
+       $orderType['order_recived']=0;
+       $orderType['processing']=0;
+       $orderType['canceled']=0;
+       $orderType['delivered']=0;
+       $orderType['return']=0;
+
+       $allOrderType['order_recived']=0;
+       $allOrderType['processing']=0;
+       $allOrderType['canceled']=0;
+       $allOrderType['delivered']=0;
+       $allOrderType['return']=0;
+
         $sellerArr = Seller::where('user_id','=',Auth::user()->id)->first();
         $seller_id = $sellerArr['id']; 
         $orderInfo = DB::table('order_details')
@@ -414,7 +426,6 @@ class SellerController extends Master
                  ->get();
                  //dd($allOrderInfo);
 
-        $allOrderType=[];
         if(count($allOrderInfo)>0){
             foreach($allOrderInfo as $alldata){
                 $allOrderType[str_replace(" ","_",strtolower($alldata->order_status))]=$alldata->total;

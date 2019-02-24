@@ -5,12 +5,12 @@
                   <div class="header-nav">
                      <div class="page-width">
                         <div class="row">
-                           <div class="col-xs-12 col-sm-12 col-md-10 left-nav">
+                           <div class="col-xs-12 col-sm-12 col-md-8 left-nav">
                               <div id="ishiheaderblock" class="ishiheaderblockTop">
                                  <span>BECOME SELLER CALL US +(91) 9015446567</span>
                               </div>
                            </div>
-                           <div class="col-xs-12 col-sm-12 col-md-2 right-nav rowInner" >
+                           <div class="col-xs-12 col-sm-12 col-md-4 right-nav rowInner" >
                               <div class="follow-us">
                                  <div id="social-icon-container" class="social-icon-inner">
                                     <div class="social-media-blocks">

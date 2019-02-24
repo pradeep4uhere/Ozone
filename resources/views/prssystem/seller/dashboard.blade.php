@@ -22,7 +22,7 @@ Home Page
 							<div class="r3_counter_box">
 								<i class="fa fa-mail-forward"></i>
 								<div class="stats">
-								  <h5>{{$allOrderType['order_recived']}}</h5>
+								  <h5>{{($allOrderType['order_recived']!='')?$allOrderType['order_recived']:0}}</h5>
 								  <div class="grow">
 									<p>New Order</p>
 								  </div>
@@ -35,7 +35,7 @@ Home Page
 							<div class="r3_counter_box">
 								<i class="fa fa-mail-forward"></i>
 								<div class="stats">
-								  <h5>{{$allOrderType['processing']}}</h5>
+								  <h5>{{($allOrderType['processing']!='')?$allOrderType['processing']:0}}</h5>
 								  <div class="grow">
 									<p>Processing</p>
 								  </div>
@@ -48,7 +48,7 @@ Home Page
 							<div class="r3_counter_box">
 								<i class="fa fa-users"></i>
 								<div class="stats">
-								  <h5>{{$allOrderType['canceled']}}</h5>
+								  <h5>{{($allOrderType['canceled']!='')?$allOrderType['canceled']:0}}</h5>
 								  <div class="grow grow1">
 									<p>Canceled</p>
 								  </div>
@@ -63,7 +63,7 @@ Home Page
 								<i class="fa fa-eye"></i>
 
 								<div class="stats">
-								  <h5>{{$allOrderType['delivered']}}</h5>
+								  <h5>{{($allOrderType['delivered']!='')?$allOrderType['delivered']:0}}</h5>
 								  <div class="grow grow3">
 									<p>Delivered</p>
 								  </div>
@@ -76,7 +76,7 @@ Home Page
 							<div class="r3_counter_box">
 								<i class="fa fa-inr"></i>
 								<div class="stats">
-								  <h5>₹{{$totalAmount}}</h5>
+								  <h5>₹{{($totalAmount!='')?$totalAmount:0}}</h5>
 								  <div class="grow grow2">
 									<p>Total Sell</p>
 								  </div>
@@ -100,8 +100,8 @@ Home Page
 							<h3>TODAY'S STATS</h3>
 							<p>Total Sales Today.</p>
 							<ul>
-								<li>Sell: ₹{{$totalTodaySell}}</li>
-								<li>Total Items Sold: {{$totalTodayQuantity}} Items</li>
+								<li>Sell: ₹{{($totalTodaySell!='')?$totalTodaySell:0}}</li>
+								<li>Total Items Sold: {{($totalTodayQuantity!='')?$totalTodayQuantity:0}} Items</li>
 								<li>Total Order: {{$totalTodayOrder}}</li>
 							</ul>
 						</div>
@@ -132,9 +132,9 @@ Home Page
 							<h3> <b>{{strtoupper(date('F'))}}</b> MONTH STATS</h3>
 							<p>View All Month Stats Please , <a href="#">Click Here</a>.</p>
 							<ul>
-								<li>Total Order: {{$totalTodayOrder}}</li>
-								<li>Earning: ₹{{$totalMonthSell}}</li>
-								<li>Items Sold: {{$totalMonthQuantity}} Items</li>
+								<li>Total Order: {{($totalTodayOrder!='')?$totalTodayOrder:0}}</li>
+								<li>Earning: ₹{{($totalMonthSell!='')?$totalMonthSell:0}}</li>
+								<li>Items Sold: {{($totalMonthQuantity!='')?$totalMonthQuantity:0}} Items</li>
 							</ul>
 						</div>
 					</div>
@@ -291,12 +291,12 @@ Home Page
 						<div class="col-md-3 widget widget1">
 							<div class="r3_counter_box" style="color:#666;border-radius: 5px;">
 							<i class="fa fa-bank"></i><br/>
-								<b style="font-size:16px;margin-top:10px;color:#999">Store Details</b><br/>
-								<p style="font-size:12px;margin-top:10px;color:#666">You need to update your display name and business description
-</p>
+								<b style="font-size:16px;margin-top:10px;color:#999">Store QR Code</b><br/>
+								<p style="font-size:12px;margin-top:10px;color:#666">You need to update your display name  and  business  description
+								</p>
 								<hr style="margin-bottom:10px;">
 								<div style="font-size:14px;text-align:center;padding-bottom:10px;">
-								<a href="{{route('seller')}}">Add Details</a>
+								<a href="{{route('seller')}}">See Details</a>
 								</div>
 							</div>
 						</div>
@@ -305,11 +305,11 @@ Home Page
 							<div class="r3_counter_box" style="color:#666;border-radius: 5px;">
 							<i class="fa fa-bank"></i><br/>
 								<b style="font-size:16px;margin-top:10px;color:#999">Add Products</b><br/>
-								<p style="font-size:12px;margin-top:10px;color:#666">You need to add at least one product to activate account
+								<p style="font-size:12px;margin-top:10px;color:#666">You need to add at least one product to activate account<br>
 </p>
 								<hr style="margin-bottom:10px;">
 								<div style="font-size:14px;text-align:center;padding-bottom:10px;">
-								<a href="{{route('selleraddproduct')}}">Add Details</a>
+								<a href="{{route('selleraddproduct')}}">Add Products</a>
 								</div>
 							</div>
 						</div>

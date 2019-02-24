@@ -257,7 +257,7 @@
       <div id="ishitopbanners">
       <div class="clearfix col-xm-12">
       <div class="row no-gutter">
-        <div class="col-xm-4">
+        <div class="col-xm-4 col-md-4">
             <div id="ishitopbanners_1" class="ishitopbanners-container col-sm-12">
                <div class="image-container">
                   <img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/banner/5_b97214ba-0c43-4d43-b1ab-2220c8efc1d2_640x350.jpg" data-src="" data-widths="[640]" data-sizes="auto" alt="">
@@ -281,7 +281,7 @@
         </div>
 
         
-        <div class="col-xm-4">
+        <div class="col-xm-4  col-md-4">
             <div id="ishitopbanners_3" class="ishitopbanners-container col-sm-12">
                <div class="image-container">
                   <img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/rsz_stationery-1170x658-1.jpg" data-src="" data-widths="[640]" data-sizes="auto" alt="">
@@ -304,7 +304,7 @@
             </div>
         </div>
 
-        <div class="col-xm-4">
+        <div class="col-xm-4  col-md-4">
           <div id="ishitopbanners_2" class="ishitopbanners-container col-sm-12">
              <div class="image-container">
                 <img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/rsz_interior-design-sofa.jpg" data-src="" data-widths="[640]" data-sizes="auto" alt="">

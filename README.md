@@ -80,3 +80,7 @@ http://corporate.joostrap.com/features/fontawesome-icons
 
 ##QRCodes
 https://www.kerneldev.com/2018/09/07/qr-codes-in-laravel-complete-guide/
+
+##Templates
+[Shipping TimeLine]
+https://bootsnipp.com/snippets/V14B

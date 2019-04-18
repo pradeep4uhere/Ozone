@@ -3,6 +3,12 @@
     Select a delivery address
 @stop
 @section('content')
+<style type="text/css">
+    hr{
+        margin:10px 0px 10px 0px;
+        padding: 0px; 
+    }
+</style>
 <section class="reserve-block" style="font-size: 12px !important">
         <div class="container">
 		<div class="row">
@@ -14,7 +20,7 @@
             <div class="row">
 				<div class="col-md-12">
 				<div style="font-size:14px;" class="alert alert-success">
-					<span style="font-size:16px; font-weight: bold ">{{$title}} Address</span><br/>
+					<span style="font-size:16px; font-weight: bold ">Your {{$title}} Address</span><br/>
 					{{$address['full_name']}},<br/>
 					{{$address['address_1']}},{{$address['address_2']}},<br/>
 					{{$address['landmarks']}},{{$address['pincode']}},{{$address['country']}}
@@ -55,7 +61,7 @@
                         
                     </div>
                     <div class="col-sm-1">
-                    	<a href="#">
+                    	<a href="{{route('cart')}}">
          					 <i class="fa fa-edit" style="font-size:24px"></i>
         				</a>
                     </div>

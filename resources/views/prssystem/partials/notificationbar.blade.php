@@ -173,7 +173,7 @@ new UISearch(document.getElementById('sb-search'));
                             <div class="profile_img">	
                                 <span style="background:url({{config('global.THEME_URL_IMAGE').'/'}}user.jpg) no-repeat center"> </span> 
                                 <div class="user-name">
-                                    <p>{{Auth::user()->first_name}}&nbsp;{{Auth::user()->first_name}}<span>Administrator</span></p>
+                                    <p>{{Auth::user()->first_name}}&nbsp;{{Auth::user()->first_name}}</p>
                                 </div>
                                 <i class="lnr lnr-chevron-down"></i>
                                 <i class="lnr lnr-chevron-up"></i>
@@ -183,7 +183,7 @@ new UISearch(document.getElementById('sb-search'));
                        
                         <ul class="dropdown-menu drp-mnu">
                              <br/>
-                            <li><a href="{{ route('home') }}" target="_blank"><i class="fa fa-globe"></i> View Website</a> </li> 
+                            <li><a href="{{ route('homePage') }}" target="_blank"><i class="fa fa-globe"></i> View Website</a> </li> 
                             <li> <a href="{{ route('seller') }}"><i class="fa fa-cog"></i> Become Seller</a> </li> 
                             <li> <a href="{{ route('updateProfile') }}"><i class="fa fa-user"></i>Profile</a> </li> 
                             <li> <a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Logout</a> </li>

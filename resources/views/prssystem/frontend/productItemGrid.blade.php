@@ -1,17 +1,30 @@
+<Style>
+    img.grid-view-item__image.main-img.lazyloaded {
+    max-height: 180px;
+}
+.products-display .grid__item .grid-view-item .grid-view-item__image-container .product-description .grid-view-item__meta .regular, .products-display .list__item .grid-view-item .grid-view-item__image-container .product-description .grid-view-item__meta .regular {
+    position: relative;
+    color: #b3b3b3;
+    font-size: 12px;
+}
+.grid__item.grid__item--collection-template.col-xs-12.col-sm-4.col-md-4.col-lg-3.col-xl-3 {
+    min-height: 326px;
+}
+</Style>
 <div class="products-display products-display-collection grid grid--uniform grid--view-items" id="results">
                     @if(!empty($productList))
                       @foreach($productList as $prodObj)
                       <?php //dd($prodObj);?>
                         <!-- <div class="grid__item grid__item--collection-template col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3"> -->
-                        <div class="grid__item grid__item--collection-template col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+                        <div class="grid__item grid__item--collection-template col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4" style="border: solid 1px #eee">
                            <div class="grid-view-item ">
                               <div class="grid-view-item__link grid-view-item__image-container">
                                  <div class="grid-view-item__image-wrapper js">
                                     <a href="{{route('details',['slug'=>str_slug($prodObj['Product']['title']),'id'=>encrypt($prodObj['UserProduct']['id'])])}}">
                                        <div class="image-inner">
-                                          <div class="reveal" style="max-height:250px;">
-                                             <img class="grid-view-item__image  main-img lazyloaded" src="{{config('global.PRODUCTS_STORAGE_DIR')}}/{{$prodObj['UserProduct']['seller_id']}}/{{config('global.PRODUCT_THUMB_IMG_WIDTH')}}X{{config('global.PRODUCT_THUMB_IMG_HEIGHT')}}/{{$prodObj['UserProduct']['default_images']}}" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';" />
-                                              <img class="extra-img" src="{{config('global.PRODUCTS_STORAGE_DIR')}}/{{$prodObj['UserProduct']['seller_id']}}/{{config('global.PRODUCT_THUMB_IMG_HEIGHT')}}X{{config('global.PRODUCT_THUMB_IMG_HEIGHT')}}/{{$prodObj['UserProduct']['default_images']}}" alt="image" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';" width="100%">
+                                          <div class="reveal"  style="min-height:171px;">
+                                             <img class="grid-view-item__image  main-img lazyloaded" src="{{config('global.PRODUCTS_STORAGE_DIR')}}/{{$prodObj['UserProduct']['seller_id']}}/{{config('global.PRODUCT_THUMB_IMG_WIDTH')}}X{{config('global.PRODUCT_THUMB_IMG_HEIGHT')}}/{{$prodObj['UserProduct']['default_images']}}" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';" style="min-height:354px;"/>
+                                              <img class="extra-img" src="{{config('global.PRODUCTS_STORAGE_DIR')}}/{{$prodObj['UserProduct']['seller_id']}}/{{config('global.PRODUCT_THUMB_IMG_HEIGHT')}}X{{config('global.PRODUCT_THUMB_IMG_HEIGHT')}}/{{$prodObj['UserProduct']['default_images']}}" alt="image" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';" width="100%" style="min-height:354px;">
 
                                              <span class="spr-badge" id="spr_badge_1639015841892" data-rating="0.0"><span class="spr-starrating spr-badge-starrating"><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i><i class="spr-icon spr-icon-star-empty"></i></span>
                                              <span class="spr-badge-caption">No reviews</span>
@@ -43,7 +56,7 @@
                                        <span class="regular" style="text-decoration: line-through;">₹{{$prodObj['UserProduct']['price']}}</span>
                                        <span class="product-price__price product-price__sale">
                                        <s class="product-price__price is-bold"> ₹{{$prodObj['UserProduct']['selling_price']}} </s>
-                                       </span>&nbsp;<span class="discount-percentage">{{($prodObj['UserProduct']['discount']!='')?$prodObj['UserProduct']['discount']:'0'}}%</span><br/>
+                                       </span>&nbsp;<span class="discount-percentage">{{$prodObj['UserProduct']['discount_value']}}%</span><br/>
                                        <span class="h5 grid-view-item__title">Unit: {{$prodObj['UserProduct']['quantity_in_unit']}}&nbsp;{{$prodObj['Product']['Unit']['name']}}</span>
                                     </div>
                                     <div class="thumbnail-buttons">

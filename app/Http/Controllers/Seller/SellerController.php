@@ -235,7 +235,7 @@ class SellerController extends Master
       if($request->ajax()) {
         if($id!=''){
           $id=decrypt($id);
-          $seller = Seller::where('id','=',$id)->with('User')->first();
+          $seller = Seller::where('id','=',$id)->where('status','=',1)->with('User')->first();
         }
         $productList=array();
         $userProd = new \App\UserProduct();
@@ -257,7 +257,10 @@ class SellerController extends Master
       $metaTags = self::getMetaTags();
   		if($id!=''){
   			$id=decrypt($id);
-  			$seller = Seller::where('id','=',$id)->with('User')->first();
+  			$seller = Seller::where('id','=',$id)->where('status','=',1)->with('User')->first();
+  			if(empty($seller)){
+  			   abort(404,'Page not found');
+  			}
   		} 
 
 		  //dd($seller['user_id']);
@@ -316,9 +319,11 @@ class SellerController extends Master
 
         //Get All the Category For Filter Respective Store Type
         $categoryList = Category::with('children')
+        ->where('status','=',1)
         ->where('parent_id','=',0)
         ->where('store_type','=',$seller['store_type_id'])
         ->paginate(self::getPageItem(100));
+        
         if($seller['store_type_id']==8){
           $featureImage = 'furnitures.jpg';
         }else if($seller['store_type_id']==2){
@@ -368,6 +373,18 @@ class SellerController extends Master
 	
 	
 	public function dashboard(){
+       $orderType['order_recived']=0;
+       $orderType['processing']=0;
+       $orderType['canceled']=0;
+       $orderType['delivered']=0;
+       $orderType['return']=0;
+
+       $allOrderType['order_recived']=0;
+       $allOrderType['processing']=0;
+       $allOrderType['canceled']=0;
+       $allOrderType['delivered']=0;
+       $allOrderType['return']=0;
+
         $sellerArr = Seller::where('user_id','=',Auth::user()->id)->first();
         $seller_id = $sellerArr['id']; 
         $orderInfo = DB::table('order_details')
@@ -414,7 +431,6 @@ class SellerController extends Master
                  ->get();
                  //dd($allOrderInfo);
 
-        $allOrderType=[];
         if(count($allOrderInfo)>0){
             foreach($allOrderInfo as $alldata){
                 $allOrderType[str_replace(" ","_",strtolower($alldata->order_status))]=$alldata->total;
@@ -501,7 +517,8 @@ class SellerController extends Master
      */
     public function sellerProfile(Request $request)
     {
-
+          /***act=stop [Stop Selling]***/
+          $act = $request->get('act');
         // $user = User::with('Seller')->find(Auth::user()->id)->get();
           $seller = array();
           $district = "";
@@ -589,7 +606,8 @@ class SellerController extends Master
             'locationName'=>$locationName,
             'pincode'=>$pincode,
             'cityList'=>$city,
-      			'businessType'=>$businessType)
+      			'businessType'=>$businessType,
+            'act'=>$act)
         );
     }
     
@@ -821,7 +839,10 @@ class SellerController extends Master
             ]);
             Session::flash('message', 'Seller Profile Updated Successfully!'); 
             //Send Welcome Message to Seller
-            $this->sendWhatsappMessage('newSeller',$seller);
+            //$this->sendWhatsappMessage('newSeller',$seller);
+
+            //Send Email to Seller
+            Master::sendEmailToSeller('newSeller',$seller);
 
             //Log For New Seller 
             Log::channel('newuser')->info('New Seller', array(
@@ -890,6 +911,63 @@ class SellerController extends Master
         $product = \App\SellerImage::where('id','=',$id)->update(['status'=>1]);
         Session::flash('flash_message', 'Seller Image successfully updated!');
         return redirect()->back();
+    }
+
+
+    /********Store Account Details****************/
+    public function accountDetails(Request $request){
+      $type = $request->get('type');
+      $seller = Seller::where('user_id','=',Auth::user()->id)->first();
+      return view(Master::loadFrontTheme('seller.admin.kyc'),array(
+            'type'=>$type,
+            'seller'=>$seller
+        ));
+    }
+
+
+
+    public function kycDetailsUpdate(Request $request){
+      $id = Auth::user()->id;
+      $data = $request->all();
+      $user = User::find($id);
+      $user->dob = $data['dob'];
+      $user->pan_no = $data['pan_no'];
+      $user->aadhar_no = $data['aadhar_no'];
+      if($user->save()){
+         Session::flash('message', 'KYC Details updated successfully!');
+       }else{
+        Session::flash('error', 'KYC Details not updated!');
+       }
+      Session::flash('type', $data['act']);
+      return redirect()->back();
+    }
+
+
+
+    public function bankDetailsUpdate(Request $request){
+      $user_id = Auth::user()->id;
+     
+      $sellerId = $request->get('id');
+      $seller_id = Master::getSeller('id');
+       // dd($request);
+      if($seller_id == $sellerId){
+        $data = $request->all();
+        $Seller = Seller::find($seller_id);
+        $Seller->account_holder_name = $data['account_holder_name'];
+        $Seller->bank_name = $data['bank_name'];
+        $Seller->account_number = $data['account_no'];
+        $Seller->ifsc_code = $data['ifsc_code'];
+        //dd($Seller);
+        if($Seller->save()){
+           Session::flash('message', 'Bank Details updated successfully!');
+         }else{
+          Session::flash('error', 'KYC Details not updated!');
+         }
+        Session::flash('type', $data['act']);
+      }else{
+        Session::flash('error', 'Invalid Input, Somthing went wrong, try after some time!'); 
+      }
+      return redirect()->back();
     }
 
 

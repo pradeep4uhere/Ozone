@@ -11,6 +11,7 @@ use Auth;
 use Darryldecode\Cart\CartCondition;
 use App\Http\Controllers\Auth\Cookie;
 //use App\Http\Controllers\Auth\Session;
+use Log;
 
 
 class LoginController extends Master
@@ -51,6 +52,11 @@ class LoginController extends Master
      */
     public function showLoginForm() {
         return view(Master::loadFrontTheme('auth.login'));
+    }
+
+    public function fblogin(Request $request) {
+         $data = $request->all();
+         Log::channel('fblogin')->info('Request', array('data'=>json_encode($data)));
     }
     
     

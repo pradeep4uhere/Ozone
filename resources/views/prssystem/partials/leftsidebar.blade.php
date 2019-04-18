@@ -26,7 +26,7 @@
                         <a href="#"><i class="fa fa-shopping-cart"></i>
                             <span>My Orders</span></a>
                         <ul class="sub-menu-list">
-                            <li><a href="{{ route('addproduct') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;All Order</a> </li>
+                            <li><a href="{{ route('orderlist') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;All Order</a> </li>
                         </ul>
                     </li>
                     <li class="menu-list">
@@ -64,10 +64,10 @@
                         <a href="#"><i class="fa fa-bars"></i>
                             <span>Store Order</span></a>
                         <ul class="sub-menu-list">
-                            <li><a href="{{ route('addproduct') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;All Orders</a> </li>
-                            <li><a href="{{ route('addproduct') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;New Orders</a> </li>
-                            <li><a href="{{ route('addproduct') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;Cancel Orders</a> </li>
-                            <li><a href="{{ route('addproduct') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;Retrun Orders</a> </li>
+                            <li><a href="{{ route('orderlist') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;All Orders</a> </li>
+                            <li><a href="{{ route('orderlist') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;New Orders</a> </li>
+                            <li><a href="{{ route('orderlist') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;Cancel Orders</a> </li>
+                            <li><a href="{{ route('orderlist') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;Retrun Orders</a> </li>
                         </ul>
                     </li>
                     <li class="menu-list">
@@ -87,44 +87,38 @@
                         <a href="#"><i class="lnr lnr-store"></i>
                             <span>Seller Setting</span></a>
                         <ul class="sub-menu-list">
-                            <li><a href="{{ route('addproduct') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;Store Details</a> </li>
-                            <li><a href="{{ route('addproduct') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;KYC Details</a> </li>
-                            <li><a href="{{ route('addproduct') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;Bank Details</a> </li>
-                            <li><a href="{{ route('addproduct') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;GST Details</a> </li>
-                            <li><a href="{{ route('addproduct') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;Stop Selling</a> </li>
+                            <li><a href="{{ route('seller') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;Store Details</a> </li>
+                            <li><a href="{{ route('storedetails',array('act'=>'kyc')) }}"><i class="lnr lnr-chevron-right"></i>&nbsp;KYC Details</a> </li>
+                            <li><a href="{{ route('seller',array('act'=>'stop')) }}"><i class="lnr lnr-chevron-right"></i>&nbsp;Stop Selling</a> </li>
                         </ul>
                     </li>
 
 
-                    <?php if(Auth::user()->id=='281'){ ?>
+                    
                     <li class="menu-list">
                         <a href="#"><i class="fa fa-ticket"></i>
-                            <span>Category</span></a>
+                            <span>Master List</span></a>
                         <ul class="sub-menu-list">
-                            <li><a href="{{ route('addcategory') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;Add New Category</a> </li>
                             <li><a href="{{ route('allcategory') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;All Category</a> </li>
+                            <li><a href="{{ route('getbrands') }}"> <i class="lnr lnr-chevron-right"></i>&nbsp;All Brands</a> </li>
+                            <li><a href="{{ route('allunits') }}"> <i class="lnr lnr-chevron-right"></i>&nbsp;All Units</a> </li>
                         </ul>
                     </li> 
-                    <li class="menu-list">
-                        <a href="#"><i class="fa fa-dribbble"></i>
-                            <span>Brands</span></a>
-                        <ul class="sub-menu-list">
-                            <li><a href="{{ route('getbrands') }}"> <i class="lnr lnr-chevron-right"></i>&nbsp;All Brands</a> </li>
-                        </ul>
-                    </li>
+               
+                    <?php if(Auth::user()->user_type==1001){ ?>
                     <li class="menu-list">
                         <a href="#"><i class="fa fa-pencil"></i>
                             <span>Content</span></a>
                         <ul class="sub-menu-list">
-                            <li><a href="{{ route('addproduct') }}"> <i class="lnr lnr-chevron-right"></i>&nbsp;Page List</a> </li>
-                            <li><a href="{{ route('addproduct') }}"> <i class="lnr lnr-chevron-right"></i>&nbsp;FAQ List</a> </li>
+                            <li><a href="{{ url('admin/page/aboutus') }}"> <i class="lnr lnr-chevron-right"></i>&nbsp;Page List</a> </li>
+                            <li><a href="{{ url('admin/p/faq/faqlist') }}"> <i class="lnr lnr-chevron-right"></i>&nbsp;FAQ List</a> </li>
                         </ul>
                     </li>
                     <li class="menu-list">
                         <a href="#"><i class="fa fa-envelope"></i>
                             <span>Contact Us</span></a>
                         <ul class="sub-menu-list">
-                            <li><a href="{{ route('addproduct') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;Contact Us</a> </li>
+                            <li><a href="{{ route('ContactUsList') }}"><i class="lnr lnr-chevron-right"></i>&nbsp;Contact Us</a> </li>
                             <li><a href="{{ route('addproduct') }}"> <i class="lnr lnr-chevron-right"></i>&nbsp;Feedbacks</a> </li>
                         </ul>
                     </li>

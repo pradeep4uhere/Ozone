@@ -25,12 +25,16 @@ use Darryldecode\Cart\CartCondition;
 use App\Services\PayUService\Exception;
 use App\Payment;
 use App\Controllers\PusherController;
+use Log;
 
 class OrderController extends Master
 {
     //
     public function orderpost(Request $request){
     	$paymentType = $request->get('_pt');
+		
+
+
 		$totalAmount = $request->get('_tm');
 		$shippingId = $request->get('_sp');
 		$userId = Auth::user()->id;
@@ -60,6 +64,7 @@ class OrderController extends Master
 				//Create Each Order For Item
 				$lastOrderId = $orderObj->id;
 				$item=0;
+				$seller_id = '';
 				$productInfo = array();
 				foreach ($cartItem as $key => $value) {
 					$odObj =array();
@@ -82,6 +87,9 @@ class OrderController extends Master
 					$totalPayAmt = $this->getTotalAmountOfItem($value);
 					$odObj->total_amount=$totalPayAmt;
 					$productInfo[]=$value['attributes']['product_id'];
+
+					//Update Seller Id For this Order
+					$sellerId = $value['attributes']['seller_id'];
 					try{
 						$odObj->save();
 						$this->saveOrderIdOfItem($lastOrderId,$odObj->id);
@@ -97,6 +105,7 @@ class OrderController extends Master
 					$orderNewObj = Order::find($lastOrderId);
 					$lastOrderIdStr = $this->getOrderId($lastOrderId);
 					$orderNewObj->orderId = $lastOrderIdStr;
+					$orderNewObj->seller_id = $sellerId;
 					if($orderNewObj->save()){
 							session(['order_id' => $lastOrderId]);
 							// \Cart::clear();
@@ -127,7 +136,11 @@ class OrderController extends Master
 							$successUrl = route('success', ['token'=>Session::get('_token'),'id'=>encrypt($transxId)]);
 							$failedUrl = route('failed', ['token'=>Session::get('_token'),'id'=>encrypt($transxId)]);
 							$PAYU_BASE_URL = env('PAYU_BASE_URL');
-							//return redirect()->route('thanks', ['token'=>Session::get('_token'),'id'=>encrypt($lastOrderId)]);
+							if(decrypt($paymentType) == 100){
+								return redirect()->route('thanks', ['token'=>Session::get('_token'),'id'=>encrypt($lastOrderId)]);
+							}
+    	
+							
 					}
 				}
 
@@ -209,20 +222,33 @@ class OrderController extends Master
     		$subTotal='';
     		$total='';
     		$cartItem='';
-    		$orderArr=Order::with('OrderDetail')->find($ordeId);
+    		$orderArr=Order::with('OrderDetail','Payment')->find($ordeId);
     		if(count($orderArr['OrderDetail'])==0){
     			session(['order_id' => '']);
     			return redirect()->route('home', ['token'=>Session::get('_token')]);
 
     		}
+    		// dd($orderArr);
     		$orderDate = date('d M Y',strtotime($orderArr['created_at']));
     		$totalAmount = $orderArr['totalAmount'];
     		$shipping_id = $orderArr['shipping_id'];
+    		if(count($orderArr['Payment'])){
+    			$payment_status = $orderArr['Payment']['status'];
+    		}else{
+    			$payment_status = $orderArr['payment_status'];
+    		}
+
     		//Delevry Addredd
 			if($shipping_id!=''){
 				$address = DeliveryAddress::where('id','=',$shipping_id)->where('user_id','=',Auth::user()->id)->first();
 			}
 			//DD($address);
+
+			if($payment_status=='success'){
+				$payment_status = "<font color='green'><b>SUCCESS</b></font>";
+			}else{
+				$payment_status = "<font color='red'><b>".$payment_status."</b></font>";
+			}
     		return view(Master::loadFrontTheme('frontend.payment.thankyou'),
 				array(
 					'count'=>$count,
@@ -234,7 +260,8 @@ class OrderController extends Master
 					'orderDetails'=>$orderArr,
 					'orderDate'=>$orderDate,
 					'totalAmount'=>$totalAmount,
-					'address'=>$address
+					'address'=>$address,
+					'payment_status'=>$payment_status
 				)); 
     	}else{
     		abort(404);
@@ -328,8 +355,10 @@ class OrderController extends Master
     public function paymentSuccess(Request $request){
     	if ($request->isMethod('post')) {
     		Log::info(json_encode($request->all()));
+    		//dd($request->all());
     		$orderId = $request->get('txnid');
     		if(!empty($orderId)){
+
     			$orderDeails = Order::where('orderID','=',$orderId)->get();
     			//Update the Order Table Status
     			if($request->get('status')=='success'){
@@ -337,20 +366,44 @@ class OrderController extends Master
     				if($res==1){
     					//Update Payment Details VIA PayU Payment Gateway
     					$lastPaymentId = $this->updatePaymentDetailsViaPayU($request);
-
     					//Send Order Confirmation To User By Payment Id
-    					$this->sendWhatsappMessage('paymentConfirmation',$lastPaymentId);
-    					$this->sendWhatsappMessage('orderConfirmation',$lastPaymentId);
-    	
+
+    					//Send Order Confirmation To User
+    					//$this->sendWhatsappMessage('paymentConfirmation',$lastPaymentId);
+    					
+    					//Send Order Confirmation To User
+    					//$this->sendWhatsappMessage('orderConfirmation',$lastPaymentId);
+
+    					//Send Order Confirmation To Seller
+    					//$this->sendWhatsappMessage('orderRecivedSeller',$lastPaymentId);
+
+    					//Send Email to Seller For Order Confirmation
+		                Master::sendEmailToSeller('newOrder',$orderDeails);
+
+		                //Send Email to User For Order Confirmation
+		                //Master::sendEmailToUser('newOrder',$orderDeails);
+		                
+		                //Send SMS to Seller For New Order
+		                Master::sendSMSMessageToSeller('seller_order_recived',$lastPaymentId);
+		                
+		                //Send SMS to User For New Order
+		                Master::sendSMSMessageToUser('user_payment_recived',$lastPaymentId);
+		                
+		                //Send Order Item List To User
+		                Master::sendSMSMessageToUser('user_order_item',$lastPaymentId);
+		                
+		                //Send Order Item List To Seller
+		                Master::sendSMSMessageToSeller('seller_order_item',$lastPaymentId);
+		                
+			                
+			                
     					if($lastPaymentId){
-
    							return redirect()->route('thanks', ['token'=>Session::get('_token'),'id'=>encrypt($orderDeails[0]['id'])]);
-
    						}else{
-
    							return redirect()->route('failed', ['token'=>Session::get('_token'),'id'=>encrypt($orderDeails[0]['id'])]);
-
    						}
+    				}else{
+    					return redirect()->route('thanks', ['token'=>Session::get('_token'),'id'=>encrypt($orderDeails[0]['id'])]);
     				}
     			}
     		}

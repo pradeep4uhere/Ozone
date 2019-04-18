@@ -6,38 +6,27 @@
                   <div class="footer-before">
                      <div class="page-width">
                         <div class="row">
-                           <div class="footer-content col-md-3 col-sm-12 footer-block">
-                              <div class="footer-title clearfix hidden-lg-up collapsed" data-target="#contact-info-container" data-toggle="collapse">
-                                 <span class="h3 block-heading">INFORMATION</span>
+                          
+                           <div class="bottom-link-list col-md-3 col-sm-12 footer-block">
+                              <div class="footer-title clearfix hidden-lg-up collapsed" data-target="#policies-info-container" data-toggle="collapse">
+                                 <span class="h3 block-heading">CONTACT NOW</span>
                                  <span class="navbar-toggler collapse-icons">
                                  <i class="material-icons add"></i>
                                  <i class="material-icons remove"></i>
                                  </span>
                               </div>
-                              <div id="contact-info-container" class="contact-info-inner collapse footer-dropdown">
-                                 <div class="store-img">
-                                    <div class="feature-row__item">
-                                       <div class="feature-row__image-wrapper js">
-                                          <div class="img-block">
-                                             <a href="https://smartshop-ishi.myshopify.com/">
-                                             <img class="feature-row__image lazyload" src="./smartshop.ishi_files/Logo_2_220x74.png" data-src="" data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]" data-aspectratio="2.972972972972973" data-sizes="auto" alt="">
-                                             </a>
-                                          </div>
-                                       </div>
-                                       <noscript>
-                                          <img src="//cdn.shopify.com/s/files/1/0016/4891/8628/files/Logo_2_220x74@2x.png?v=1542968150" alt="" class="feature-row__image" />
-                                       </noscript>
-                                    </div>
-                                 </div>
+                              <div id="policies-info-container" class="policies-info-inner collapse footer-dropdown">
+                                 <h2 class="footer-heading hidden-lg-down">CONTACT NOW</h2>
                                  <ul class="site-footer__linklist">
 
+                              
                                     <li class="site-footer__linklist-item shop-address">
                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
                                                    <div class="content"><p>
                                                    Greater Noida Extension</br>
                                                    Noida, Sector 16C,
                                                    Pin-201016 (Uttar Pradesh)</br>
-                                                   Phone: 0120-420420</br>
+                                                   Phone: 0120-3721912</br>
                                                    
                                     </div>
                                     </li>
@@ -45,7 +34,7 @@
                                        <i class="fa fa-phone" aria-hidden="true"></i>
                                        <div class="content">
                                           <a href="{{env('APP_URL')}}">
-                                          +91 9015446567
+                                          0120-3721912
                                           </a>
                                        </div>
                                     </li>
@@ -53,14 +42,14 @@
                                        <i class="fa fa-envelope" aria-hidden="true"></i>
                                        <div class="content">
                                           <a href="mailto:support@go4shop.online">
-                                          Email: support@go4shop.online
+                                          Email: info@go4shop.online
                                           </a>  
                                        </div>
                                     </li>
                                  </ul>
                               </div>
                            </div>
-                           <div class="bottom-link-list col-md-3 col-sm-12 footer-block">
+                            <div class="bottom-link-list col-md-3 col-sm-12 footer-block">
                               <div class="footer-title clearfix hidden-lg-up collapsed" data-target="#policies-info-container" data-toggle="collapse">
                                  <span class="h3 block-heading">OUR COMPANY</span>
                                  <span class="navbar-toggler collapse-icons">
@@ -147,7 +136,7 @@
                                        <a href="{{env('APP_URL')}}/page/faq">FAQs</a>
                                     </li>
                                     <li class="site-footer__linklist-item">
-                                       <a href="{{env('APP_URL')}}/page/termsandconditions">Sitemap</a>
+                                       <img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/secure-logo.png" alt="discover" class="logo-bar__image">
                                     </li>
                                  </ul>
                               </div>
@@ -225,7 +214,7 @@
          </div>
          <a id="slidetop" href="#top" title="top" style="display: block;">top</a>
       </div>
-      <script type="text/javascript">
+      <!-- <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 (function(){
 var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
@@ -235,4 +224,13 @@ s1.charset='UTF-8';
 s1.setAttribute('crossorigin','*');
 s0.parentNode.insertBefore(s1,s0);
 })();
+</script> -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135447467-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-135447467-1');
 </script>

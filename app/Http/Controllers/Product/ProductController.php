@@ -148,9 +148,11 @@ class ProductController extends Master
                 }
                 $userProduct->product_in_stock=$data['product_in_stock'];
                 $userProduct->unlimited_product=$data['product_unlimited'];
-                $userProduct->quantity=$data['productQuantity'];
-                $userProduct->default_price=$data['price'];
+                $userProduct->quantity=$data['quantity'];
+                $userProduct->default_price=$data['actprice'];
                 $userProduct->price=$data['price'];
+                $userProduct->selling_price=$data['selling_price'];
+                $userProduct->discount_value=$data['discount'];
                 $userProduct->created_at=date('Y-m-d H:i:s');
                 $userProduct->status=$data['status'];
                 $userProduct->is_deleted=0;
@@ -235,7 +237,7 @@ class ProductController extends Master
             $this->createDir($destinationPath);
             $img = Image::make($image->getRealPath());
             $img->resize($this->thumbWidth, $this->thumbHeight, function ($constraint) {
-                $constraint->aspectRatio();
+                $constraint->upsize();
             })->save($destinationPath . DIRECTORY_SEPARATOR . $this->imageName);
             $destinationPath = $this->uploadLogoDir;
             $this->createDir($destinationPath);
@@ -266,7 +268,8 @@ class ProductController extends Master
           
           $thubmName = $this->Height.'X'.$this->Width;
           $img->resize($this->Width, $this->Height, function ($constraint) {
-              $constraint->aspectRatio();                 
+              // $constraint->upsize();                 
+              $constraint->upsize();                 
           });
           $img->stream(); // <-- Key point
           $res = Storage::disk('public')->put('uploads/'.$directoryName.'/'.$thubmName.'/'.$fileName, $img, 'public');
@@ -275,7 +278,8 @@ class ProductController extends Master
 
           $thubmName = $this->thumbHeight.'X'.$this->thumbWidth;
           $img->resize($this->thumbHeight, $this->thumbWidth, function ($constraint) {
-              $constraint->aspectRatio();                 
+              // $constraint->upsize();   
+              $constraint->upsize();               
           });
           $img->stream(); // <-- Key point
           $res = Storage::disk('public')->put('uploads/'.$directoryName.'/'.$thubmName.'/'.$fileName, $img, 'public');
@@ -305,9 +309,17 @@ class ProductController extends Master
           if(in_array($ext,config('global.IMG_EXT'))){
           $img = Image::make($image->getRealPath());
           $directoryName = 'products/'.$sellerId;
-          $thubmName = $this->thumbHeight.'X'.$this->thumbWidth;
-          $img->resize($this->thumbHeight, $this->thumbWidth, function ($constraint) {
-              $constraint->aspectRatio();                 
+          $thubmName = $this->thumbWidth.'X'.$this->thumbHeight;
+          $img->resize($this->thumbWidth, $this->thumbHeight,  function ($constraint) {
+              $constraint->upsize();                 
+          });
+          $img->stream(); // <-- Key point
+          $res = Storage::disk('public')->put('uploads/'.$directoryName.'/'.$thubmName.'/'.$fileName, $img, 'public');
+
+          //600X600
+          $thubmName = $this->Width.'X'.$this->Height;
+          $img->resize($this->Width,$this->Height, function ($constraint) {
+              $constraint->upsize();                 
           });
           $img->stream(); // <-- Key point
           $res = Storage::disk('public')->put('uploads/'.$directoryName.'/'.$thubmName.'/'.$fileName, $img, 'public');

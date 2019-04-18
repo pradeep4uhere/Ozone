@@ -263,6 +263,44 @@ class Master extends Controller {
 
 
 
+    /*Send All Email To User*/
+    public static function sendEmailToUser($type,$request,$data){
+        $Email = new EmailController();
+        switch($type){
+            case 'newUser':
+                    $Email::sendNewUserRegister($request, $data);
+                    break;
+            case 'contactUs':
+                    $Email::sendContactUsEmailToUser($request);
+                    break;
+            case 'newOrder':
+                    $Email::sendOrderConfirmationToUser($data);
+                    break;
+            default: break;
+        }
+    }
+
+
+
+    /*Send All Email To Seller*/
+    public static function sendEmailToSeller($type, $data){
+        $Email = new EmailController();
+        switch($type){
+            case 'newSeller':
+                    $Email::sendWelcomeSellerEmail($data);
+                    break;
+
+            case 'newOrder':
+                    $Email::sendOrderConfirmationSellerEmail($data);
+                    break;
+            default: break;
+        }
+    }
+
+
+
+
+
     /*Send All Notification*/
     public function sendWhatsappMessage($type,$data){
         $notify = new NotificationController();
@@ -291,13 +329,66 @@ class Master extends Controller {
             default: break;
         }
     }
+    
+    
+    
+    
+    
+     /*Send All SMS Notification To User*/
+    public function sendSMSMessageToUser($type,$data){
+        $notify = new SendSMSController();
+        switch($type){
+            
+            case 'user_order_item':
+                    $notify::sendUserOrderItem($data);
+                    break;
+
+            case 'user_payment_recived':
+                    $notify::sendUserPaymentRecived($data);
+                    break;
+
+            default: break;
+        }
+    }
+    
+    
+    
+    
+    
+    
+     /*Send All SMS Notification To User*/
+    public function sendSMSMessageToSeller($type,$data){
+        $notify = new SendSMSController();
+        switch($type){
+            case 'seller_order_item':
+                    $notify::sendSellerOrderItem($data);
+                    break;
+
+            case 'seller_order_recived':
+                    $notify::sendSellerOrderRecived($data);
+                    break;
+
+            default: break;
+        }
+    }
 
 
 
 
-    public static function getSeller(){
+    public static function getSeller($field=NULL){
         $sellerArr = Seller::where('user_id','=',Auth::user()->id)->first();
-        return $sellerArr;
+        if($field!=''){
+            return $sellerArr[$field];
+        }else{
+            return $sellerArr;
+        }
+    }
+
+
+
+    public static function getDate($formate='d M,Y',$date){
+        return date($formate,strtotime($date));
+
     }
 
 

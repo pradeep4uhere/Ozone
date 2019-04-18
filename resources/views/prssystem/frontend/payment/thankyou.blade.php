@@ -3,6 +3,11 @@
     Select a delivery address
 @stop
 @section('content')
+<style type="text/css">
+    hr{
+        margin: 10px 0px 10px 0px;
+    }
+</style>
 <section class="reserve-block" style="font-size: 12px !important">
         <div class="container">
 		<div class="row">
@@ -10,9 +15,9 @@
 				<center>
                     <img src="{{config('global.THEME_URL_FRONT_IMAGE')}}/order_placed.png" class="img-fluid" alt="#"></br>
                     </br>
-                    <div style="font-size: 24px;">Thank you for your purchase !</div>
-                    <div style="font-size: 16px;">Hi {{Auth::user()->first_name}}, we're getting your order ready to be shipped. We will notify you when it has been sent.</div>
-                    <div style="font-size: 15px;"><strong>Order ID:: {{$orderID}}</strong></div>
+                    <div style="font-size: 24px; padding: 10px">Thank you for your order !</div>
+                    <div style="font-size: 16px; padding: 10px">Hi {{Auth::user()->first_name}}, Your Payment Status is <b>{!! $payment_status !!}</b></div>
+                    <div style="font-size: 15px;  padding: 10px"><strong>TXN No:: </strong>{{$orderID}}&nbsp;<strong>Order ID:: </strong>{{$orderID}}</div>
                 </center>
 				</div>
 		</div>
@@ -33,10 +38,10 @@
                     </div>
                     <div class="col-sm-6 left-align" >
                         <div style="font-size: 16px;">{{ucwords($item['product_name'])}}</div>
-                        <div style="font-size: 12px; ">Brand:&nbsp;<span style="color: orange; font-weight: bold">{{ucwords($item['brand_name'])}}</span></div>
-                        <div style="font-size: 13px;">Seller:&nbsp;
+                        <div style="font-size: 11px; ">Brand:&nbsp;<span style="color: orange; font-weight: bold">{{ucwords($item['brand_name'])}}</span></div>
+                        <div style="font-size: 11px;">Seller:&nbsp;
                             <span style="color: #333; font-weight: bold">{{ucwords($item['seller_name'])}}</span></div>
-                        <div style="font-size: 13px;">Quantity:&nbsp;
+                        <div style="font-size: 11px;">Quantity:&nbsp;
                             <span style="color: #333; font-weight: bold">{{$item['quantity']}}</span></div>
                         <div>Order Id - {{$item['order_track']}}</div>
                             
@@ -52,9 +57,7 @@
                         
                     </div>
                     <div class="col-sm-1">
-                        <a href="#">
-                             <i class="fa fa-edit" style="font-size:24px"></i>
-                        </a>
+                        
                     </div>
                 </div> 
                     <hr/>
@@ -69,7 +72,7 @@
                             <div style="font-size:12px;">Order ID      : {{$orderID}}</BR>
                             Order Date    : {{$orderDate}}</BR>
                             Order Total   : ₹{{$totalAmount}}</BR>
-                            Payment Method: Cash On Deleviry</div>
+                            Payment Status: {!! $payment_status !!}</div>
                         </div>
                         <div class="col-md-6">
                             <p>Address Summery</p>
@@ -81,7 +84,7 @@
                         </div>
                     </div>
                     <HR/>
-                    <center><a href="{{route('home')}}" class="btn top-btn" style="background-color:#ff3a6d;color:#FFF" id="payment"> Continue For More Shopping</a></center>
+                    <center><a href="{{route('homePage')}}" class="btn top-btn" style="background-color:#ff3a6d;color:#FFF" id="payment"> Continue For More Shopping</a></center>
                 </div>
             </div>
             </div>

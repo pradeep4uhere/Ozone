@@ -51,7 +51,7 @@ class CartController extends Master
 		    $sellerDetails=Seller::where('user_id','=',$productDetails['user_id'])->first();
     	    //Add Item Into Cart
         	$userId = Auth::user()->id;
-        	$price = $productDetails['price'];
+        	$price = $productDetails['selling_price'];
         	$product_id = $userProductId;
         	$qty = 1;
         	$name = str_replace("-",' ',request('name'));
@@ -67,7 +67,7 @@ class CartController extends Master
         		'default_images'=>$imgUrlDefaultImages,
         		'default_thumbnail'=>$imgUrlDefaultThumbnail,
         		'product_in_stock'=>$productDetails['product_in_stock'],
-        		'price'=>$productDetails['price'],
+        		'selling_price'=>$productDetails['selling_price'],
         		'status'=>$productDetails['status'],
         	);
          	$item = \Cart::session($userId)->add($product_id, $name, $price, $qty, $productDetails);

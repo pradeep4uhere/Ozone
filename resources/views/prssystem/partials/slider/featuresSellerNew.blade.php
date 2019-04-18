@@ -7,13 +7,13 @@
 }
 
 .carousel-control { 
-    width: 8%;
+    width: 1%;
     width: 0px;
 }
 .carousel-control.left,
 .carousel-control.right { 
-    margin-right: 40px;
-    margin-left: 32px; 
+    margin-right: 0px;
+    margin-left: 0px; 
     background-image: none;
     opacity: 1;
 }
@@ -122,11 +122,31 @@
   content:'';
 }
 
+.featured-title-box .title{
+  font-weight: 500;
+  font-size: 15px;
+  color: inherit;
+  font-family: sans-serif;
+  font-weight: 500;
+  margin-bottom: 5px
+}
+.featured-place-wrap{
+  min-height: 350px;
+}
+.featured-place-wrap img{
+  min-height: 300px;
+  width: 100%;
+}
+.styled-heading {
+    text-align: center;
+    margin: 0 0 0px;
+}
+
 </style>
-<div class="container-fluid">
+<div class="container-fluid featureSeller">
     <div class="row">
         <div class="col-xs-12 col-md-12 col-centered">
-            <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="2500">
+            <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="9500">
                 <div class="carousel-inner">
                    <?php $count=0;foreach($sellerArr as $seller){ ?>
                    <div class="item <?php if($count==0){ echo "active";  } ?>" >
@@ -135,13 +155,11 @@
                         <div class="col-md-12">
                           <div class="featured-place-wrap">
                               <a href="{{route('sellerview',['seller'=>str_slug($seller['business_name']),'id'=>encrypt($seller['id'])])}}">
-                                <img height="200" src="{{config('global.SELLER_STORAGE_DIR').'/250X250/'.$seller['image_thumb']}}" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';"/>
+                                <img height="300"  src="{{config('global.SELLER_STORAGE_DIR').'/250X250/'.$seller['image_thumb']}}" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';"/>
                                 <div class="featured-title-box">
-                                    <h2>{{ucwords($seller['business_name'])}}</h2>
-                                    <p>{{$seller['StoreType']['name']}} </p><span>• </span>
-                                    <p>3 Reviews</p> <span> • </span>
-                                    <p><span>Open Now</span></p>
-                                    <p class='address'> <i class="fa fa-map-marker"></i> {{$seller['address_1']}}, {{$seller['location']}},{{$seller['district']}},{{$seller['state']}},{{$seller['pincode']}}</p>
+                                    <h2 class='title'>{{ucwords($seller['business_name'])}}</h2>
+                                    <p style="margin-bottom:1px;width: 100%">Type: {{$seller['StoreType']['name']}}</p>
+                                    <p class='address' style="padding-top: 0px"> <i class="fa fa-map-marker"></i> {{$seller['address_1']}}, {{$seller['location']}}</p>
                                    
                                 </div>
                             </a>

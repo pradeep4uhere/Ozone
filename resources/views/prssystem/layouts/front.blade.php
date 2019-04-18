@@ -26,8 +26,32 @@
     <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/custom.scss.css'}}">
     <script src="{{config('global.THEME_URL_FRONT_JS').'/bootstrap.min.js'}}"></script>
     <link rel="stylesheet" href="{{config('global.THEME_URL_FRONT_CSS').'/footer.css'}}">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-7598818514297383",
+        enable_page_level_ads: true
+      });
+    </script>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135447467-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-135447467-1');
+    </script>
+
 </head>
 <body class="template-index" style="">
+<amp-auto-ads type="adsense"
+              data-ad-client="ca-pub-7598818514297383">
+</amp-auto-ads>
 <div class="whole-content">
 <!--============================= HEADER START HERE =============================-->
 @include('prssystem.partials.frontend_header')

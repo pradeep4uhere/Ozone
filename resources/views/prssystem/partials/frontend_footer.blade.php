@@ -54,7 +54,7 @@
                         Greater Noida Extension</br>
                         Noida, Sector 16C,
                         Pin-201016 (Uttar Pradesh)</br>
-                        Phone: 0120-420420</br>
+                        Phone: 0120-3721912</br>
                         Email: info@go4shop.online
                         
                         </div>

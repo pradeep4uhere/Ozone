@@ -17,7 +17,7 @@
 						</div>
 						<div class="action">
 						<p class="product-description">{{$productDetails['description']}}</p>
-						<h4 class="price">current price: <span>₹{{$productDetails['price']}}</span><br><small  style="font-size:8px;">Inclusive of all Taxes</small></h4>
+						<h4 class="price">current price: <strike>₹{{$productDetails['price']}}</strike>&nbsp;<span>₹{{$productDetails['selling_price']}}</span><br><small  style="font-size:8px;">Inclusive of all Taxes</small></h4>
 						<h5  class="sizes" style="margin-bottom: 10px;">Category :: {{$productDetails->product->Category['name']}} > {{$productDetails->product->SubCategory['name']}}</h5><br/>
 						<h5  class="sizes" style="margin-bottom:10px;"><strong>Unit:</strong> {{$productDetails['quantity_in_unit']}}&nbsp;{{$productDetails->product->Unit['name']}}</h5><br/>
 						<h5  class="sizes" style="padding-left:0px;margin-bottom:15px;"> Manufacture By: <strong>{{$productDetails->product->Brand['name']}}</strong>&nbsp;&nbsp;&nbsp;  <img src="{{config('global.THEME_URL_FRONT_IMAGE')}}/Liefstatus_Gruen_04de426b.png.gif"> Certified Brand Seller</h5>
@@ -48,7 +48,7 @@
 							<div class="tabs">
 								  <div class="tab-button-outer">
 									<ul id="tab-button">
-									  <li><a href="#tab01">Overview</a></li>
+									  <li><a href="#tab01">Description</a></li>
 									  <li><a href="#tab02">Product Highlights</a></li>
 									  <li><a href="#tab03">Offers</a></li>
 									  <li><a href="#tab04">About Brand</a></li>
@@ -57,7 +57,7 @@
 								  </div>
 								  <div class="tab-select-outer">
 									<select id="tab-select">
-									  <option value="#tab01">Overview</option>
+									  <option value="#tab01">Description</option>
 									  <option value="#tab02">Product Highlights</option>
 									  <option value="#tab03">Offers</option>
 									  <option value="#tab04">About Brand</option>
@@ -66,7 +66,7 @@
 								  </div>
 
 								  <div id="tab01" class="tab-contents">
-									<h5>Overview</h5>
+									<h5>Description</h5>
 									<p>{!! $productDetails['about_product'] !!}</p>
 								  </div>
 								  <div id="tab02" class="tab-contents">

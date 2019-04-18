@@ -5,12 +5,12 @@
                   <div class="header-nav">
                      <div class="page-width">
                         <div class="row">
-                           <div class="col-xs-12 col-sm-12 col-md-10 left-nav">
+                           <div class="col-xs-12 col-sm-12 col-md-8 left-nav">
                               <div id="ishiheaderblock" class="ishiheaderblockTop">
-                                 <span>BECOME SELLER CALL US +(91) 9015446567</span>
+                                 <span>BECOME SELLER CALL US {{env('PHONE_NO')}}</span>
                               </div>
                            </div>
-                           <div class="col-xs-12 col-sm-12 col-md-2 right-nav rowInner" >
+                           <div class="col-xs-12 col-sm-12 col-md-4 right-nav rowInner" >
                               <div class="follow-us">
                                  <div id="social-icon-container" class="social-icon-inner">
                                     <div class="social-media-blocks">
@@ -147,7 +147,11 @@
                                           </li>
 
                                           <li class="create_account">
-                                            <a href="{{route('register')}}" id="customer_register_link">Create Account</a>
+                                            <a href="{{route('create')}}" id="customer_register_link">Create Account</a>
+                                          </li>
+
+                                          <li class="create_account" style="border-top: 0px;">
+                                            <a href="{{route('becomeseller')}}" id="customer_register_link">Become Seller</a>
                                           </li>
                                           
                                           <li class="wishlist"><a href="/pages/wishlist">Wishlist</a></li>
@@ -160,7 +164,7 @@
 
                               <div id="ishiheadercontactblock">
                                  <div class="call-img"></div>
-                                 <div class="call-num">+91-9015446567</div>
+                                 <div class="call-num">{{env('PHONE_NO')}}</div>
                               </div>
                            </div>
                               
@@ -217,6 +221,8 @@
                </header>
             </div>
          </div>
+         <?php $urlNebIndia = 'http://go4shop.online/seller/nebindia/eyJpdiI6IjdUaVpVaEVcL2hoMVRzc2s1Q3hSbnZRPT0iLCJ2YWx1ZSI6Imd0R1ZSdXhVYTdJRzVLZjhMWjlMYnc9PSIsIm1hYyI6ImZkNzUxNjgzYzY0NmIxYWFkNTc2NzE3MjI4OTExOTJlN2U5ZWFlNzBkZDBjMGY4MTY2YTY4NWI0Nzc1ODJiYmEifQ==';?>
+         <?php $urlkhalid = 'https://www.go4shop.online/seller/long-life-furniture-shop/eyJpdiI6ImpqZ0lcL2RiSEJ0S1ZEQmJzZ0FhdU5BPT0iLCJ2YWx1ZSI6IkpQWTBkb1FqQmNqdkIzdHpKeEd4QkE9PSIsIm1hYyI6IjQ4NmY4MThjODllZTY4ZjUxMDlkM2Q0NmJhMzYyNzE4MGZmNWM4NzdiOTJmNjE3MTE2MDkwY2IxYTYwNDhlMGUifQ==';?>
          <div class="wrapper-nav hidden-lg-down">
             <div class="navfullwidth">
                <div class="page-width">
@@ -233,7 +239,7 @@
                                     </span>
                                     </span>
                                     <a href="#" class="dropdown-item">
-                                       <h3 class="title">Grocery</h3>
+                                       <h3 class="title">Home</h3>
                                     </a>
                                     <div class="popover sub-menu js-sub-menu collapse" id="_n_child-one1" style="width: 630px;">
                                        <ul class="top-menu mainmenu-dropdown">
@@ -244,19 +250,19 @@
                                              <i class="material-icons remove"></i>
                                              </span>
                                              </span>
-                                             <a href="#" class="dropdown-item dropdown-submenu">
-                                                <h3 class="inner-title">Fruits</h3>
+                                             <a href="{{$urlNebIndia}}" class="dropdown-item dropdown-submenu">
+                                                <h3 class="inner-title">Boys Clothing</h3>
                                              </a>
                                              <div class="top-menu collapse" id="_n_grand-child-one1">
                                                 <ul class="top-menu">
                                                    <li class="category">
-                                                      <a href="#" class="dropdown-item">peach</a>
+                                                      <a href="{{$urlNebIndia}}" class="dropdown-item">Party Wear</a>
                                                    </li>
                                                    <li class="category">
-                                                      <a href="#" class="dropdown-item">kiwi</a>
+                                                      <a href="{{$urlNebIndia}}" class="dropdown-item">Clothing Sets</a>
                                                    </li>
                                                    <li class="category">
-                                                      <a href="#" class="dropdown-item">apple</a>
+                                                      <a href="{{$urlNebIndia}}" class="dropdown-item">Casual Dress</a>
                                                    </li>
                                                 </ul>
                                              </div>
@@ -268,19 +274,19 @@
                                              <i class="material-icons remove"></i>
                                              </span>
                                              </span>
-                                             <a href="#" class="dropdown-item dropdown-submenu">
-                                                <h3 class="inner-title">Furniture</h3>
+                                             <a href="{{$urlNebIndia}}" class="dropdown-item dropdown-submenu">
+                                                <h3 class="inner-title">Girls Clothing</h3>
                                              </a>
                                              <div class="top-menu collapse" id="_n_grand-child-two1">
                                                 <ul class="top-menu">
                                                    <li class="category">
-                                                      <a href="#" class="dropdown-item">Sofa</a>
+                                                      <a href="{{$urlNebIndia}}" class="dropdown-item">Dresses</a>
                                                    </li>
                                                    <li class="category">
-                                                      <a href="#" class="dropdown-item">Beds</a>
+                                                      <a href="{{$urlNebIndia}}" class="dropdown-item">Clothing Sets</a>
                                                    </li>
                                                    <li class="category">
-                                                      <a href="#" class="dropdown-item">Tables</a>
+                                                      <a href="{{$urlNebIndia}}" class="dropdown-item">Jeans, Trousers</a>
                                                    </li>
                                                 </ul>
                                              </div>
@@ -292,19 +298,19 @@
                                              <i class="material-icons remove"></i>
                                              </span>
                                              </span>
-                                             <a href="#" class="dropdown-item dropdown-submenu">
-                                                <h3 class="inner-title">Grocery Products</h3>
+                                             <a href="{{$urlNebIndia}}" class="dropdown-item dropdown-submenu">
+                                                <h3 class="inner-title">Women<h3>
                                              </a>
                                              <div class="top-menu collapse" id="_n_grand-child-three1">
                                                 <ul class="top-menu">
                                                    <li class="category">
-                                                      <a href="#" class="dropdown-item">Dry Fruits</a>
+                                                      <a href="{{$urlNebIndia}}" class="dropdown-item">Indian & Fusion Wear</a>
                                                    </li>
                                                    <li class="category">
-                                                      <a href="#" class="dropdown-item">Dairy Products</a>
+                                                      <a href="{{$urlNebIndia}}" class="dropdown-item">Party Wear</a>
                                                    </li>
                                                    <li class="category">
-                                                      <a href="#" class="dropdown-item">Beverages</a>
+                                                      <a href="{{$urlNebIndia}}" class="dropdown-item">Lehenga</a>
                                                    </li>
                                                 </ul>
                                              </div>
@@ -337,7 +343,7 @@
                                     <i class="material-icons remove"></i>
                                     </span>
                                     </span>
-                                    <a href="#collections/organic-products" class="dropdown-item">
+                                    <a href="{{$urlkhalid}}" class="dropdown-item">
                                        <h3 class="title">BEST SELLERS</h3>
                                     </a>
                                     <div class="popover sub-menu js-sub-menu collapse" id="_n_child-one4" style="width: 230px;">
@@ -355,31 +361,32 @@
                                              <div class="top-menu collapse" id="_n_grand-child-one4">
                                                 <ul class="top-menu">
                                                    <li class="category">
-                                                      <a href="#collections/vegetables" class="dropdown-item">Sofa</a>
+                                                      <a href="{{$urlkhalid}}" class="dropdown-item">King Size Sofa</a>
                                                    </li>
                                                    <li class="category">
-                                                      <a href="#collections/fruits" class="dropdown-item">Bed</a>
+                                                      <a href="{{$urlkhalid}}" class="dropdown-item">King Size Bed</a>
                                                    </li>
                                                    <li class="category">
-                                                      <a href="#collections/organic-products" class="dropdown-item">Tables</a>
+                                                      <a href="{{$urlkhalid}}" class="dropdown-item">Tables & Chairs</a>
                                                    </li>
                                                 </ul>
                                              </div>
                                           </li>
+
                                        </ul>
                                     </div>
                                  </li>
                                  <li class="category">
                                     <span class="float-xs-right hidden-lg-up">
                                     </span>
-                                    <a href="{{route('register')}}" class="dropdown-item">
+                                    <a href="{{route('becomeseller')}}" class="dropdown-item">
                                        <h3 class="title">BECOME SELLER</h3>
                                     </a>
                                  </li>
                                  <li class="category">
                                     <span class="float-xs-right hidden-lg-up">
                                     </span>
-                                    <a href="{{route('contactus')}}" class="dropdown-item">
+                                    <a href="{{route('contactuspage')}}" class="dropdown-item">
                                        <h3 class="title">CONTACT</h3>
                                     </a>
                                  </li>

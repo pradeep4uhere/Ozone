@@ -32,6 +32,13 @@
  <!-- Meters graphs -->
 <script src="{{config('global.THEME_URL_JS').'/profile/'}}jquery-1.10.2.min.js"></script>
 <!-- Placed js at the end of the document so the pages load faster -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7598818514297383",
+    enable_page_level_ads: true
+  });
+</script>
 </head>
  <body class="sticky-header left-side-collapsed">
 <section>

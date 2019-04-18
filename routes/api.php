@@ -4,6 +4,7 @@ Route::group(['prefix' => 'en/v1/'], function (){
 	
 	//Twilio API Integration
 	//http://go4shop.online/api/en/v1/sms/twilio
+	Route::any('chat', 'Api\ApiController@chat')->name('chat');
 	Route::any('sms/twilio', 'Api\ApiController@twiliowhatsapp')->name('twilio');
 
 
@@ -15,6 +16,8 @@ Route::group(['prefix' => 'en/v1/'], function (){
 	
 
 	//All User Related API
+	//http://go4shop.online/api/en/v1/fblogin
+	Route::any('fblogin', 'Api\UserController@FBLogin')->name('fblogin');
 	Route::any('login', 'Api\UserController@login')->name('login');
 	Route::any('register', 'Api\UserController@register')->name('register');
 	Route::any('sellerregister', 'Api\SellerController@registerAsSeller')->name('sellerregister');

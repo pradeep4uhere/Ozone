@@ -109,6 +109,7 @@ input[type=submit] {
             <div class="styled-heading">
               <h3>Featured Seller</h3>
             </div>
+            
             @include('prssystem.partials.slider.featuresSellerNew',array('sellerArr'=>$sellerArr))
         </div>
 	      
@@ -119,97 +120,6 @@ input[type=submit] {
 <section class="main-block" style="margin:0px;padding: 0px">
   @include('prssystem.partials.slider.topfocus')
 </section>
-<section class="main-block">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-5">
-                    <div class="styled-heading">
-                        <h3>What do you need to find?</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="find-place-img_wrap">
-                        <div class="grid">
-                            <figure class="effect-ruby">
-                                <img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/cat/74652abbffda340829982304bb56434d.png" class="img-fluid" alt="img13" />
-                                <figcaption>
-                                    <h5>Men's Fashion</h5>
-                                    <p>385 Listings</p>
-                                </figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row find-img-align">
-                        <div class="col-md-12">
-                            <div class="find-place-img_wrap">
-                                <div class="grid">
-                                    <figure class="effect-ruby">
-                                        <img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/cat/images.jpeg" class="img-fluid" alt="img13" />
-                                        <figcaption>
-                                            <h5>Restaurant</h5>
-                                            <p>210 Listings</p>
-                                        </figcaption>
-                                    </figure>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="find-place-img_wrap">
-                                <div class="grid">
-                                    <figure class="effect-ruby">
-                                        <img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/find-place3.jpg" class="img-fluid" alt="img13" />
-                                        <figcaption>
-                                            <h5>Women's Fashion</h5>
-                                            <p>114 Listings</p>
-                                        </figcaption>
-                                    </figure>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row find-img-align">
-                        <div class="col-md-12">
-                            <div class="find-place-img_wrap">
-                                <div class="grid">
-                                    <figure class="effect-ruby">
-                                        <img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/cat/groc.jpg" class="img-fluid" alt="img13" />
-                                        <figcaption>
-                                            <h5>Grocery </h5>
-                                            <p>577 Listings</p>
-                                        </figcaption>
-                                    </figure>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="find-place-img_wrap">
-                                <div class="grid">
-                                    <figure class="effect-ruby">
-                                        <img src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/cat/books-news.jpg" class="img-fluid" alt="img13" />
-                                        <figcaption>
-                                            <h5>Books & Stationery </h5>
-                                            <p>79 Listings</p>
-                                        </figcaption>
-                                    </figure>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-				
-            </div>
-        </div>
-    </section>
     <!--//END FIND PLACES -->
     <!--============================= FEATURED PLACES =============================-->
     <section class="main-block light-bg" style="width:100%; padding:5px;">
@@ -235,7 +145,8 @@ input[type=submit] {
     <!--============================= ADD LISTING =============================-->
 
     <section>
-      @include('prssystem.partials.slider.testimonials',array('itemList'=>$Testimonials))
+
+      @include('prssystem.partials.slider.testimonials_new',array('itemList'=>$Testimonials))
     </section>
     <section class="main-block light-bg">
         <div class="container">
@@ -250,7 +161,7 @@ input[type=submit] {
             <div class="row justify-content-center">
                 <div class="col-md-4">
                     <div class="featured-btn-wrap">
-                        <a href="#" class="btn btn-danger"><span class="ti-plus"></span> ADD BUSINESS LISTING</a>
+                        <a href="{{route('becomeseller')}}" class="btn btn-danger"><span class="ti-plus"></span> ADD BUSINESS LISTING</a>
                     </div>
                 </div>
             </div>

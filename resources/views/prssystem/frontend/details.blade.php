@@ -5,7 +5,7 @@
 @stop
 @section('content')
 <script src="//platform-api.sharethis.com/js/sharethis.js#property=5c4aa4aac9830d001319ada0&product=inline-share-buttons"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <!--main section-->
     <!--============================= DETAIL =============================-->
         <!-- Swiper -->

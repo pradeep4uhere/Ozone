@@ -4,13 +4,13 @@ Home Page
 @stop
 @section('content')
 <div id="page-wrapper" style="background-color: #FFF">
-	
 	<div class="graphs">
     	<table style="width: 100%">
 		<tr>
 			<td><b>@lang('product.all_product')</b></td>
 			<td style="text-align: right;font-weight: bold">
-				<a href="{{ route('addproduct')}}" style="font-size: 14px;"><i class="fa fa-plus"></i>&nbsp;Add New</a></td>
+				<a href="{{ route('addproduct')}}" style="font-size: 14px;"><i class="fa fa-plus"></i>&nbsp;Add New</a>
+            </td>
 		</tr>
 	</table>
         
@@ -26,8 +26,8 @@ Home Page
                     </p>
                     @endif
             <div class="table-responsive">
-                <table id="mytable" class="table table-bordred table-striped">
-                    <thead>
+                <table id="mytable" class="table table-bordred table-striped info table-responsive">
+                    <thead class="thead-dark" style="background-color: #e1e1e1;">
 	                    <th><input type="checkbox" id="checkall" /></th>
 	                    <th>Image</th>
 	                    <th>Title</th>
@@ -42,21 +42,22 @@ Home Page
 	                    <th>Action</th>
                     </thead>
                     <tbody>
-                        @if(!empty($userProduct))
+                        @if(count($userProduct))
                         @foreach($userProduct as $prodObj)
+
                         <tr>
-                            <td><input type="checkbox" class="checkthis" /></td>
+                            <td>{{$prodObj['id']}}</td>
                             <td><img src="{{config('global.PRODUCTS_STORAGE_DIR').DIRECTORY_SEPARATOR.$sellerId.DIRECTORY_SEPARATOR.config('global.PRODUCT_THUMB_IMG_WIDTH').'X'.config('global.PRODUCT_THUMB_IMG_HEIGHT').DIRECTORY_SEPARATOR.$prodObj['default_thumbnail']}}" height="65" width="65" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';"/></td>
                             <td>{{$prodObj->product['title']}}<br/>
                               <small>{{$prodObj->product['description']}}</small>
                             </td>
                             <td>{{$prodObj['product_sku']}}</td>
                             <td><?php echo ($prodObj['product_in_stock']==1)?"<font color='Green'><b>YES</b></font>":"<font color='Red'><b>NO</b></font>";?></td>
-                            <td>{{$prodObj['quantity']}}</td>
+                            <td>{{$prodObj['quantity']}}{{$prodObj['product']['Unit']['name']}}</td>
                             <td>₹{{number_format($prodObj['default_price'],2)}}</td>
                             <td>₹{{number_format($prodObj['price'],2)}}</td>
                             <td><?php echo ($prodObj['discount_value']>0)?"<font color='Green'><b>".$prodObj['discount_value']."%</b></font>":"<font color='Red'><b>0%</b></font>";?></td>
-                            <td><strong>₹{{$prodObj['selling_price']}}</strong></td>
+                            <td><strong>₹{{number_format($prodObj['selling_price'],2)}}</strong></td>
                             <td><?php echo ($prodObj['status']==1)?"<font color='Green'><b>Active</b></font>":"<font color='Red'><b>InActive</b></font>";?></td>
                             <td>
                             <a href="{{ route('addProductImg',['id'=>$prodObj['id']]) }}" style="font-size: 14px;" title="Add More Product Images">
@@ -76,6 +77,12 @@ Home Page
                             
                         </tr>
                         @endforeach
+                        @else
+                        <tr>
+                            <td colspan="12">
+                                <div class="alert alert-danger">No Product Added By Seller</div>
+                            </td>
+                        </tr>
                         @endif
                     </tbody>
                 </table>

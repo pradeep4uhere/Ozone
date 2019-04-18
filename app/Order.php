@@ -31,6 +31,10 @@ class Order extends Model
          return $this->belongsTo('App\Seller', 'seller_id', 'id' );
     }
 
+    public function Payment() {
+        return $this->hasMany('App\Payment', 'order_id', 'orderID');
+    }
+
 
   
 }

@@ -74,7 +74,7 @@ class NotificationController extends Master
     /***************Send Payment Confirmation To User after successfull payment****************************/
     public static function sendPaymentConfirmationToUser($lastPaymentId){
         $twilio = new Client(self::$sid, self::$token);
-        if(!empty($lastPaymentId)){
+        if($lastPaymentId!=''){
              //Get Payment Details
             $payment = \App\Payment::with(['Order','Order.User'])->where('id','=',$lastPaymentId)->first();
             $orderStatus = $payment['status'];
@@ -83,14 +83,82 @@ class NotificationController extends Master
             $tansaxtionNo = $payment['bank_ref_num'];
             $totalAmount = $payment['net_amount_debit'];
             $userName = $payment['Order']['User']['first_name'].' '.$payment['Order']['User']['last_name'];
-            $mobileNumber = '+91'.$payment['Order']['User']['mobile'];
-
-             $mobileNumber = $mobileNumber;
-             if($mobileNumber!=''){
+            $mobileNumber = '+'.$payment['Order']['User']['mobile'];
+            $mobileNumber = $mobileNumber;
+            if($mobileNumber!=''){
                 $text = "Hello ".$userName."!.                                         ";
                 $text.=" Your payment status is *".strtoupper($orderStatus)."* , Your Order no is *".$orderId."* is confirmed on *".date('d M, Y H:i',strtotime($paymentDate))."*, with transaction No: *".$tansaxtionNo."*.                                         Total Payment *₹".$totalAmount."* recived.                  ";
                 $text.= "Regards                                               , *Go4Shop Team*";
+            }
+            $message = $twilio->messages
+                ->create("whatsapp:".$mobileNumber,
+                array(
+                    "body" => $text,
+                    "from" => "whatsapp:".env('TWILIO_FROM')
+                )
+            );
+            //self::sendMessageToAdminForSeller($seller);
+
+        }
+
+    }
+
+
+    /***************Send Payment Confirmation To User after successfull payment****************************/
+    public static function sendOrderConfirmationToSeller($lastPaymentId){
+        //echo  $lastPaymentId;
+        $twilio = new Client(self::$sid, self::$token);
+        if($lastPaymentId!=''){
+            //Get Payment Details
+            $payment = \App\Payment::with(['Order','Order.User','Order.OrderDetail','Order.Seller'])->where('id','=',$lastPaymentId)->first();
+
+            //dd($payment['Order']['Seller']);
+            //echo "<pre>";    
+            //print_r($payment);    
+            //print_r($payment['Order']['Seller']);   
+
+            $orderStatus = $payment['status'];
+            $orderId = $payment['order_id'];
+            $paymentDate = $payment['payment_date'];
+            $tansaxtionNo = $payment['bank_ref_num'];
+            $totalAmount = $payment['net_amount_debit'];
+            $userName = $payment['Order']['Seller']['business_name'];
+            $mobileNumber = '+91'.$payment['Order']['Seller']['contact_number'];
+            //$mobileNumber = '+919015446567';
+
+             $mobileNumber = $mobileNumber;
+             if($mobileNumber!=''){
+                $text = "Hello *".$userName."*!.                                                     ";
+                $text.= " Your have new order                                                  ";
+                $text.= " Order No   : *".$orderId."*                                              ";
+                $text.= " Order Date : * ".date('d M, Y H:i',strtotime($paymentDate))."*           ";
+                $text.= " Transaction No: *".$tansaxtionNo."*                                      ";
+                $text.= "                                        All Items                         ";  
+                $text.= "------------------------------------------";  
+                $count = 1;
+                foreach ($payment['Order']['OrderDetail'] as $item) {
+                    $text.= $count."). *".ucwords($item['product_name'])."*                                       ";
+                    $text.= "                     *Quntity:* ".$item['quantity']."    |      ";
+                    $text.= " *Price:*   ₹".$item['total_amount']."                                       ";
+                    //$text.= "                     *OrderID:* ".$item['order_track']."                                       ";
+                    
+                    $text.= "------------------------------------------";  
+                    $count++;
+                }
+                $text.="Total Payment *₹".$totalAmount."*                                                                   ";
+
+                $text.= "                                                                                                    ";
+                $text.= "                                                                                                    ";
+                if(!empty($payment['Order']['Seller'])){                                                                     
+                    $text.= " For More Details Contact to User:                                                             ";
+                    $text.= " User Name: ".$payment['Order']['User']['first_name']."                                        ";
+                    $text.= " Mobile No: ".$payment['Order']['User']['mobile']."                           ";
+                }
+                $text.= " Regards                                                                                            ";
+                $text.= " *Go4Shop Team*";
              }
+             //$mobileNumber = '+919953711959';
+             //echo $text;die; 
              $message = $twilio->messages
                 ->create("whatsapp:".$mobileNumber,
                 array(
@@ -106,13 +174,10 @@ class NotificationController extends Master
 
 
 
-
-
-
-        /***************Send Payment Confirmation To User after successfull payment****************************/
+    /***************Send Payment Confirmation To User after successfull payment****************************/
     public static function sendOrderConfirmationToUser($lastPaymentId){
         $twilio = new Client(self::$sid, self::$token);
-        if(!empty($lastPaymentId)){
+        if($lastPaymentId!=''){
              //Get Payment Details
             $payment = \App\Payment::with(['Order','Order.User','Order.OrderDetail','Order.Seller'])->where('id','=',$lastPaymentId)->first();
 
@@ -125,7 +190,7 @@ class NotificationController extends Master
             $tansaxtionNo = $payment['bank_ref_num'];
             $totalAmount = $payment['net_amount_debit'];
             $userName = $payment['Order']['User']['first_name'].' '.$payment['Order']['User']['last_name'];
-            $mobileNumber = '+91'.$payment['Order']['User']['mobile'];
+            $mobileNumber = '+'.$payment['Order']['User']['mobile'];
 
              $mobileNumber = $mobileNumber;
              if($mobileNumber!=''){
@@ -138,12 +203,13 @@ class NotificationController extends Master
                 $text.= "------------------------------------------";  
                 $count = 1;
                 foreach ($payment['Order']['OrderDetail'] as $item) {
-                $text.= $count."). *".ucwords($item['product_name'])."*                                       ";
-                $text.= "                     *Quntity:* ".$item['quantity']."                                       ";
-                $text.= "                     *Price:*   ₹".$item['total_amount']."                                       ";
-                $text.= "                     *OrderID:* ".$item['order_track']."                                       ";
+                    $text.= $count."). *".ucwords($item['product_name'])."*                                       ";
+                    $text.= "                     *Quntity:* ".$item['quantity']."    |      ";
+                    $text.= " *Price:*   ₹".$item['total_amount']."                                       ";
+                    //$text.= "                     *OrderID:* ".$item['order_track']."                                       ";
+                    
+                    $text.= "------------------------------------------";  
                     $count++;
-                $text.= "------------------------------------------";  
                 }
                 $text.="Total Payment *₹".$totalAmount."*                                                                   ";
 
@@ -154,9 +220,11 @@ class NotificationController extends Master
                     $text.= " Seller Name: ".$payment['Order']['Seller']['business_name']."                                  ";
                     $text.= " Seller Contact No: ".$payment['Order']['Seller']['contact_number']."                           ";
                 }
-                $text.= "                                                                                                    Regards";
-                $text.= "                                                                                                    *Go4Shop Team*";
+                $text.= " Regards                                                                                            ";
+                $text.= " *Go4Shop Team*";
              }
+
+             
              $message = $twilio->messages
                 ->create("whatsapp:".$mobileNumber,
                 array(

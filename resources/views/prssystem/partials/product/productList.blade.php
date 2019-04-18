@@ -7,12 +7,12 @@
          <div id="shopify-section-collection-template" class="shopify-section">
             <div data-section-id="collection-template" data-section-type="collection-template" class="collection__main">
                <header class="collection-header">
-                  <div class="collection-hero">
+                 <!--  <div class="collection-hero">
                      <img class="collection-hero__image ratio-container js lazyloaded" src="{{ Config('global.THEME_URL_FRONT_IMAGE') }}/{{$store_type}}" data-widths="[1170]" alt="Furniture Shop"  style="width: 100%;height: 100px;" >
                      <div class="collection-hero__title-wrapper">
                         <h1 class="collection-hero__title page-width">Furniture Shop</h1>
                      </div>
-                  </div>
+                  </div> -->
                   <div class="category-info">
                      <h1 class="category_name"> 
                         ALL PRODUCTS LISTS

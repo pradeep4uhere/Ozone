@@ -12,30 +12,10 @@ Home Page
     <div class="graphs">
         
         <div class="tab-content">
-					
-					<div class="col-md-6">
-
-					<!--panel-->
-					<div class="panel panel-default">
-					<div class="panel-heading">
-					<h53class="blank1">@lang('category.all_category')</h3>
-					</div>
-					<div class="panel-body">
-					
-
-					<div class="row">
-						<div class="col-md-8" id="treeview_json" style="font-size:14px;">
-							
-						</div>
-					</div>
-						
-					</div>
-					</div>
-					</div>
-					<div class="col-md-6">
+        	<div class="col-md-6">
 						<div class="panel panel-default">
 						<div class="panel-heading">
-							<h53class="blank1">@lang('category.add_category')</h3>
+							<h5 class="blank1">@lang('category.add_category')</h5>
 						</div>
 						<div class="row">
 						<div class="col-md-12">
@@ -49,27 +29,41 @@ Home Page
 						@endforeach
 						</p>
 						@endif
-					</div>
-					</div>
+						</div>
+						</div>
 						<div class="row">
-						<form method="post" action="{{ route('savecategory') }}"class="form-horizontal" enctype="multipart/form-data">
+						<form method="post" action="{{ route('savecategory') }}" class="form-horizontal">
 						{{csrf_field()}}
 						</br/>
 						<div class="form-group">
-							<label for="inputPassword" class="col-sm-3 control-label">@lang('product.choose_category')</label>
+							<label for="inputPassword" class="col-sm-3 control-label">@lang('Store Type')</label>
+							<div class="col-sm-8">
+								<select class="form-control1" data-live-search="true" id="store_type" name="store_type" disabled="disabled">
+									<option data-tokens="">Choose Store Type</option>
+									@if(!empty($storeTypeList))
+									@foreach($storeTypeList as $storeTypeObj)
+									<option value="{{$storeTypeObj['StoreType']['id']}}" selected="selected">{{$storeTypeObj['StoreType']['name']}}</option>
+									@endforeach
+									@endif
+								  </select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputPassword" class="col-sm-3 control-label">@lang('Parent Category')</label>
 							<div class="col-sm-8">
 								<select class="form-control1" data-live-search="true" id="parent_id" name="parent_id">
-									<option data-tokens="">Choose Category</option>
-									@if(!empty($categoryArr))
-									@foreach($categoryArr as $id=>$name)
-									<option value="{{$id}}">{{$name}}</option>
+									<option data-tokens="">Choose Parent Category</option>
+									@if(!empty($parentCategory))
+									@foreach($parentCategory as $cat)
+									<option value="{{$cat['id']}}">{{$cat['name']}}</option>
 									@endforeach
 									@endif
 								  </select>
 							</div>
 						</div>
 						<div class="form-group">
-                        <label for="disabledinput" class="col-sm-3 control-label">@lang('category.title')</label>
+                        <label for="disabledinput" class="col-sm-3 control-label">@lang('Sub Category')</label>
                         <div class="col-sm-8">
                             <input  type="text" class="form-control1" id="name" placeholder="Enter the Category Name" name="name">
                         </div>
@@ -105,6 +99,30 @@ Home Page
 						</div>
 						
 					</div>
+					
+					<div class="col-md-6" style="max-height: 800px; overflow: auto">
+
+					<!--panel-->
+					<div class="panel panel-default">
+					<div class="panel-heading">
+					<h5 class="blank1">@lang('category.all_category')</h5>
+					</div>
+					<div class="panel-body">
+					
+
+					<div class="row">
+						<div class="col-md-12" id="treeview_json" style="font-size:14px;">
+							
+						</div>
+					</div>
+						
+					</div>
+					</div>
+					</div>
+
+					
+
+					
     </div>
 </div>
 </div>
@@ -112,14 +130,43 @@ Home Page
 
 <script type="text/javascript">
 $(document).ready(function(){ 
+
+	$('#store_type').on('change',function(){
+		var storeType = $(this).val();
+		 $.ajax({
+		   type: "GET", 
+		   url: "{{route('getStoreCategory')}}?sty="+storeType,
+		   dataType: "json",       
+		   success: function(response)  
+		   {
+				$('#parent_id').html(response.dataSet)
+		   }   
+		 }); 
+	});
+
+
+	$('#parent_id').on('change',function(){
+		var parent_id = $(this).val();
+		var sty = $('#store_type').val();
+		 $.ajax({
+		   type: "GET", 
+		   url: "{{route('getStoreSubCategory')}}?parent_id="+parent_id+"&sty="+sty,
+		   dataType: "json",       
+		   success: function(response)  
+		   {
+				$('#category_id').html(response.dataSet)
+		   }   
+		 }); 
+	});
+
    $.ajax({
-   type: "GET",  
-   url: "{{route('getcategory')}}",
-   dataType: "json",       
-   success: function(response)  
-   {
-		initTree(response)
-   }   
+   		type: "GET",  
+   		url: "{{route('getStoreCategory')}}?sty="+{{$store_type_id}},
+   		dataType: "json",       
+   		success: function(response)  
+   		{
+			initTree(response.dataSet)
+		}   
  });
  function initTree(treeData) {
 	$('#treeview_json').treeview(

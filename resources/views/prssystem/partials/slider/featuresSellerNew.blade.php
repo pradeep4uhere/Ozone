@@ -108,7 +108,7 @@
 
 .block {
     width: 350px;
-    height: 230px;
+    height: 300px;
 }
 
 .red {background: red;}
@@ -122,6 +122,7 @@
   content:'';
 }
 
+<<<<<<< HEAD
 .featured-title-box .title{
   font-weight: 500;
   font-size: 15px;
@@ -149,18 +150,17 @@
             <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="9500">
                 <div class="carousel-inner">
                    <?php $count=0;foreach($sellerArr as $seller){ ?>
-                   <div class="item <?php if($count==0){ echo "active";  } ?>" >
+                   <div class="item <?php if($count==0){ echo "active";  } ?>">
                    <div class="carousel-col" id="{{$seller['id']}}">
                       <div class="row">
                         <div class="col-md-12">
                           <div class="featured-place-wrap">
                               <a href="{{route('sellerview',['seller'=>str_slug($seller['business_name']),'id'=>encrypt($seller['id'])])}}">
-                                <img height="300"  src="{{config('global.SELLER_STORAGE_DIR').'/250X250/'.$seller['image_thumb']}}" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';"/>
+                                <img height="250" src="{{config('global.SELLER_STORAGE_DIR').'/250X250/'.$seller['image_thumb']}}" onerror="this.onerror=null;this.src='{{ Config('global.THEME_URL_FRONT_IMAGE') }}/default250x250.jpg';"/>
                                 <div class="featured-title-box">
-                                    <h2 class='title'>{{ucwords($seller['business_name'])}}</h2>
-                                    <p style="margin-bottom:1px;width: 100%">Type: {{$seller['StoreType']['name']}}</p>
-                                    <p class='address' style="padding-top: 0px"> <i class="fa fa-map-marker"></i> {{$seller['address_1']}}, {{$seller['location']}}</p>
-                                   
+                                    <h2 class="seller_title">{{ucwords($seller['business_name'])}}</h2>
+                                    <p class="sub__title">Category:: {{$seller['StoreType']['name']}}</p>
+                                    <p class="sub__title"> <i class="fa fa-map-marker"></i> {{$seller['address_1']}}, {{$seller['location']}}, {{$seller['district']}}, {{$seller['state']}}, {{$seller['pincode']}}</p>
                                 </div>
                             </a>
                         </div>

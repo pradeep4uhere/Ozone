@@ -266,6 +266,7 @@ class UserController extends Master
 
                 //Get is this User Already Registered from facebook
                 $user = User::where('is_social','=',1)->where('fb_id','=',$request->get('fb_id'))->first();
+                print_r($user);
                 if(count($user)>0){
                     $credentials = $request->only('email', 'fb_id');
                     if (Auth::attempt($credentials)) {
@@ -298,10 +299,13 @@ class UserController extends Master
                         $userObj->save();
                         $last_insert_id = $userObj->id;
                         $userData= User::find($userObj->id);
+                        echo "++++++++++++++++++++++++++++++++++++++++++++++";
+                        print_r($userData);
 
                         $credentials = $request->only('email', 'fb_id');
                         if (Auth::attempt($credentials)) {
                             // Authentication passed...
+                            echo "++++++++++++++++++++Authentication passed...++++++++++++++++++++++++++";
                             $userId = Auth::user()->id;
                             $email =  Auth::user()->email;
                             $first_name =  Auth::user()->first_name;

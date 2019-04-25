@@ -971,4 +971,10 @@ class SellerController extends Master
     }
 
 
+
+
+    public function howtobecomeseller(Request $request){
+      return view('seller.index');
+    }
+
 }

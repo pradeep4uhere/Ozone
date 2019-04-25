@@ -150,7 +150,7 @@
                         <div class="row">
                            <div class="site-footer__copyright--bottom col-md-4 col-sm-12">
                               <small class="site-footer__copyright-content">© 2019 - <a href="http://www.go4shop.online" title="">Go4Shop</a></small>
-                              <small class="site-footer__copyright-content"><a target="_blank" rel="nofollow" href="https://www.shopify.com/?utm_campaign=poweredby&amp;utm_medium=shopify&amp;utm_source=onlinestore">Powered by www.go4shop.online</a></small>
+                              <small class="site-footer__copyright-content"><a target="_blank" rel="nofollow" href="www.go4shop.online">Powered by www.go4shop.online</a></small>
                            </div>
                            <div class="col-md-4 col-sm-12 newsletter">
                               <div class="block_newsletter">

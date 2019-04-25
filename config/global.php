@@ -63,6 +63,7 @@ return [
     'THEME_URL_IMAGE'=>$public_url.'/public/theme/prssystem/img',
 
     'LANDING_URL'=>$public_url.'/public/theme/landing',
+    'SELLER_URL'=>$public_url.'/public/theme/seller',
     
     'THEME_URL_FRONT_CSS'=>$public_url.'/public/theme/prssystem/css/front',
     'THEME_URL_FRONT_JS'=>$public_url.'/public/theme/prssystem/js/front',

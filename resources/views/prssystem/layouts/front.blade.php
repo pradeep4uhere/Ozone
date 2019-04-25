@@ -49,9 +49,7 @@
 
 </head>
 <body class="template-index" style="">
-<amp-auto-ads type="adsense"
-              data-ad-client="ca-pub-7598818514297383">
-</amp-auto-ads>
+<amp-auto-ads type="adsense" data-ad-client="ca-pub-7598818514297383"></amp-auto-ads>
 <div class="whole-content">
 <!--============================= HEADER START HERE =============================-->
 @include('prssystem.partials.frontend_header')

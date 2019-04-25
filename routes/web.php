@@ -177,7 +177,7 @@
 
     Route::post('/getlocation', 'HomeController@getlocation')->name('getlocation');
 
-    
+    Route::get('/howtobecomeseller','Seller\SellerController@howtobecomeseller')->name('howtobecomeseller');
 
     //All Cart Routing
 

@@ -387,7 +387,7 @@
                                     <span class="float-xs-right hidden-lg-up">
                                     </span>
                                     <a href="{{route('howtobecomeseller')}}" class="dropdown-item">
-                                       <h3 class="title">Service</h3>
+                                       <h3 class="title">SERVICE</h3>
                                     </a>
                                  </li>
                                  <li class="category">

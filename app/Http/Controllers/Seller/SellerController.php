@@ -49,7 +49,7 @@ class SellerController extends Master
     
     
     public function __construct() {
-	   $this->middleware('auth')->except(['index','sellerview']);
+	   $this->middleware('auth')->except(['index','sellerview','howtobecomeseller']);
        $this->uploadDir=config('global.UPLOAD_DIR');
        $this->uploadLogoDir=config('global.SELLER_IMG_DIR');
        $this->uploadThumbDir=config('global.SELLER_THUMB_DIR');

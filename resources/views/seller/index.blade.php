@@ -121,7 +121,7 @@
                            </g>
                         </svg>
                      </span>
-                     Login
+                     <a href="{{env('SITE_URL')}}/login">Login</a>
                   </button>
                </div>
             </nav>
@@ -155,7 +155,116 @@
          </div>
       </div>
      
-
+<div class="m-benefits" id="sc-lb-module-benefit-list" data-post-status="publish-status" data-post-status-label="Published">
+         <div class="content-wrapper">
+            <ul class="grid">
+               <li class="item" id="benefits-module-item-0">
+                  <div class="cover">
+                     <div class="background">
+                        <picture>
+                           <!--[if IE 9]>
+                           <video style="display: none;">
+                              <![endif]-->
+                              <source srcset="https://av.sc.com/in/content/images/Apply-Online.png" media="(min-width: 1023px)">
+                              <source srcset="https://av.sc.com/in/content/images/Apply-Online-300x300.png" media="(min-width: 0px)">
+                              <!--[if IE 9]>
+                           </video>
+                           <![endif]-->
+                           <img class="img-bg" src="./SuperValue_files/Apply-Online.png" alt="Apply online">
+                        </picture>
+                     </div>
+                  </div>
+                  <div class="content">
+                     <div class="content-item-wrapper">
+                        <h3 class="title">Free First Year Services</h3>
+                        <div class="description">
+                           No Charges apply for using this service, Bootsup your business
+                        </div>
+                     </div>
+                  </div>
+               </li>
+               <li class="item" id="benefits-module-item-1">
+                  <div class="cover">
+                     <div class="background">
+                        <picture>
+                           <!--[if IE 9]>
+                           <video style="display: none;">
+                              <![endif]-->
+                              <source srcset="https://av.sc.com/in/content/images/rewards.png" media="(min-width: 1023px)">
+                              <source srcset="https://av.sc.com/in/content/images/rewards-300x300.png" media="(min-width: 0px)">
+                              <!--[if IE 9]>
+                           </video>
+                           <![endif]-->
+                           <img class="img-bg" src="./SuperValue_files/rewards.png" alt="Rewards">
+                        </picture>
+                     </div>
+                  </div>
+                  <div class="content">
+                     <div class="content-item-wrapper">
+                        <h3 class="title">Rewards Program With Every Transaction</h3>
+                        <div class="description">
+                           Earn rewards points on every transactions and redeem them against a wide range of rewards <a href="#">Click here</a>&nbsp;for more details.</a>
+                        </div>
+                     </div>
+                  </div>
+               </li>
+               <li class="item" id="benefits-module-item-2">
+                  <div class="cover">
+                     <div class="background">
+                        <picture>
+                           <!--[if IE 9]>
+                           <video style="display: none;">
+                              <![endif]-->
+                              <source srcset="https://av.sc.com/in/content/images/400x400_8.jpg" media="(min-width: 1023px)">
+                              <source srcset="https://av.sc.com/in/content/images/400x400_8-300x300.jpg" media="(min-width: 0px)">
+                              <!--[if IE 9]>
+                           </video>
+                           <![endif]-->
+                           <img class="img-bg" src="./SuperValue_files/400x400_8.jpg" alt="debit card">
+                        </picture>
+                     </div>
+                  </div>
+                  <div class="content">
+                     <div class="content-item-wrapper">
+                        <h3 class="title">
+                        	National Level
+                        <div class="description">
+                           Get enroll all in India.							
+                        </div>
+                     </div>
+                  </div>
+               </li>
+               <li class="item" id="benefits-module-item-3">
+                  <div class="cover">
+                     <div class="background">
+                        <picture>
+                           <!--[if IE 9]>
+                           <video style="display: none;">
+                              <![endif]-->
+                              <source srcset="https://av.sc.com/in/content/images/supervalue-account-1.jpg" media="(min-width: 1023px)">
+                              <source srcset="https://av.sc.com/in/content/images/supervalue-account-1-300x300.jpg" media="(min-width: 0px)">
+                              <!--[if IE 9]>
+                           </video>
+                           <![endif]-->
+                           <img class="img-bg" src="./SuperValue_files/supervalue-account-1.jpg" alt="offers and discount">
+                        </picture>
+                     </div>
+                  </div>
+                  <div class="content">
+                     <div class="content-item-wrapper">
+                        <h3 class="title">
+                           Offers And Discounts																	
+                        </h3>
+                        <div class="description">
+                           Enjoy a host of offers and discounts on {{env('SITE_URL')}}<a href="#">Click here</a>&nbsp;to view the offers.								
+                        </div>
+                        <!-- Only display either hero text or aditional info. Additional info has higher priority -->
+                     </div>
+                  </div>
+               </li>
+            </ul>
+         </div>
+      </div>
 
 
 

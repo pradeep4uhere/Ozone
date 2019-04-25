@@ -14,11 +14,11 @@
       <link rel="dns-prefetch" href="#">
       <meta name="description" content="">
       <meta name="keywords" content="">
-      <link rel="stylesheet" id="sc_retail-style-css" href="css/style-base.css" type="text/css" media="all">
-      <link rel="stylesheet" id="sc_retail-style-print-css" href="{{config('global.SELLER_URL').'/assets/css/style-print.min.css" type="text/css" media="print">
-      <link rel="stylesheet" id="sc_retail-style-mobile-css" href="{{config('global.SELLER_URL').'/assets/css/style-mobile.min.css" type="text/css" media="(max-width: 767px)">
-      <link rel="stylesheet" id="sc_retail-style-tablet-css" href="{{config('global.SELLER_URL').'/assets/css/style-tablet.min.css" type="text/css" media="(min-width: 768px)">
-      <link rel="stylesheet" id="sc_retail-style-desktop-css" href="{{config('global.SELLER_URL').'/assets/css/style-desktop.min.css" type="text/css" media="(min-width: 1024px)">
+      <link rel="stylesheet" id="sc_retail-style-css" href="{{config('global.SELLER_URL')}}/assets/css/style-base.css" type="text/css" media="all">
+      <link rel="stylesheet" id="sc_retail-style-print-css" href="{{config('global.SELLER_URL')}}/assets/css/style-print.min.css" type="text/css" media="print">
+      <link rel="stylesheet" id="sc_retail-style-mobile-css" href="{{config('global.SELLER_URL')}}/assets/css/style-mobile.min.css" type="text/css" media="(max-width: 767px)">
+      <link rel="stylesheet" id="sc_retail-style-tablet-css" href="{{config('global.SELLER_URL')}}/assets/css/style-tablet.min.css" type="text/css" media="(min-width: 768px)">
+      <link rel="stylesheet" id="sc_retail-style-desktop-css" href="{{config('global.SELLER_URL')}}/assets/css/style-desktop.min.css" type="text/css" media="(min-width: 1024px)">
       <meta property="og:type" content="website">
       <meta name="twitter:card" content="summary">
       <meta name="apple-itunes-app" content="">
@@ -592,7 +592,7 @@
       <div class="clearer"></div>
    </div>
 </footer>
-      <script type="text/javascript" src="{{config('global.SELLER_URL').'/assets/js/jquery.min.js"></script>
-      <script type="text/javascript" src="{{config('global.SELLER_URL').'/assets/js/vendor.min.js"></script>
+      <script type="text/javascript" src="{{config('global.SELLER_URL')}}/assets/js/jquery.min.js"></script>
+      <script type="text/javascript" src="{{config('global.SELLER_URL')}}/assets/js/vendor.min.js"></script>
    </body>
 </html>

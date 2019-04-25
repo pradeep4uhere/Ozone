@@ -121,7 +121,7 @@
                            </g>
                         </svg>
                      </span>
-                     <a href="{{env('SITE_URL')}}/login">Login</a>
+                     <a href="{{env('SITE_URL')}}/login" style="color:#fff">Login</a>
                   </button>
                </div>
             </nav>

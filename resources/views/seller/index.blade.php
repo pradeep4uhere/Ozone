@@ -8,7 +8,7 @@
       <meta name="apple-mobile-web-app-capable" content="yes">
       <link rel="profile" href="#">
       <link rel="canonical" href="#">
-      <title>Become Seller</title>
+      <title>Seller Service</title>
       <link rel="dns-prefetch" href="#">
       <link rel="dns-prefetch" href="#">
       <link rel="dns-prefetch" href="#">
@@ -594,5 +594,20 @@
 </footer>
       <script type="text/javascript" src="{{config('global.SELLER_URL')}}/assets/js/jquery.min.js"></script>
       <script type="text/javascript" src="{{config('global.SELLER_URL')}}/assets/js/vendor.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135447467-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-135447467-1');
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7598818514297383",
+    enable_page_level_ads: true
+  });
+</script>
    </body>
 </html>

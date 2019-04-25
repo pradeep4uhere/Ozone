@@ -2,62 +2,7 @@
 @include('prssystem.partials.metatags',array('meta'=>$metaTags))
 @section('content')
 <style>
-.listItem{ cursor: pointer; }
-.autocomplete {
-  /*the container must be positioned relative:*/
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  text-align:left;
-}
-
-input {
-  border: 1px solid transparent;
-  background-color: #f1f1f1;
-  padding: 10px;
-  font-size: 16px;
-}
-
-input[type=text] {
-  background-color: #f1f1f1;
-  width: 100%;
-}
-
-input[type=submit] {
-  background-color: DodgerBlue;
-  color: #fff;
-  cursor: pointer;
-}
-
-.autocomplete-items {
-  position: absolute;
-  border: 1px solid #d4d4d4;
-  border-bottom: none;
-  border-top: none;
-  z-index: 99;
-  /*position the autocomplete items to be the same width as the container:*/
-  top: 100%;
-  left: 0;
-  right: 0;
-}
-
-.autocomplete-items div {
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff; 
-  border-bottom: 1px solid #d4d4d4; 
-}
-
-.autocomplete-items div:hover {
-  /*when hovering an item:*/
-  background-color: #e9e9e9; 
-}
-
-.autocomplete-active {
-  /*when navigating through the items using the arrow keys:*/
-  background-color: DodgerBlue !important; 
-  color: #ffffff; 
-}
+.listItem{cursor:pointer}.autocomplete{position:relative;display:inline-block;width:100%;text-align:left}input{border:1px solid transparent;background-color:#f1f1f1;padding:10px;font-size:16px}input[type=text]{background-color:#f1f1f1;width:100%}input[type=submit]{background-color:DodgerBlue;color:#fff;cursor:pointer}.autocomplete-items{position:absolute;border:1px solid #d4d4d4;border-bottom:none;border-top:none;z-index:99;top:100%;left:0;right:0}.autocomplete-items div{padding:10px;cursor:pointer;background-color:#fff;border-bottom:1px solid #d4d4d4}.autocomplete-items div:hover{background-color:#e9e9e9}.autocomplete-active{background-color:DodgerBlue!important;color:#fff}
 </style>
 
     <!--main section-->
@@ -193,40 +138,42 @@ function setLocationId(id){
     $("#myInput").val(location);
     $("#display").hide();
 }
-// $(document).ready(function() {
-//     //On pressing a key on "Search box" in "search.php" file. This function will be called.
-//    $("#myInput").keyup(function() {
-//        //Assigning search box value to javascript variable named as "name".
-//        var name = $('#myInput').val();
-//        //Validating, if "name" is empty.
-//        if (name == "") {
-//            //Assigning empty value to "display" div in "search.php" file.
-//            $("#display").html("");
-//        }
-//        //If name is not empty.
-//        else {
-//            //AJAX is called.
-//            $.ajax({
-//                //AJAX type is "Post".
-//                type: "POST",
-//                //Data will be sent to "ajax.php".
-//                url: "api/en/v1/getlocation",
-//                //Data, that will be sent to "ajax.php".
-//                data: {
-//                    //Assigning value of "name" into "search" variable.
-//                    text: name,
-//                    type: 'list',
-//                    token:"09bb3d1bd096e366b2fd039b4b8b8206"
-//                },
-//                //If result found, this funtion will be called.
-//                success: function(html) {
-//                    //Assigning result to "display" div in "search.php" file.
-//                    $("#display").html(html.result).show();
-//                }
-//            });
-//        }
-//    });
-// });
+
+/*
+$(document).ready(function() {
+    //On pressing a key on "Search box" in "search.php" file. This function will be called.
+   $("#myInput").keyup(function() {
+       //Assigning search box value to javascript variable named as "name".
+       var name = $('#myInput').val();
+       //Validating, if "name" is empty.
+       if (name == "") {
+           //Assigning empty value to "display" div in "search.php" file.
+           $("#display").html("");
+       }
+       //If name is not empty.
+       else {
+           //AJAX is called.
+           $.ajax({
+               //AJAX type is "Post".
+               type: "POST",
+               //Data will be sent to "ajax.php".
+               url: "api/en/v1/getlocation",
+               //Data, that will be sent to "ajax.php".
+               data: {
+                   //Assigning value of "name" into "search" variable.
+                   text: name,
+                   type: 'list',
+                   token:"09bb3d1bd096e366b2fd039b4b8b8206"
+               },
+               //If result found, this funtion will be called.
+               success: function(html) {
+                   //Assigning result to "display" div in "search.php" file.
+                   $("#display").html(html.result).show();
+               }
+           });
+       }
+   });
+});*/
 </script>
 
 @stop

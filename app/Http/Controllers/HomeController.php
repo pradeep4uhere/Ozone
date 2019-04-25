@@ -64,7 +64,7 @@ class HomeController extends Master
      * @return \Illuminate\Http\Response
      */
     public function index() {
-    	//$this->sendWhatsappMessage('paymentConfirmation',6);
+      	//$this->sendWhatsappMessage('paymentConfirmation',6);
     	//$this->sendWhatsappMessage('orderConfirmation',6);
     	//$this->sendWhatsappMessage('orderRecivedSeller',6);
     	//die;

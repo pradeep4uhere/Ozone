@@ -231,13 +231,12 @@ class SellerController extends Master
 	*@Author: Pradeep Kumar
 	*@Description: View Seller Prifole
 	*/
-	public function sellerview(Request $request, $seller,$catId=null){
+	public function sellerview(Request $request, $seller,$id,$catId=null){
+	    $lsitArr = array();
       if($request->ajax()) {
-        if($seller!=''){
-          $seller = Seller::where('businessusername','=',$seller)
-          ->where('status','=',1)
-          ->with('User')
-          ->first();
+        if($id!=''){
+          $id=decrypt($id);
+          $seller = Seller::where('id','=',$id)->where('status','=',1)->with('User')->first();
         }
         $productList=array();
         $userProd = new \App\UserProduct();
@@ -257,10 +256,9 @@ class SellerController extends Master
       }
 
       $metaTags = self::getMetaTags();
-  		if($seller!=''){
-  			$seller = Seller::where('businessusername','=',$seller)
-        ->where('status','=',1)
-        ->with('User')->first();
+  		if($id!=''){
+  			$id=decrypt($id);
+  			$seller = Seller::where('id','=',$id)->where('status','=',1)->with('User')->first();
   			if(empty($seller)){
   			   abort(404,'Page not found');
   			}
@@ -973,11 +971,5 @@ class SellerController extends Master
       return redirect()->back();
     }
 
-
-
-
-    public function howtobecomeseller(Request $request){
-      return view('seller.index');
-    }
 
 }

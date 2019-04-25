@@ -251,32 +251,36 @@ class UserController extends Master
      *@Created Date : 18 APR 2018
      */
     public function FBLogin(Request $request){
+           $data =$request->all();
+           $responseArray['status'] = false;
+           $responseArray['message']= "Input are not valid";
+           $responseArray['error']= "Error";
            $validator = Validator::make($request->all(), [
                 'first_name' => 'required|max:50',
                 'last_name' => 'required|max:50',
-                'email' => 'required|email|unique:users',
-                'fb_id' => 'required|fb_id|unique:users',
+                'email' => 'required|email|max:50',
             ]);
             if ($validator->fails()) {
                 $errors = $validator->errors();
                 $responseArray['status'] = false;
-                $responseArray['message']= "Input are not valid";
+                $responseArray['message']= "Input are not valids";
                 $responseArray['error']= $errors;
             }else{
-
                 //Get is this User Already Registered from facebook
-                $user = User::where('is_social','=',1)->where('fb_id','=',$request->get('fb_id'))->first();
-                print_r($user);
-                if(count($user)>0){
-                    $credentials = $request->only('email', 'fb_id');
-                    if (Auth::attempt($credentials)) {
+                $user = User::where('is_social','=',1)->where('fb_id','=',$data['id'])->first();
+                //print_r($user); die;
+                if(!empty($user)){
+                    
+                    $credentials = array('email'=>$request->get('email'), 'password'=>$data['id']);
+                    if (Auth::attempt($credentials,true)) {
+                        //print_r($credentials);die;
                         // Authentication passed...
                         $userId = Auth::user()->id;
                         $email =  Auth::user()->email;
                         $first_name =  Auth::user()->first_name;
                         \Cookie::make('email', $email, 3600);
                         \Cookie::make('name', $email, 360);
-                        \Cookie::make('password', $request->get('first_name'), 360);
+                        \Cookie::make('password', $data['id'], 360);
                         \Cookie::make('first_name', $first_name, 360);
                         $cartCollection = \Cart::session(Auth::user()->id);
                         // then you can:
@@ -285,50 +289,54 @@ class UserController extends Master
                         $lang = \Session::get('lang_code');
                         $responseArray['status'] = true;
                         $responseArray['message']= "User Login Successfully.";
-                        $responseArray['data']['user']= $user;
+                        #$responseArray['data']['user']= $user;
                         $responseArray['data']['userId']= encrypt($user->id);
                     }
                 }else{
                     $userObj = new User();
-                    $userObj->first_name = $request->get('first_name');
-                    $userObj->last_name = $request->get('last_name');
-                    $userObj->password = Hash::make($request->get('first_name'));
-                    $userObj->email = $request->get('email');
+                    $userObj->first_name = $data['first_name'];
+                    $userObj->last_name = $data['last_name'];
+                    $userObj->password = Hash::make($data['id']);
+                    $userObj->email = $data['email'];
+                    $userObj->is_social = '1';
+                    $userObj->fb_id = $data['id'];
                     $userObj->created_at = self::getCreatedDate();
+                    //print_r($userObj); die;
                     try{
                         $userObj->save();
                         $last_insert_id = $userObj->id;
                         $userData= User::find($userObj->id);
-                        echo "++++++++++++++++++++++++++++++++++++++++++++++";
-                        print_r($userData);
+                        //echo "++++++++++++++++++++++++++++++++++++++++++++++";
+                        //print_r($userData); die;
 
-                        $credentials = $request->only('email', 'fb_id');
+                        $credentials = array('email'=>$data['email'], 'password'=>$data['id']);
                         if (Auth::attempt($credentials)) {
                             // Authentication passed...
-                            echo "++++++++++++++++++++Authentication passed...++++++++++++++++++++++++++";
-                            $userId = Auth::user()->id;
+                            $userId = Auth::user()->id; 
                             $email =  Auth::user()->email;
                             $first_name =  Auth::user()->first_name;
                             \Cookie::make('email', $email, 3600);
                             \Cookie::make('name', $email, 360);
-                            \Cookie::make('password', $request->get('first_name'), 360);
+                            \Cookie::make('password', $data['id'], 360);
                             \Cookie::make('first_name', $first_name, 360);
                             $cartCollection = \Cart::session(Auth::user()->id);
                             // then you can:
                             $cartCollection = \Cart::getContent();
                             session(['countItem' => $cartCollection->count()]);
                             $lang = \Session::get('lang_code');
+                            $this->sendEmail($last_insert_id,$request);
+                            $responseArray['status'] = true;
+                            $responseArray['message']= "User Register Successfully.";
+                            //$responseArray['data']['user']= $userData;
+                            $responseArray['data']['userId']= encrypt($userObj->id);
                         }
-                        $this->sendEmail($last_insert_id,$request);
-                        $responseArray['status'] = true;
-                        $responseArray['message']= "User Register Successfully.";
-                        $responseArray['data']['user']= $userData;
-                        $responseArray['data']['userId']= encrypt($userObj->id);
+                        
                     }catch (Exception $e) {
                         $responseArray['status'] = false;
                         $responseArray['message'] = $e->getMessage();
                     }
                 }
+                
             }
         return response()->json($responseArray);
     }

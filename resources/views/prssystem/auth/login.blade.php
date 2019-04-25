@@ -71,10 +71,29 @@
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me?fields=id,name,email,first_name,last_name,picture', function(response) {
        // alert("OK");
-      console.log('Successful login for: ' + JSON.stringify(response));
+      getMessage(response);
       //document.getElementById('status').innerHTML ='Thanks for logging in, ' + response.name + '!';
     });
   }
+  function getMessage(responseJson) {
+    console.log(responseJson);
+    //var responseJson._token = "<?php echo csrf_token() ?>";
+    $.ajax({
+       type:'POST',
+       dataType: "json",
+       url:"/api/en/v1/fblogin",
+       data:responseJson,
+       success:function(data) {
+           console.log(data);
+           if(data.status){
+               window.location.href = "{{route('homePage')}}";
+           }else{
+               alert('Please try after sometime.');
+           }
+          //console.log('Successful login for: ' + JSON.stringify(data));
+       }
+    });
+    }
 </script>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&autoLogAppEvents=1&version=v3.2&appId=171052846975740"></script>

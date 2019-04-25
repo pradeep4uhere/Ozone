@@ -2940,3 +2940,7 @@ Stack trace:
 #1 /home/go4shf1n/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(373): Illuminate\Foundation\Exceptions\Handler->registerErrorViewPaths()
 #2 /home/go4shf1n/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(288): Illuminate\Foundation\Exceptions\Handler->renderHttpException(Object(Symfony\Component\HttpKernel\Exception\HttpException))
 #3 /home/go4shf1n/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(187): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Symfony\Component\HttpKernel\Exception\HttpEx in /home/go4shf1n/public_html/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 220
+[20-Apr-2019 13:00:03 UTC] PHP Warning:  Unterminated comment starting line 271 in /home/go4shf1n/public_html/app/Http/Controllers/Api/UserController.php on line 271
+[20-Apr-2019 13:00:38 UTC] PHP Warning:  Unterminated comment starting line 272 in /home/go4shf1n/public_html/app/Http/Controllers/Api/UserController.php on line 272
+[20-Apr-2019 20:28:21 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\Auth\LoginController::FBLogin() in /home/go4shf1n/public_html/app/Http/Controllers/Auth/LoginController.php on line 97
+[20-Apr-2019 20:28:35 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\Auth\LoginController::FBLogin() in /home/go4shf1n/public_html/app/Http/Controllers/Auth/LoginController.php on line 97

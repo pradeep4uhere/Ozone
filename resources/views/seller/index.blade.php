@@ -130,7 +130,7 @@
       <!-- Append the json to script tag -->
       <div class="m-hero is-left-align" id="sc-lb-module-product-masthead" data-post-status="publish-status" data-post-status-label="Published">
          <div class="background">
-            <img class="img-bg" src="img/banner2.jpg" alt="">
+            <img class="img-bg" src="{{config('global.SELLER_URL')}}/assets/img/banner2.jpg" alt="">
          </div>
          <div class="content">
             <div class="outer-wrapper">
@@ -359,7 +359,7 @@
       <div class="m-banner is-full-width is-bg-scale is-left-align is-theme-standard" id="sc-lb-module-sc-banner" data-post-status="publish-status" data-post-status-label="Published">
          <div class="background">
             <picture>
-               <img class="img-bg" src="img/IdeasWomen_Banner._V508881877_.png" alt="Scsme brochure v ">
+               <img class="img-bg" src="{{config('global.SELLER_URL')}}/assets/img/IdeasWomen_Banner._V508881877_.png" alt="Scsme brochure v ">
             </picture>
          </div>
          <div class="content-wrapper">
@@ -389,7 +389,7 @@
                   <ul class="list">
                      <li class="item" id="eligibility-item-1">
                         <div class="item-title">
-                           <span class="c-icon icon-tick" style="background-image: none;"><img src="img/tick.gif"></span>
+                           <span class="c-icon icon-tick" style="background-image: none;"><img src="{{config('global.SELLER_URL')}}/assets/img/tick.gif"></span>
                            <span class="text">Resident individual</span>
                         </div>
                         <div class="item-info">
@@ -402,7 +402,7 @@
                   <ul class="list">
                      <li class="item" id="eligibility-document-1">
                         <div class="item-title">
-                           <span class="c-icon icon-tick" style="background-image: none;"><img src="img/tick.gif"></span>
+                           <span class="c-icon icon-tick" style="background-image: none;"><img src="{{config('global.SELLER_URL')}}/assets/img/tick.gif"></span>
                            <span class="text">Aadhaar and&nbsp;PAN card are mandatory for Indian residents</span>
                         </div>
                         <div class="item-info">
@@ -410,7 +410,7 @@
                      </li>
                      <li class="item" id="eligibility-document-2">
                         <div class="item-title">
-                           <span class="c-icon icon-tick" style="background-image: none;"><img src="img/tick.gif"></span>
+                           <span class="c-icon icon-tick" style="background-image: none;"><img src="{{config('global.SELLER_URL')}}/assets/img/tick.gif"></span>
                            <span class="text">Identity proof :</span>
                         </div>
                         <div class="item-info">
@@ -430,7 +430,7 @@
                      </li>
                      <li class="item" id="eligibility-document-3">
                         <div class="item-title">
-                           <span class="c-icon icon-tick" style="background-image: none;"><img src="img/tick.gif"></span>
+                           <span class="c-icon icon-tick" style="background-image: none;"><img src="{{config('global.SELLER_URL')}}/assets/img/tick.gif"></span>
                            <span class="text">Address proof :</span>
                         </div>
                         <div class="item-info">
@@ -452,7 +452,7 @@
                      </li>
                      <li class="item" id="eligibility-document-4">
                         <div class="item-title">
-                           <span class="c-icon icon-tick" style="background-image: none;"><img src="img/tick.gif"></span>
+                           <span class="c-icon icon-tick" style="background-image: none;"><img src="{{config('global.SELLER_URL')}}/assets/img/tick.gif"></span>
                            <span class="text">One&nbsp;recent passport-sized photograph</span>
                         </div>
                         <div class="item-info">

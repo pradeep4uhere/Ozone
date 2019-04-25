@@ -386,6 +386,13 @@
                                  <li class="category">
                                     <span class="float-xs-right hidden-lg-up">
                                     </span>
+                                    <a href="{{route('howtobecomeseller')}}" class="dropdown-item">
+                                       <h3 class="title">Service</h3>
+                                    </a>
+                                 </li>
+                                 <li class="category">
+                                    <span class="float-xs-right hidden-lg-up">
+                                    </span>
                                     <a href="{{route('contactuspage')}}" class="dropdown-item">
                                        <h3 class="title">CONTACT</h3>
                                     </a>
